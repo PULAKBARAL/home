@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Functions - Comprehensive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark background */
+            color: #e2e8f0; /* Light text */
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #2d3748; /* Slightly lighter dark for container */
+            border-radius: 1rem; /* Rounded corners */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* More pronounced shadow for dark theme */
+        }
+        h1, h2, h3, h4 {
+            color: #f8fafc; /* Very light headings */
+            font-weight: 600;
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+        }
+        h1 { font-size: 2.25rem; } /* text-4xl */
+        h2 { font-size: 1.875rem; } /* text-3xl */
+        h3 { font-size: 1.5rem; } /* text-2xl */
+        h4 { font-size: 1.25rem; } /* text-xl */
+        p {
+            margin-bottom: 1em;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1em;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            margin-bottom: 1em;
+        }
+        code {
+            background-color: #4a5568; /* Darker gray for inline code */
+            padding: 0.2em 0.4em;
+            border-radius: 0.3rem;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #f8fafc; /* Light text for inline code */
+        }
+        pre {
+            background-color: #111827; /* Even darker background for code blocks */
+            color: #e2e8f0; /* Light text for code blocks */
+            padding: 1rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            margin-bottom: 1em;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+        .author {
+            font-style: italic;
+            color: #94a3b8; /* Lighter gray for author */
+            margin-bottom: 2rem;
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5em;
+            border-radius: 0.75rem; /* Rounded corners for table */
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+        th, td {
+            border: 1px solid #4a5568; /* Darker border */
+            padding: 0.75em 1em;
+            text-align: left;
+        }
+        th {
+            background-color: #4a5568; /* Header background */
+            font-weight: 600;
+            color: #f8fafc; /* Light text for header */
+        }
+        tr:nth-child(even) {
+            background-color: #2d3748; /* Darker zebra striping */
+        }
+
+        /* Tabs specific styling */
+        .tabs-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #4a5568; /* Darker border at bottom of tabs */
+            padding-bottom: 0.5rem;
+        }
+        .tab-button {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            background-color: #4a5568; /* Darker gray for inactive tabs */
+            color: #cbd5e1; /* Lighter text for inactive tabs */
+            cursor: pointer;
+            border-radius: 0.5rem; /* Rounded corners for buttons */
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+            white-space: nowrap; /* Prevent text wrapping in tabs */
+        }
+        .tab-button:hover {
+            background-color: #64748b; /* Even darker gray on hover */
+            color: #ffffff;
+            transform: translateY(-1px); /* Slight lift on hover */
+        }
+        .tab-button.active {
+            background-color: #3b82f6; /* Blue for active tab (can remain bright for contrast) */
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3); /* Subtle shadow for active tab */
+        }
+        .tab-content {
+            display: none; /* Hidden by default */
+            padding-top: 1rem;
+        }
+        .tab-content.active {
+            display: block; /* Active content is shown */
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="container">
+        <h1 class="text-4xl text-center mb-2">Python Functions</h1>
+        <span class="author text-center">Pulak Baral</span>
+
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="openTab(event, 'introduction')">Introduction & Types</button>
+            <button class="tab-button" onclick="openTab(event, 'udfs')">User-Defined Functions</button>
+            <button class="tab-button" onclick="openTab(event, 'arguments')">Arguments & Parameters</button>
+            <button class="tab-button" onclick="openTab(event, 'return')">Return Statement</button>
+            <button class="tab-button" onclick="openTab(event, 'flow_scope')">Flow & Scope</button>
+            <button class="tab-button" onclick="openTab(event, 'modules')">Functions in Modules</button>
+            <button class="tab-button" onclick="openTab(event, 'examples')">Examples & Summary</button>
+        </div>
+
+        <div id="introduction" class="tab-content active">
+            <h2 class="text-3xl">1 Introduction to Functions</h2>
+            <p>In programming, a function is a named, self-contained block of reusable code designed to perform a specific task. Think of functions as mini-programs within your main program. They take some input (called arguments), process it according to a set of instructions, and often produce an output (called a return value).</p>
+            <p>Functions are fundamental building blocks in Python and most other programming languages. Their primary purpose is to organize code, making programs more structured, efficient, and easier to manage. By encapsulating a sequence of operations under a single name, functions allow programmers to execute that sequence multiple times without rewriting the code, promoting the crucial principle of code reusability. This concept is often referred to as "Don't Repeat Yourself (DRY)."</p>
+
+            <h2 class="text-3xl">2 Types of Functions in Python</h2>
+            <p>Python provides different categories of functions, each serving a distinct purpose. Understanding these three main types is essential:</p>
+
+            <h3 class="text-2xl">1. Built-in Functions:</h3>
+            <p>These functions are pre-defined within the Python interpreter itself and are always available for use without needing to import any special modules. They perform common, fundamental tasks. Examples include:</p>
+            <ul>
+                <li>`print()`: Displays output to the console.</li>
+                <li>`input()`: Reads input from the user.</li>
+                <li>`len()`: Returns the length (number of items) of an object like a string, list, or tuple.</li>
+                <li>`type()`: Returns the data type of an object.</li>
+                <li>`int()`, `float()`, `str()`: Convert values to integer, float, or string types, respectively.</li>
+                <li>`range()`: Generates a sequence of numbers, often used in loops.</li>
+                <li>`max()`, `min()`: Find the maximum or minimum value in an iterable or among arguments.</li>
+                <li>`sum()`: Calculates the sum of items in an iterable.</li>
+            </ul>
+
+            <h3 class="text-2xl">2. Functions Defined in Modules:</h3>
+            <p>Python comes with a rich standard library organized into modules. A module is essentially a file containing Python definitions and statements (including functions). To use functions from a module, you first need to import that module into your program using the `import` statement. Examples include:</p>
+            <ul>
+                <li>Functions in the `math` module (e.g., `math.sqrt()`, `math.pow()`, `math.sin()`, `math.ceil()`) for mathematical calculations.</li>
+                <li>Functions in the `random` module (e.g., `random.random()`, `random.randint()`, `random.choice()`) for generating random numbers or making random selections.</li>
+                <li>Functions in the `statistics` module (e.g., `statistics.mean()`, `statistics.median()`) for statistical calculations.</li>
+            </ul>
+
+            <h3 class="text-2xl">3. User-Defined Functions (UDFs):</h3>
+            <p>These are functions created by the programmer to perform specific tasks tailored to the program's needs. UDFs are the core focus when learning about function concepts like definition, calling, parameters, scope, and return values. They allow you to encapsulate your own logic into reusable units.</p>
+        </div>
+
+        <div id="udfs" class="tab-content">
+            <h2 class="text-3xl">3 User-Defined Functions (UDFs)</h2>
+            <p>User-defined functions (UDFs) are functions written by programmers to perform specific tasks within their applications. They are a cornerstone of structured and efficient programming in Python.</p>
+
+            <h3 class="text-2xl">3.1 Need and Advantages</h3>
+            <p>While Python's built-in functions and standard library modules provide a vast array of tools, programmers often need to create custom logic or repeat specific sequences of operations. Defining your own functions offers several significant advantages:</p>
+            <ul>
+                <li>**Modularity:** Functions allow you to break down large, complex programs into smaller, more manageable, and logical units. Each function handles a specific sub-task, making the overall program structure clearer and easier to understand. This separation of concerns simplifies development and maintenance.</li>
+                <li>**Reusability:** Once a function is defined, it can be called (invoked) multiple times from different parts of the program or even imported into other programs. This eliminates the need to write the same code block repeatedly, saving time, reducing errors, and making the codebase more concise.</li>
+                <li>**Readability:** Giving a function a descriptive name makes the code easier to read and understand. Instead of seeing a block of potentially complex code, a reader sees a function call like `calculate_area(length, width)`, which clearly indicates the code's purpose.</li>
+                <li>**Maintainability:** When changes or bug fixes are needed for a specific task, you only need to modify the code within the corresponding function. This change is then reflected everywhere the function is called, simplifying updates and reducing the risk of introducing errors in multiple places.</li>
+                <li>**Abstraction:** Functions hide the internal implementation details of a task. Code that calls the function only needs to know what the function does (its interface: arguments and return value), not how it does it.</li>
+            </ul>
+
+            <h3 class="text-2xl">3.2 Syntax of Defining a Function</h3>
+            <p>Defining a function in Python involves a specific structure using the `def` keyword.</p>
+            <pre><code>def function_name(parameter1, parameter2,...):
+    """Optional docstring explaining what the function does."""
+    # Function body: indented block of statements
+    statement1
+    statement2
+    return optional_return_value # Optional return statement
+            </code></pre>
+            <p>Let's break down the components:</p>
+            <ol>
+                <li>**`def` Keyword:** Marks the beginning of a function definition.</li>
+                <li>**`function_name`:** A unique identifier for the function. It follows standard Python naming conventions (typically lowercase with underscores between words, e.g., `calculate_sum`). The name should be descriptive of the function's purpose.</li>
+                <li>**Parentheses `()`:** Required after the function name. They enclose the list of parameters the function accepts. If the function takes no input, the parentheses are still required but remain empty (e.g., `def greet():`).</li>
+                <li>**Parameters (Optional):** Variables listed inside the parentheses, separated by commas (e.g., `parameter1, parameter2`). These act as placeholders for the input values (arguments) that will be passed to the function when it's called. Parameters are local variables within the function's scope.</li>
+                <li>**Colon `:`:** Marks the end of the function header (the `def` line).</li>
+                <li>**Indented Function Body:** The block of code statements that define what the function does. This block must be indented (typically four spaces) relative to the `def` line. Indentation defines the scope of the function body.</li>
+                <li>**Docstring (Optional but Recommended):** A string literal enclosed in triple quotes (`"""Docstring goes here"""`) placed immediately after the function header. It describes the function's purpose, arguments, and return value. While optional, docstrings are crucial for documentation and are considered good practice. Tools like `help()` can display docstrings.</li>
+                <li>**`return` Statement (Optional):** Used to send a value back from the function to the caller. If omitted, the function implicitly returns `None`.</li>
+            </ol>
+            <p>Example:</p>
+            <pre><code>def calculate_area(length, width):
+    """Calculates the area of a rectangle."""
+    area = length * width
+    return area
+            </code></pre>
+
+            <h3 class="text-2xl">3.3 Calling a Function</h3>
+            <p>Defining a function only creates it; the code inside doesn't run until the function is called (or invoked). To call a function, you use its name followed by parentheses `()`. If the function requires arguments, you provide the values inside the parentheses, corresponding to the parameters.</p>
+            <pre><code>def greet(name):
+    """Prints a greeting message."""
+    print(f"Hello, {name}!")
+
+# Call the function
+greet("Class 12 Students") # Output: Hello, Class 12 Students!
+
+# Call the function defined earlier and store its return value
+rect_length = 10
+rect_width = 5
+calculated_area = calculate_area(rect_length, rect_width) # Calling calculate_area
+print(f"The area is: {calculated_area}") # Output: The area is: 50
+            </code></pre>
+            <p>When a function is called, the program's execution transfers to the function's body, executes its statements, and then (usually) returns to the point right after the call.</p>
+        </div>
+
+        <div id="arguments" class="tab-content">
+            <h2 class="text-3xl">4 Arguments and Parameters</h2>
+            <p>Although often used interchangeably in casual conversation, "parameters" and "arguments" have distinct meanings in the context of functions. Understanding this distinction is crucial for correctly defining and calling functions.</p>
+            <ul>
+                <li>**Parameters:** These are the variable names listed inside the parentheses in a function's definition (`def` statement). They act as placeholders for the inputs the function expects to receive. Parameters are essentially local variables within the function's scope.</li>
+                <pre><code># num1 and num2 are PARAMETERS
+def add_numbers(num1, num2):
+    return num1 + num2
+                </code></pre>
+                <li>**Arguments:** These are the actual values that are passed to the function when it is called. These values are assigned to the corresponding parameters within the function.</li>
+                <pre><code># 5 and 3 are ARGUMENTS
+result = add_numbers(5, 3)
+print(result) # Output: 8
+                </code></pre>
+            </ul>
+            <p>In this call, the argument `5` is passed to the parameter `num1`, and the argument `3` is passed to the parameter `num2`. Python offers several ways to pass arguments to functions, providing flexibility and clarity.</p>
+
+            <h3 class="text-2xl">4.1 Positional Arguments</h3>
+            <p>This is the most common and straightforward way to pass arguments. The arguments in the function call are matched to the parameters in the function definition based on their order (position). The first argument corresponds to the first parameter, the second argument to the second parameter, and so on.</p>
+            <ul>
+                <li>**Rule:** The number of arguments in the call must match the number of parameters defined (unless default values are used).</li>
+                <li>**Rule:** The order matters. Passing arguments in the wrong order can lead to logical errors or `TypeError` if the types don't match the operations within the function.</li>
+            </ul>
+            <p>Example:</p>
+            <pre><code>def describe_pet(animal_type, pet_name):
+    """Prints a description of a pet."""
+    print(f"I have a {animal_type} named {pet_name}.")
+
+# Correct usage:
+# "dog" maps to animal_type, "Buddy" to pet_name
+describe_pet("dog", "Buddy")
+# Output: I have a dog named Buddy.
+
+# Incorrect order (logical error):
+# "Buddy" maps to animal_type, "dog" to pet_name
+describe_pet("Buddy", "dog")
+# Output: I have a Buddy named dog.
+            </code></pre>
+
+            <h3 class="text-2xl">4.2 Default Arguments</h3>
+            <p>You can assign a default value to a parameter directly in the function definition using the assignment operator (`=`).</p>
+            <ul>
+                <li>**Purpose:** This makes the argument optional during the function call. If a value for that parameter is not provided in the call, the function uses the default value. If a value is provided, it overrides the default.</li>
+                <li>**Important Rule:** Parameters with default values must come after any parameters without default values in the function definition.</li>
+            </ul>
+            <p>Example:</p>
+            <pre><code># exponent has a default value of 2
+def power(base, exponent=2):
+    """Calculates base raised to the power of exponent."""
+    return base ** exponent
+
+# Calling with only the required argument (base)
+# Uses default exponent = 2
+result1 = power(5)
+print(f"5 to the power of 2 is: {result1}") # Output: 5 to the power of 2 is: 25
+
+# Calling with both arguments, overriding the default
+# Uses provided exponent = 3
+result2 = power(5, 3)
+print(f"5 to the power of 3 is: {result2}") # Output: 5 to the power of 3 is: 125
+
+# Example of incorrect definition order:
+# ERROR: non-default argument follows default argument
+# def invalid_power(exponent=2, base):
+#     return base ** exponent
+            </code></pre>
+
+            <h4 class="text-xl">A Note on Mutable Default Arguments</h4>
+            <p>A common pitfall in Python involves using mutable objects (like lists or dictionaries) as default argument values. The default object is created only once when the function is defined, not each time it's called. This means subsequent calls that rely on the default will modify the same object, leading to unexpected behavior.</p>
+            <p>Example (Incorrect):</p>
+            <pre><code># Incorrect: mutable default list
+def add_item(item, my_list=[]):
+    my_list.append(item)
+    return my_list
+
+print(add_item(1)) # Output: [1]
+print(add_item(2)) # Output: [1, 2]
+print(add_item(3)) # Output: [1, 2, 3]
+            </code></pre>
+            <p>To avoid this, the standard practice is to use `None` as the default and create a new mutable object inside the function if the argument is not provided:</p>
+            <p>Corrected example using None as default</p>
+            <pre><code>def add_item_safe(item, my_list=None):
+    if my_list is None:
+        # Create a new list if none was provided
+        my_list = []
+    my_list.append(item)
+    return my_list
+
+print(add_item_safe(1)) # Output: [1]
+print(add_item_safe(2)) # Output: [2] (Correctly creates a new list)
+print(add_item_safe(3)) # Output: [3] (Correctly creates a new list)
+            </code></pre>
+            <p>While this nuance might seem advanced, being aware of it early can prevent subtle bugs when working with default arguments.</p>
+
+            <h3 class="text-2xl">4.3 Keyword Arguments</h3>
+            <p>Keyword arguments allow you to pass arguments by explicitly specifying the parameter name followed by the value (`parameter_name=value`) in the function call.</p>
+            <ul>
+                <li>**Advantage:** The order of keyword arguments in the function call does not matter, as Python matches them based on the parameter name.</li>
+                <li>**Advantage:** They improve code readability, especially for functions with many parameters, as it's clear which value corresponds to which parameter.</li>
+                <li>**Important Rule:** Keyword arguments must follow any positional arguments in a function call. You cannot place a positional argument after a keyword argument.</li>
+            </ul>
+            <p>Example:</p>
+            <pre><code>def describe_pet(animal_type, pet_name):
+    """Prints a description of a pet."""
+    print(f"I have a {animal_type} named {pet_name}.")
+
+# Using only keyword arguments (order doesn't matter)
+describe_pet(pet_name="Buddy", animal_type="dog")
+# Output: I have a dog named Buddy.
+
+describe_pet(animal_type="cat", pet_name="Whiskers")
+# Output: I have a cat named Whiskers.
+
+# Mixing positional and keyword arguments (positional must come first)
+describe_pet("lizard", pet_name="Lizzy")
+# Output: I have a lizard named Lizzy.
+
+# Invalid call: positional argument after keyword argument
+# describe_pet(animal_type="bird", "Polly") # SyntaxError
+# describe_pet(pet_name="Goldie", "fish") # SyntaxError
+            </code></pre>
+            <p>Understanding keyword arguments is essential for using default arguments effectively and for calling functions in a more flexible and readable way.</p>
+
+            <h3 class="text-2xl">4.4 Combining Argument Types</h3>
+            <p>You can define and call functions using a combination of positional, default, and keyword arguments, provided you follow the ordering rules:</p>
+            <ol>
+                <li>**Function Definition Order:** Non-default (positional) parameters first, followed by default parameters.</li>
+            </ol>
+            <pre><code>def example_func(pos1, pos2, def1="default_val1", def2="default_val2"):
+    # Function body
+    pass
+            </code></pre>
+            <ol start="2">
+                <li>**Function Call Order:** Positional arguments first, followed by keyword arguments.</li>
+            </ol>
+            <pre><code># Valid calls:
+example_func(1, 2) # Uses defaults for def1, def2
+example_func(1, 2, "new_val1") # Uses default for def2
+example_func(1, 2, "new_val1", "new_val2") # No defaults used
+example_func(1, 2, def2="new_val2") # Uses default for def1, keyword for def2
+example_func(pos2=2, pos1=1, def1="new_val1") # All keyword arguments
+example_func(1, pos2=2, def1="new_val1") # Mixed positional and keyword
+            </code></pre>
+            <p>Note: While Python supports arbitrary argument lists (`*args` for positional and `**kwargs` for keyword) to handle an unknown number of arguments. (Out of Syllabus)</p>
+        </div>
+
+        <div id="return" class="tab-content">
+            <h2 class="text-3xl">5 The `return` Statement</h2>
+            <p>The `return` statement plays a critical role in functions by allowing them to send a result back to the part of the program that called them. It acts as the communication channel from the function's isolated environment back to the main program flow.</p>
+
+            <h3 class="text-2xl">5.1 Purpose of `return`</h3>
+            <ul>
+                <li>**Sending Values Back:** The primary purpose of `return` is to output a value or object from the function. This value can then be stored in a variable, used in calculations, passed to another function, or printed.</li>
+                <li>**Terminating Function Execution:** When a `return` statement is encountered, the execution of the current function stops immediately. Any code within the function that comes after the `return` statement will not be executed.</li>
+            </ul>
+            <p>A `return` statement consists of the `return` keyword, optionally followed by an expression or value(s) to be returned. It can only be used inside a function definition; using it elsewhere results in a `SyntaxError`.</p>
+
+            <h3 class="text-2xl">5.2 Returning a Single Value</h3>
+            <p>Functions often perform a calculation or operation and return a single result. This is achieved by placing the value or an expression evaluating to the value after the `return` keyword.</p>
+            <p>Example:</p>
+            <pre><code>def calculate_square(number):
+    """Calculates the square of a number."""
+    result = number * number
+    return result # Returns the single calculated value
+
+# Call the function and store the returned value
+num = 5
+square_of_num = calculate_square(num)
+print(f"The square of {num} is {square_of_num}") # Output: The square of 5 is 25
+
+# The return value can be used directly in expressions
+print(f"Square of 4 plus 10 is: {calculate_square(4) + 10}") # Output: Square of 4 plus 10 is: 26
+            </code></pre>
+
+            <h3 class="text-2xl">5.3 Returning Multiple Values</h3>
+            <p>Python functions have the convenient ability to return multiple values simultaneously. This is done by listing the values after the `return` keyword, separated by commas. When multiple values are returned this way, Python automatically packs them into a tuple. A tuple is an ordered, immutable sequence.</p>
+            <p>Example:</p>
+            <pre><code>import math
+
+def circle_stats(radius):
+    """Calculates the area and circumference of a circle."""
+    area = math.pi * radius * radius
+    circumference = 2 * math.pi * radius
+    return area, circumference # Returning two values
+
+# Calling the function
+stats = circle_stats(10)
+
+# The returned value is a tuple
+print(stats) # Output: (314.1592653589793, 62.83185307179586)
+print(type(stats)) # Output: <class 'tuple'>
+            </code></pre>
+            <p>While tuples are the default, you can explicitly return other collection types like lists or dictionaries if needed by constructing them within the function. However, returning comma-separated values is the most common idiom for multiple return values, leveraging Python's tuple packing and unpacking features.</p>
+
+            <h3 class="text-2xl">5.4 Functions Without an Explicit `return` (Implicit None Return)</h3>
+            <p>Not all functions need to return a specific value. Some functions are designed primarily to perform an action or cause a side effect, such as printing output to the screen. If a function definition does not include a `return` statement, or if it includes a `return` statement without any expression following it (a "bare return"), the function automatically returns a special Python value called `None` when it finishes executing. `None` is a unique object of type `NoneType` used to represent the absence of a value.</p>
+            <p>Example:</p>
+            <pre><code>def display_message(message):
+    """Prints a message to the console."""
+    print(message)
+    # No explicit return statement here
+
+# Call the function
+display_message("This function prints but doesn't return a value.")
+# Output: This function prints but doesn't return a value.
+
+# Assign the result of the call to a variable
+result = display_message("Checking the return value.")
+# Output: Checking the return value.
+
+# Output: The return value is: None
+print(f"The return value is: {result}")
+
+# Output: The type of the return value is: <class 'NoneType'>
+print(f"The type of the return value is: {type(result)}")
+            </code></pre>
+            <p>It's important to distinguish between functions that compute and return a value (which can be used in expressions) and functions that perform actions (which implicitly return `None`). Trying to use the `None` returned by an action-performing function in a calculation will usually result in a `TypeError`. Understanding the `return` statement's behavior, including the implicit `None`, is essential for correctly using and combining functions in your programs.</p>
+        </div>
+
+        <div id="flow_scope" class="tab-content">
+            <h2 class="text-3xl">6 Flow of Execution in Function Calls</h2>
+            <p>Understanding how Python executes code involving functions is crucial. The execution doesn't always proceed strictly from top to bottom; function calls introduce detours in the program's flow.</p>
+
+            <h3 class="text-2xl">6.1 Definition vs. Call</h3>
+            <p>First, it's vital to distinguish between defining a function and calling it:</p>
+            <ul>
+                <li>**Function Definition (`def`...):** When Python encounters a `def` statement, it creates a function object and associates it with the specified function name. However, the code inside the function's body is not executed at this point. Python simply records the function's existence and its code.</li>
+                <li>**Function Call (`function_name(...)`):** The code inside the function body is executed only when the function is explicitly called using its name followed by parentheses.</li>
+            </ul>
+
+            <h3 class="text-2xl">6.2 Step-by-Step Execution Trace</h3>
+            <p>The flow of execution when a function is called follows these steps:</p>
+            <ol>
+                <li>**Sequential Execution:** The program executes statements one by one from the top of the file downwards.</li>
+                <li>**Function Call Encountered:** When the execution reaches a line containing a function call (e.g., `result = my_function(arg)`), the current flow is temporarily paused.</li>
+                <li>**Jump to Function:** Control jumps from the point of the call to the first line inside the body of the called function (`my_function`).</li>
+                <li>**Argument Passing:** The values provided as arguments in the call (e.g., `arg`) are assigned to the corresponding parameters defined in the function's header.</li>
+                <li>**Function Body Execution:** The statements within the function's body are executed sequentially, from top to bottom. This might include calculations, printing, or even calling other functions.</li>
+                <li>**Return Encountered or End Reached:** Execution within the function continues until either:
+                    <ul>
+                        <li>A `return` statement is executed.</li>
+                        <li>The end of the function's indented body is reached (if there's no explicit `return`).</li>
+                    </ul>
+                </li>
+                <li>**Jump Back:** Control jumps back to the point in the code immediately following the original function call.</li>
+                <li>**Return Value Assignment (if any):** If the function returned a value, that value effectively replaces the function call expression (e.g., the value returned by `my_function(arg)` is assigned to `result`). If the function returned `None` (explicitly or implicitly), `None` is used.</li>
+                <li>**Resume Execution:** The program resumes executing the subsequent statements from where it left off.</li>
+            </ol>
+
+            <h3 class="text-2xl">6.3 Visualizing the Flow</h3>
+            <p>Consider this example involving one function calling another:</p>
+            <pre><code># Line 1: Define func_b
+def func_b(y):
+    # Line 2: Inside func_b
+    print(" -> Entering func_b")
+    result = y * 2
+    # Line 3: Return from func_b
+    print(" <- Leaving func_b")
+    return result
+
+# Line 4: Define func_a
+def func_a(x):
+    # Line 5: Inside func_a
+    print(" -> Entering func_a")
+    # Line 6: Call func_b
+    value_from_b = func_b(x)
+    # Line 7: Back in func_a
+    print(" -> Resumed func_a")
+    final_result = value_from_b + 1
+    # Line 8: Return from func_a
+    print(" <- Leaving func_a")
+    return final_result
+
+# Line 9: Start of main execution
+print("Starting Main Program")
+
+# Line 10: Call func_a
+main_result = func_a(5)
+
+# Line 11: Back in main execution
+print("Resumed Main Program")
+
+# Line 12: Print final result
+print(f"Final Result: {main_result}")
+
+# Line 13: End of program
+print("End of Program")
+            </code></pre>
+            <p>Execution Trace:</p>
+            <ol>
+                <li>Lines 1-3: `func_b` is defined.</li>
+                <li>Lines 4-8: `func_a` is defined.</li>
+                <li>Line 9: Prints "Starting Main Program".</li>
+                <li>Line 10: `func_a(5)` is called. Execution pauses at Line 10.</li>
+                <li>Line 5 (Jump): Control jumps to `func_a`. `x` gets the value 5. Prints " -> Entering func_a".</li>
+                <li>Line 6: `func_b(x)` (which is `func_b(5)`) is called. Execution pauses at Line 6.</li>
+                <li>Line 2 (Jump): Control jumps to `func_b`. `y` gets the value 5. Prints " -> Entering func_b".</li>
+                <li>Line 3: `result` becomes 10. Prints " <- Leaving func_b". `return result` (10) is executed.</li>
+                <li>Line 6 (Return): Control returns to Line 6. The call `func_b(x)` evaluates to 10. `value_from_b` becomes 10.</li>
+                <li>Line 7: Prints " -> Resumed func_a".</li>
+                <li>Line 8: `final_result` becomes 11. Prints " <- Leaving func_a". `return final_result` (11) is executed.</li>
+                <li>Line 10 (Return): Control returns to Line 10. The call `func_a(5)` evaluates to 11. `main_result` becomes 11.</li>
+                <li>Line 11: Prints "Resumed Main Program".</li>
+                <li>Line 12: Prints "Final Result: 11".</li>
+                <li>Line 13: Prints "End of Program".</li>
+            </ol>
+            <p>Python internally manages where to return after each function call (often using a structure called the call stack), ensuring that even with nested calls, execution resumes at the correct location. When reading code, it's often necessary to follow this flow of execution rather than just reading top-to-bottom to understand the program's behavior.</p>
+
+            <h2 class="text-3xl">7 Variable Scope</h2>
+            <p>Scope refers to the region or context within a program where a particular variable (name) can be accessed or is recognized. Not all variables are accessible from all parts of a program; their visibility is determined by where they are defined. Understanding scope is crucial for avoiding naming conflicts and managing data correctly within functions.</p>
+
+            <h3 class="text-2xl">7.1 Local Scope (Function Scope)</h3>
+            <ul>
+                <li>**Definition:** Variables created inside a function definition have local scope. This includes the function's parameters and any variables assigned a value within the function's body.</li>
+                <li>**Accessibility:** Local variables exist only within the function where they are defined. They cannot be accessed or referenced from outside that function.</li>
+                <li>**Lifetime:** Local variables are created anew each time the function is called and are typically destroyed (and their memory reclaimed) when the function finishes execution (returns).</li>
+            </ul>
+            <p>Example:</p>
+            <pre><code>def my_local_scope_func():
+    # x is local to this function
+    x = 100
+    # y is local to this function
+    y = 200
+    print(f"Inside function: x={x}, y={y}")
+
+# Call the function
+my_local_scope_func()
+# Output: Inside function: x=100, y=200
+
+# Trying to access local variables outside the function will cause an error:
+# print(x) # NameError: name 'x' is not defined
+# print(y) # NameError: name 'y' is not defined
+            </code></pre>
+
+            <h3 class="text-2xl">7.2 Global Scope (Module Scope)</h3>
+            <ul>
+                <li>**Definition:** Variables defined outside of all function definitions, typically at the top level of a script or module file, have global scope.</li>
+                <li>**Accessibility:** Global variables can be accessed (read) from anywhere in the script both outside functions and inside any function defined within that script after they have been defined.</li>
+                <li>**Lifetime:** Global variables exist for the entire duration of the program's execution.</li>
+            </ul>
+            <p>Example:</p>
+            <pre><code># Defined at the top level
+global_message = "This is a global variable."
+
+def access_global():
+    # Accessing the global variable from inside the function
+    print(f"Inside function: {global_message}")
+
+# Accessing global variable outside the function
+print(f"Outside function (before call): {global_message}")
+# Output: Outside function (before call): This is a global variable.
+
+# Calling the function that accesses the global variable
+access_global()
+# Output: Inside function: This is a global variable.
+
+# Accessing global variable outside again
+print(f"Outside function (after call): {global_message}")
+# Output: Outside function (after call): This is a global variable.
+            </code></pre>
+
+            <h3 class="text-2xl">7.3 Accessing vs. Modifying Global Variables from Local Scope</h3>
+            <p>A crucial distinction arises when dealing with global variables from within a function:</p>
+            <ul>
+                <li>**Accessing (Reading):** Functions can directly read the value of a global variable without any special declaration. Python looks for the variable locally, doesn't find it, and then looks in the global scope.</li>
+                <li>**Modifying (Writing/Assigning):** If you try to assign a value to a variable inside a function, and that variable name happens to be the same as a global variable's name, Python, by default, treats this as creating a new local variable within that function's scope. This local variable "shadows" the global variable, meaning that within the function, the name refers to the local variable, while the global variable remains unaffected outside the function.</li>
+            </ul>
+            <p>Example (Shadowing):</p>
+            <pre><code># Global variable
+counter = 10
+
+def attempt_modify():
+    # This creates a NEW LOCAL variable named 'counter'
+    counter = 0
+    counter = counter + 1
+    print(f"Inside function (local counter): {counter}")
+
+# Accesses global counter
+print(f"Global counter before call: {counter}")
+
+attempt_modify()
+
+# Accesses global counter (unchanged)
+print(f"Global counter after call: {counter}")
+
+# Output:
+# Global counter before call: 10
+# Inside function (local counter): 1
+# Global counter after call: 10
+            </code></pre>
+
+            <h3 class="text-2xl">7.4 The `global` Keyword</h3>
+            <p>To explicitly modify a global variable from within a function, you must use the `global` keyword before any assignment to that variable inside the function.</p>
+            <ul>
+                <li>**Syntax:** `global variable_name`</li>
+                <li>**Purpose:** This tells Python that assignments to `variable_name` within this function should refer to the variable in the global scope, not create a new local one.</li>
+            </ul>
+            <p>Example (Using global):</p>
+            <pre><code># Global variable
+total_score = 0
+
+def add_points(points):
+    # Declare intent to modify the global
+    global total_score
+    total_score = total_score + points
+    print(f"Inside function: Score updated to {total_score}")
+
+print(f"Initial score: {total_score}")
+
+add_points(10)
+add_points(5)
+
+# The global variable has been modified
+print(f"Final score: {total_score}")
+
+# Output:
+# Initial score: 0
+# Inside function: Score updated to 10
+# Inside function: Score updated to 15
+# Final score: 15
+            </code></pre>
+
+            <h3 class="text-2xl">7.5 Table: Local vs. Global Scope</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Local Scope</th>
+                        <th>Global Scope</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Definition Location</td>
+                        <td>Inside a function</td>
+                        <td>Outside all functions (top-level of module)</td>
+                    </tr>
+                    <tr>
+                        <td>Accessibility</td>
+                        <td>Only within the defining function</td>
+                        <td>Anywhere in the module (after definition)</td>
+                    </tr>
+                    <tr>
+                        <td>Lifetime</td>
+                        <td>During the function's execution</td>
+                        <td>Entire program execution</td>
+                    </tr>
+                    <tr>
+                        <td>Reading from Local Scope</td>
+                        <td>N/A (can read its own locals)</td>
+                        <td>Yes (can read globals)</td>
+                    </tr>
+                    <tr>
+                        <td>Modifying from Local Scope</td>
+                        <td>Yes (modifies its own locals)</td>
+                        <td>No (creates a new local variable by default)</td>
+                    </tr>
+                    <tr>
+                        <td>Keyword for Modification</td>
+                        <td>N/A</td>
+                        <td>`global` keyword required inside the function</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="text-2xl">7.6 LEGB Rule Context</h3>
+            <p>Python follows a specific order when searching for a variable name, known as the LEGB rule:</p>
+            <ol>
+                <li>**Local:** Searched first – the scope of the current function.</li>
+                <li>**Enclosing function locals:** Searched if the name isn't found locally – the scope of any enclosing functions (relevant for nested functions, which are less common in introductory material).</li>
+                <li>**Global:** Searched if the name isn't found in local or enclosing scopes – the top-level scope of the module.</li>
+                <li>**Built-in:** Searched last – contains pre-defined Python names like `len()`, `print()`, `int()`, etc.</li>
+            </ol>
+            <p>Our primary focus is on understanding the interaction between the Local and Global scopes. The LEGB rule provides the underlying mechanism that explains why a function can read a global variable (it's found in the 'G' scope after failing in 'L') or use a built-in function (found in 'B' after failing in 'L', 'E', and 'G'). It also explains why assignment inside a function creates a local variable by default (assignments operate on the 'L' scope unless `global` is used).</p>
+        </div>
+
+        <div id="modules" class="tab-content">
+            <h2 class="text-3xl">8 Functions in Modules (`math`, `random`, `statistics`)</h2>
+            <p>Python's power is greatly extended by its standard library, which contains numerous modules. A module is a file containing Python code — typically function definitions, variable assignments, and class definitions — that provides tools related to a specific domain. Using modules allows you to leverage pre-written, tested code without having to write it yourself.</p>
+
+            <h3 class="text-2xl">8.1 Importing Modules</h3>
+            <p>To use the functions or variables defined within a module, you must first import it into your program using the `import` statement. The most common way is:</p>
+            <pre><code>import module_name
+            </code></pre>
+            <p>Once imported, you can access the functions or variables within that module using dot notation: `module_name.function_name()` or `module_name.variable_name`.</p>
+            <pre><code>import math
+
+# Accessing the sqrt function from the math module
+result = math.sqrt(25)
+print(result) # Output: 5.0
+
+# Accessing the pi constant from the math module
+print(math.pi) # Output: 3.141592653589793
+            </code></pre>
+            <p>There are other ways to import (e.g., `from module_name import function_name`, `import module_name as alias`), but the basic `import module_name` followed by dot notation is fundamental.</p>
+
+            <h3 class="text-2xl">8.2 The `math` Module</h3>
+            <p>The `math` module provides access to standard mathematical functions and constants. Common `math` functions:</p>
+            <ul>
+                <li>`math.sqrt(x)`: Returns the square root of x.</li>
+                <pre><code>import math
+print(math.sqrt(16)) # Output: 4.0
+                </code></pre>
+                <li>`math.pow(x, y)`: Returns x raised to the power of y. (Similar to the built-in `pow()` or `**` operator).</li>
+                <pre><code>import math
+print(math.pow(2, 5)) # Output: 32.0
+                </code></pre>
+                <li>`math.ceil(x)`: Returns the smallest integer greater than or equal to x (rounds up).</li>
+                <pre><code>import math
+print(math.ceil(4.2)) # Output: 5
+print(math.ceil(-4.8)) # Output: -4
+                </code></pre>
+                <li>`math.floor(x)`: Returns the largest integer less than or equal to x (rounds down).</li>
+                <pre><code>import math
+print(math.floor(4.8)) # Output: 4
+print(math.floor(-4.2)) # Output: -5
+                </code></pre>
+                <li>`math.sin(x)`, `math.cos(x)`, `math.tan(x)`: Return the sine, cosine, tangent of x (where x is in radians).</li>
+                <pre><code>import math
+angle_radians = math.pi / 2 # 90 degrees in radians
+print(math.sin(angle_radians)) # Output: 1.0
+print(math.cos(angle_radians)) # Output: 6.123233995736766e-17 (close to 0)
+                </code></pre>
+                <li>`math.fabs(x)`: Returns the absolute value of x as a float.</li>
+                <pre><code>import math
+print(math.fabs(-10.5)) # Output: 10.5
+                </code></pre>
+            </ul>
+            <p>Common Constants: `math.pi` ($\pi \approx 3.14159...$), `math.e` ($e \approx 2.71828...$)</p>
+
+            <h3 class="text-2xl">8.3 The `random` Module</h3>
+            <p>The `random` module provides functions for generating pseudo-random numbers and performing random operations. "Pseudo-random" means the numbers appear random but are generated by a deterministic algorithm, often based on an initial "seed" value. Common `random` functions:</p>
+            <ul>
+                <li>`random.random()`: Returns a random floating-point number in the range [0.0, 1.0) (0.0 inclusive, 1.0 exclusive).</li>
+                <pre><code>import random
+print(random.random()) # Output: (a random float between 0.0 and 1.0, e.g., 0.763...)
+                </code></pre>
+                <li>`random.randint(a, b)`: Returns a random integer N such that $a \le N \le b$ (both endpoints inclusive).</li>
+                <pre><code>import random
+# Simulate a standard 6-sided die roll
+dice_roll = random.randint(1, 6)
+print(f"Dice roll: {dice_roll}") # Output: Dice roll: (a random integer between 1 and 6)
+                </code></pre>
+                <li>`random.randrange(start, stop[, step])`: Returns a randomly selected element from `range(start, stop, step)`. `stop` is exclusive. If only one argument is given, it's treated as `stop` (with `start=0`, `step=1`).</li>
+                <pre><code>import random
+# Random even number between 0 and 9 (exclusive of 10)
+print(random.randrange(0, 10, 2)) # Output: (0, 2, 4, 6, or 8)
+
+# Random number between 0 and 4 (exclusive of 5)
+print(random.randrange(5)) # Output: (0, 1, 2, 3, or 4)
+                </code></pre>
+                <li>`random.choice(sequence)`: Returns a random element from a non-empty sequence (like a list or tuple).</li>
+                <pre><code>import random
+colors = ["red", "green", "blue", "yellow"]
+print(random.choice(colors)) # Output: (a randomly chosen color from the list)
+                </code></pre>
+                <li>`random.shuffle(list)`: Shuffles the elements of a list in-place (modifies the original list, doesn't return a new one).</li>
+                <pre><code>import random
+deck = ["Ace", "King", "Queen", "Jack"]
+random.shuffle(deck)
+print(deck) # Output: (the list elements in a random order, e.g., ['Queen', 'Ace', 'Jack', 'King'])
+                </code></pre>
+
+            <h3 class="text-2xl">8.4 The `statistics` Module</h3>
+            <p>The `statistics` module provides functions for calculating basic statistics of numerical data. Common statistics functions:</p>
+            <ul>
+                <li>`statistics.mean(data)`: Returns the arithmetic mean (average) of the data (a sequence or iterable).</li>
+                <pre><code>import statistics
+scores = [85, 92, 88, 92, 78]
+print(statistics.mean(scores)) # Output: 87.0
+                </code></pre>
+                <li>`statistics.median(data)`: Returns the median (middle value) of the data.</li>
+                <pre><code>import statistics
+# Sorted: [78, 85, 88, 92, 92]
+scores = [85, 92, 88, 92, 78]
+print(statistics.median(scores)) # Output: 88.0
+
+# Sorted: [18, 20, 22, 25] -> Median is (20+22)/2
+ages = [22, 18, 25, 20]
+print(statistics.median(ages)) # Output: 21.0
+                </code></pre>
+                <li>`statistics.mode(data)`: Returns the mode (most frequent value) of the data. Raises `StatisticsError` if there isn't a unique mode.</li>
+                <pre><code>import statistics
+scores = [85, 92, 88, 92, 78, 92]
+print(statistics.mode(scores)) # Output: 92
+                </code></pre>
+            </ul>
+            <p>Using functions from modules like `math`, `random`, and `statistics` is a common practice in Python programming, allowing access to powerful tools with just a simple import statement.</p>
+        </div>
+
+        <div id="examples" class="tab-content">
+            <h2 class="text-3xl">9 Examples and Practice Problems</h2>
+            <p>Applying the concepts learned is essential for mastering Python functions. The examples provided throughout the previous sections illustrate individual concepts.</p>
+
+            <h3 class="text-2xl">9.1 Integrated Examples Recap</h3>
+            <ul>
+                <li>**Defining and Calling:**</li>
+                <pre><code>def greet(name):
+    print(f"Hello, {name}!")
+greet("Student")
+                </code></pre>
+                <li>**Returning Values:**</li>
+                <pre><code>def multiply(a, b):
+    return a * b
+product = multiply(6, 7) # product is 42
+                </code></pre>
+                <li>**Default Arguments:**</li>
+                <pre><code>def power(base, exp=2):
+    return base ** exp
+print(power(3)) # Output: 9 (uses exp=2)
+print(power(3, 3)) # Output: 27 (uses exp=3)
+                </code></pre>
+                <li>**Keyword Arguments:**</li>
+                <pre><code>def describe(item, price):
+    print(f"{item} costs ${price}")
+describe(price=50, item="Book") # Order doesn't matter
+                </code></pre>
+                <li>**Scope:**</li>
+                <pre><code>global_x = 100
+def func_scope():
+    local_x = 10
+    global global_x # Needed to modify global_x
+    global_x += local_x
+    print(f"Inside: local_x={local_x}, global_x={global_x}")
+
+print(f"Before: global_x={global_x}")
+func_scope()
+print(f"After: global_x={global_x}")
+# Output:
+# Before: global_x=100
+# Inside: local_x=10, global_x=110
+# After: global_x=110
+                </code></pre>
+                <li>**Modules:**</li>
+                <pre><code>import random
+import math
+print(f"Random integer (1-10): {random.randint(1, 10)}")
+print(f"Square root of 81: {math.sqrt(81)}")
+                </code></pre>
+            </ul>
+
+            <h3 class="text-2xl">9.2 Practice Problems</h3>
+            <p>(Solutions or hints follow each problem)</p>
+
+            <h4 class="text-xl">1. Maximum of Three:</h4>
+            <p>Write a Python function `max_of_three(a, b, c)` that takes three numbers as arguments and returns the largest of the three.</p>
+            <ul>
+                <li>Hint: Use if-elif-else statements for comparison.</li>
+            </ul>
+            <p># Solution</p>
+            <pre><code>def max_of_three(a, b, c):
+    if a >= b and a >= c:
+        return a
+    elif b >= a and b >= c:
+        return b
+    else:
+        return c
+
+# Example usage
+print(max_of_three(10, 25, 15)) # Output: 25
+            </code></pre>
+
+            <h4 class="text-xl">2. Factorial Calculation:</h4>
+            <p>Write a Python function `factorial(n)` that calculates and returns the factorial of a non-negative integer n. Factorial of 0 is 1.</p>
+            <ul>
+                <li>Hint: Use a loop to multiply numbers from 1 to n. Handle the base case `n=0`.</li>
+            </ul>
+            <p># Solution</p>
+            <pre><code>def factorial(n):
+    if n < 0:
+        return "Factorial not defined for negative numbers"
+    elif n == 0:
+        return 1
+    else:
+        result = 1
+        for i in range(1, n + 1):
+            result *= i
+        return result
+
+# Example usage
+print(factorial(5)) # Output: 120
+print(factorial(0)) # Output: 1
+            </code></pre>
+
+            <h4 class="text-xl">3. Prime Number Check:</h4>
+            <p>Write a Python function `is_prime(num)` that takes an integer `num` greater than 1 and returns `True` if `num` is prime, and `False` otherwise. A prime number has exactly two divisors: 1 and itself.</p>
+            <ul>
+                <li>Hint: Iterate from 2 up to the square root of `num`. If `num` is divisible by any number in this range, it's not prime. Remember to handle `num <= 1`.</li>
+            </ul>
+            <p># Solution</p>
+            <pre><code>import math
+
+def is_prime(num):
+    if num <= 1:
+        return False
+    if num <= 3:
+        return True
+    if num % 2 == 0 or num % 3 == 0:
+        return False
+    
+    # Check divisors from 5 up to sqrt(num)
+    i = 5
+    while i * i <= num:
+        if num % i == 0 or num % (i + 2) == 0:
+            return False
+        i += 6
+    return True
+
+# Example usage
+print(is_prime(11)) # Output: True
+print(is_prime(10)) # Output: False
+print(is_prime(2)) # Output: True
+            </code></pre>
+
+            <h4 class="text-xl">4. List Even Numbers:</h4>
+            <p>Write a Python function `get_evens(input_list)` that takes a list of integers and returns a new list containing only the even numbers from the input list.</p>
+            <ul>
+                <li>Hint: Initialize an empty list. Iterate through the input list, check if each number is even (using the modulo operator `%`), and append even numbers to the new list. Return the new list.</li>
+            </ul>
+            <p># Solution</p>
+            <pre><code>def get_evens(input_list):
+    even_list = []
+    for number in input_list:
+        if number % 2 == 0:
+            even_list.append(number)
+    return even_list
+
+# Example usage
+sample_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+print(get_evens(sample_list)) # Output: [2, 4, 6, 8, 10]
+            </code></pre>
+
+            <h4 class="text-xl">5. Scope Prediction:</h4>
+            <p>Predict the output of the following Python code:</p>
+            <pre><code>a = 10
+def my_func(b):
+    a = 5 # Local 'a'
+    print(f"Inside function: a={a}, b={b}") # Added for clarity
+    return a + b
+
+print(f"Before call: a={a}")
+result = my_func(20)
+print(f"After call: a={a}")
+print(f"Result from function: {result}")
+            </code></pre>
+            <ul>
+                <li>Hint: Pay attention to the local `a` inside the function versus the global `a`.</li>
+            </ul>
+            <p># Predicted Output:</p>
+            <pre><code>Before call: a=10
+Inside function: a=5, b=20
+After call: a=10
+Result from function: 25
+            </code></pre>
+
+            <h4 class="text-xl">6. Dice Simulation:</h4>
+            <p>Write a function `roll_dice()` that simulates rolling a standard six-sided die and returns the result (a random integer between 1 and 6).</p>
+            <ul>
+                <li>Hint: Use the `random.randint()` function.</li>
+            </ul>
+            <p># Solution</p>
+            <pre><code>import random
+
+def roll_dice():
+    """Simulates rolling a 6-sided die."""
+    return random.randint(1, 6)
+
+# Example usage
+print(f"You rolled a: {roll_dice()}")
+print(f"You rolled a: {roll_dice()}")
+            </code></pre>
+
+            <h2 class="text-3xl">10 Chapter Summary</h2>
+            <p>This chapter provided a comprehensive overview of Python functions, a critical concept for structured and efficient programming, as outlined in the CBSE Class 12 Computer Science syllabus.</p>
+
+            <h3 class="text-2xl">10.1 Key Takeaways</h3>
+            <ul>
+                <li>**Purpose:** Functions group reusable code blocks to perform specific tasks, promoting modularity and readability.</li>
+                <li>**Types:** Python utilizes built-in functions (always available), functions from imported modules (like `math`, `random`), and user-defined functions (created using `def`).</li>
+                <li>**Definition (`def`):** Uses the `def` keyword, function name, parentheses for parameters, a colon, and an indented body. Docstrings (`"""..."""`) are recommended for documentation.</li>
+                <li>**Calling:** Functions are executed only when called by their name followed by parentheses, potentially including arguments.</li>
+                <li>**Parameters vs. Arguments:** Parameters are placeholders in the function definition; arguments are the actual values passed during the call.</li>
+                <li>**Argument Passing:**
+                    <ul>
+                        <li>**Positional:** Arguments matched to parameters by order.</li>
+                        <li>**Default:** Parameters can have default values (`param=value`), making the corresponding argument optional. Default parameters must follow non-default ones in the definition.</li>
+                        <li>**Keyword:** Arguments can be passed using name-value, allowing out-of-order specification and improving clarity. Keyword arguments must follow positional arguments in a call.</li>
+                    </ul>
+                </li>
+                <li>**`return` Statement:** Sends a value back from the function to the caller and terminates the function's execution. Can return single values, multiple values (as a tuple), or implicitly return `None` if omitted.</li>
+                <li>**Flow of Execution:** Program execution jumps to the function body upon a call and returns to the point after the call upon completion.</li>
+                <li>**Scope:** Determines variable visibility.
+                    <ul>
+                        <li>**Local:** Variables defined inside a function (including parameters) are local and accessible only within that function.</li>
+                        <li>**Global:** Variables defined outside functions are global and accessible throughout the module.</li>
+                        <li>**`global` Keyword:** Used inside a function to indicate that an assignment should modify a global variable rather than creating a new local one.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 class="text-2xl">10.2 Importance for Programming</h3>
+            <p>Mastering functions is essential for writing effective Python programs. They allow you to:</p>
+            <ul>
+                <li>**Organize Code:** Break down complex problems into smaller, logical units.</li>
+                <li>**Reuse Code:** Avoid repetition and write more concise programs.</li>
+                <li>**Improve Readability:** Make code easier to understand and follow.</li>
+                <li>**Simplify Maintenance:** Isolate changes and bug fixes to specific functions.</li>
+                <li>**Build Larger Systems:** Functions are the foundation for creating modules and larger applications.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Declare all variables
+            var i, tabcontent, tabbuttons;
+
+            // Get all elements with class="tab-content" and hide them
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Get all elements with class="tab-button" and remove the "active" class
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Set the default active tab on page load
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelector('.tab-button').click();
+        });
+    </script>
+</body>
+</html>

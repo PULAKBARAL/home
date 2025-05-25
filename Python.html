@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Language Chapters</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for a hand-drawn look - using a Google Font that looks similar */
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+        body {
+            background-color: #1a1a1a; /* Dark background similar to the image */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+            margin: 0;
+            padding: 20px; /* Some padding around the main container */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+
+        .container {
+            border: 4px solid #ff0000; /* Red border from the image */
+            padding: 30px; /* Padding inside the red border */
+            border-radius: 10px; /* Slightly rounded corners for the outer box */
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); /* Subtle red glow */
+            max-width: 90%; /* Max width for responsiveness */
+        }
+
+        .title-text {
+            font-family: 'Permanent Marker', cursive; /* Hand-drawn font */
+            color: #ffffff; /* White text */
+            font-size: 2.5rem; /* Larger font size for titles */
+            line-height: 1.2;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Subtle shadow for text */
+        }
+
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns */
+            gap: 20px; /* Space between boxes */
+            margin-top: 30px;
+        }
+
+        .chapter-box {
+            background-color: transparent; /* Transparent background for boxes */
+            border: 2px solid #ffffff; /* White border for boxes */
+            border-radius: 8px; /* Slightly rounded corners for boxes */
+            padding: 15px 25px;
+            font-family: 'Permanent Marker', cursive; /* Hand-drawn font */
+            color: #ffffff; /* White text */
+            font-size: 1.8rem; /* Font size for chapter names */
+            text-align: center;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Subtle white glow */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer; /* Indicate it's clickable */
+            white-space: nowrap; /* Prevent text from wrapping */
+            display: flex; /* Use flex to center content vertically/horizontally */
+            justify-content: center;
+            align-items: center;
+            text-decoration: none; /* Remove default underline for links */
+        }
+
+        .chapter-box:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Brighter glow on hover */
+        }
+
+        /* Adjustments for smaller screens */
+        @media (max-width: 600px) {
+            .title-text {
+                font-size: 1.8rem;
+            }
+            .chapter-grid {
+                grid-template-columns: 1fr; /* Single column on small screens */
+            }
+            .chapter-box {
+                font-size: 1.5rem;
+                padding: 12px 20px;
+            }
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-text">Python Language</div>
+        <div class="title-text">List of Python chapter</div>
+
+        <div class="chapter-grid">
+            <a href="python_Function.html" class="chapter-box">Function</a>
+        </div>
+    </div>
+</body>
+</html>
