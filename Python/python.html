@@ -85,10 +85,48 @@
                 padding: 20px;
             }
         }
+
+        /* Home button specific styling */
+        .home-button {
+            display: inline-block; /* Allows padding and margin */
+            padding: 0.6rem 1.2rem;
+            margin-bottom: 1.5rem; /* Space below the button */
+            background-color: #0d9488; /* Teal color for home button */
+            color: #ffffff;
+            text-decoration: none; /* Remove underline */
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 2px 6px rgba(13, 148, 136, 0.4); /* Subtle shadow */
+            cursor: pointer;
+        }
+        .home-button:hover {
+            background-color: #0f766e; /* Darker teal on hover */
+            transform: translateY(-1px);
+        }
+
+        /* Responsive adjustments for tabs */
+        @media (max-width: 768px) {
+            .tabs-container {
+                flex-direction: column; /* Stack tabs vertically on small screens */
+                align-items: stretch; /* Make tabs full width */
+            }
+            .tab-button {
+                width: 100%; /* Full width buttons */
+            }
+            .home-button {
+                width: fit-content; /* Adjust width for small screens */
+                margin-left: auto; /* Center button */
+                margin-right: auto;
+                display: block; /* Make it a block element to center */
+            }
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
+        <a href="../index.html" class="home-button">Home</a>
         <div class="title-text">Python Language</div>
         <div class="title-text">List of Python chapter</div>
 
