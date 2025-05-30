@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python File Handling - Comprehensive Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Basic styling for the entire page */
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #1a202c; /* Dark background */
+            color: #e2e8f0; /* Light text */
+        }
+        /* Container for content, centered with padding and shadow */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #2d3748; /* Slightly lighter dark for container */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* More pronounced shadow for dark theme */
+        }
+        /* Styling for main headings */
+        h1 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.5em;
+            color: #f8fafc; /* Very light headings */
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #4a5568; /* Darker border */
+            padding-bottom: 10px;
+        }
+        /* Styling for section headings */
+        h2 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.8em;
+            color: #f8fafc; /* Very light headings */
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #4a5568; /* Darker border */
+            padding-bottom: 5px;
+        }
+        /* Styling for sub-section headings */
+        h3 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.4em;
+            color: #f8fafc; /* Very light headings */
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        /* Styling for sub-sub-section headings */
+        h4 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2em;
+            color: #f8fafc; /* Very light headings */
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+        /* Paragraph styling */
+        p {
+            margin-bottom: 15px;
+        }
+        /* List styling */
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+        ul li, ol li {
+            margin-bottom: 8px;
+        }
+        /* Code block styling */
+        pre {
+            background-color: #111827; /* Even darker background for code blocks */
+            color: #e2e8f0; /* Light text for code blocks */
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto; /* Enable horizontal scrolling for long lines */
+            margin-bottom: 20px;
+            font-family: 'Roboto Mono', monospace; /* Monospaced font for code */
+            font-size: 0.9em;
+        }
+        /* Inline code styling */
+        code {
+            background-color: #4a5568; /* Darker gray for inline code */
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9em;
+            color: #f8fafc; /* Light text for inline code */
+        }
+        /* Ensure inline code within pre blocks doesn't get double background */
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em;
+            border-radius: 8px; /* Rounded corners for table */
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+        table, th, td {
+            border: 1px solid #4a5568; /* Darker border */
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4a5568; /* Header background */
+            font-weight: 500;
+            color: #f8fafc; /* Light text for header */
+        }
+        tr:nth-child(even) {
+            background-color: #2d3748; /* Darker zebra striping */
+        }
+        /* Author styling */
+        .author {
+            display: block;
+            text-align: center;
+            font-style: italic;
+            color: #94a3b8; /* Lighter gray for author */
+            margin-bottom: 30px;
+        }
+
+        /* Tabs specific styling */
+        .tabs-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #4a5568; /* Darker border at bottom of tabs */
+            padding-bottom: 0.5rem;
+            justify-content: center; /* Center tabs horizontally */
+        }
+        .tab-button {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            background-color: #4a5568; /* Darker gray for inactive tabs */
+            color: #cbd5e1; /* Lighter text for inactive tabs */
+            cursor: pointer;
+            border-radius: 0.5rem; /* Rounded corners for buttons */
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+            white-space: nowrap; /* Prevent text wrapping in tabs */
+        }
+        .tab-button:hover {
+            background-color: #64748b; /* Even darker gray on hover */
+            color: #ffffff;
+            transform: translateY(-1px); /* Slight lift on hover */
+        }
+        .tab-button.active {
+            background-color: #3b82f6; /* Blue for active tab (can remain bright for contrast) */
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3); /* Subtle shadow for active tab */
+        }
+        .tab-content {
+            display: none; /* Hidden by default */
+            padding-top: 1rem;
+        }
+        .tab-content.active {
+            display: block; /* Active content is shown */
+        }
+
+        /* Home button specific styling */
+        .home-button {
+            display: inline-block; /* Allows padding and margin */
+            padding: 0.6rem 1.2rem;
+            margin-bottom: 1.5rem; /* Space below the button */
+            background-color: #0d9488; /* Teal color for home button */
+            color: #ffffff;
+            text-decoration: none; /* Remove underline */
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 2px 6px rgba(13, 148, 136, 0.4); /* Subtle shadow */
+            cursor: pointer;
+        }
+        .home-button:hover {
+            background-color: #0f766e; /* Darker teal on hover */
+            transform: translateY(-1px);
+        }
+
+        /* Responsive adjustments for tabs */
+        @media (max-width: 768px) {
+            .tabs-container {
+                flex-direction: column; /* Stack tabs vertically on small screens */
+                align-items: stretch; /* Make tabs full width */
+            }
+            .tab-button {
+                width: 100%; /* Full width buttons */
+            }
+            .home-button {
+                width: fit-content; /* Adjust width for small screens */
+                margin-left: auto; /* Center button */
+                margin-right: auto;
+                display: block; /* Make it a block element to center */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="home-button">Home</a>
+
+        <h1>Python File Handling</h1>
+        <span class="author">Pulak Baral</span>
+
+        <div class="tabs-container">
+            <button class="tab-button" onclick="openTab(event, 'intro')">Introduction</button>
+            <button class="tab-button" onclick="openTab(event, 'open_close')">Open/Close Files</button>
+            <button class="tab-button" onclick="openTab(event, 'reading')">Reading Files</button>
+            <button class="tab-button" onclick="openTab(event, 'writing')">Writing Files</button>
+            <button class="tab-button" onclick="openTab(event, 'attributes')">File Attributes</button>
+            <button class="tab-button" onclick="openTab(event, 'pointer')">File Pointer</button>
+            <button class="tab-button" onclick="openTab(event, 'exceptions')">Exception Handling</button>
+            <button class="tab-button" onclick="openTab(event, 'examples')">Practical Examples</button>
+            <button class="tab-button" onclick="openTab(event, 'summary')">Summary & Best Practices</button>
+        </div>
+
+        <div id="intro" class="tab-content">
+            <h2>1 Introduction to Files and File Handling</h2>
+            <p>In the realm of computer science, data persistence – the ability to store data and retrieve it later – is a fundamental requirement. Files serve as the primary mechanism for achieving this persistence. A file can be conceptualized as a named collection of related information, typically stored on a secondary storage device such as a hard disk, SSD, or thumb drive. This information is stored as a sequence of bytes. File handling, therefore, encompasses the set of operations that a program can perform on these files, including their creation, opening, reading, writing, appending, and closing. The CBSE Class 12 Computer Science syllabus specifically emphasizes understanding and manipulating different types of files, primarily focusing on text files, binary files, and CSV (Comma Separated Values) files.</p>
+
+            <h3>1.1 What is a File?</h3>
+            <p>A file is essentially a container in a computer system for storing data. Each file is uniquely identified by its name and its path, which specifies its location within the file system hierarchy. Files allow programs to store output, read input from persistent storage, and share data between different program executions or even different applications.</p>
+
+            <h3>1.2 Types of Files</h3>
+            <p>While various file formats exist, Python, in the context of the CBSE syllabus, categorizes them broadly for handling purposes:</p>
+            <h4>Text Files:</h4>
+            <ul>
+                <li>Text files store information as a sequence of characters, typically human-readable.</li>
+                <li>Data in text files is usually organized into lines, where each line is terminated by a special end-of-line (EOL) character, such as a newline character (`\n`).</li>
+                <li>Python's built-in functions like `open()`, `write()`, and `read()` are commonly used to create and manipulate text files.</li>
+                <li>Examples include `.txt` files, Python script files (`.py`), and HTML files.</li>
+                <li>The content is typically encoded using character sets like ASCII or UTF-8.</li>
+                <li>It highlights the importance of specifying encoding, such as UTF-8, for broader character support.</li>
+            </ul>
+            <h4>Binary Files:</h4>
+            <ul>
+                <li>Binary files store data in a binary format, as a sequence of bytes, which may represent any type of data, including text, images, audio, executable code, or serialized Python objects.</li>
+                <li>Unlike text files, binary files are not directly human-readable using a simple text editor, as their byte sequences do not necessarily correspond to printable characters.</li>
+                <li>Python provides specific modes like `'rb'` (read binary) and `'wb'` (write binary) for handling binary files.</li>
+                <li>The CBSE syllabus includes operations like using the `pickle` module's `dump()` and `load()` methods for reading and writing data structures to binary files.</li>
+            </ul>
+            <h4>CSV (Comma Separated Values) Files:</h4>
+            <ul>
+                <li>CSV files are a special type of text file used to store tabular data (numbers and text in plain text form).</li>
+                <li>Each line in a CSV file represents a row of data, and the values within that row are separated by a delimiter, typically a comma.</li>
+                <li>Python's `csv` module provides functions like `reader()`, `writer()`, `writerow()`, and `writerows()` to work with CSV files efficiently.</li>
+            </ul>
+
+            <h3>1.3 File Paths: Absolute and Relative</h3>
+            <p>To access a file, its location must be specified. This is done using a file path.</p>
+            <h4>Absolute Path:</h4>
+            <ul>
+                <li>An absolute path provides the complete location of a file or directory starting from the root of the file system.</li>
+                <li>On Windows, it typically starts with a drive letter (e.g., `C:\Users\Admin\document.txt`).</li>
+                <li>On Unix-like systems (Linux, macOS), it starts with a forward slash (/) (e.g., `/home/user/document.txt`).</li>
+                <li>Absolute paths are unambiguous but less portable if the project directory structure is moved.</li>
+                <li>The `os.path.abspath()` function can be used to obtain the absolute path of a file.</li>
+            </ul>
+            <h4>Relative Path:</h4>
+            <ul>
+                <li>A relative path specifies a file's location relative to the current working directory (CWD) of the program.</li>
+                <li>If a file `data.txt` is in the CWD, it can be referred to simply as "data.txt".</li>
+                <li>If it's in a subdirectory `output` within the CWD, it might be "output/data.txt" (or "output\\data.txt" on Windows).</li>
+                <li>`".." ` can be used to refer to the parent directory.</li>
+                <li>Relative paths make projects more portable, as they do not depend on the fixed location of the root directory.</li>
+                <li>It's important to note that Python's behavior with file paths has evolved; in Python 3.9 and later, `file` tends to return an absolute path, whereas in earlier versions, it could return a relative path if specified that way during execution.</li>
+                <li>The current working directory can be found using `os.getcwd()`. When opening a file, if only the filename is provided, Python assumes it is in the CWD.</li>
+            </ul>
+        </div>
+
+        <div id="open_close" class="tab-content">
+            <h2>2 Opening and Closing Text Files</h2>
+            <p>The foundational step in file handling is opening a file. This establishes a connection between the program and the file on the storage device, returning a file object (also known as a file handle) that is used to perform subsequent operations. Equally important is closing the file once operations are complete to free up system resources and ensure data is properly written to disk.</p>
+
+            <h3>2.1 The `open()` Function</h3>
+            <p>Python's built-in `open()` function is the primary tool for opening files. Syntax: `file_object = open(filename, mode, encoding=None)`</p>
+            <ul>
+                <li>`filename`: A string representing the name of the file, which can be an absolute or relative path.</li>
+                <li>`mode`: An optional string that specifies the purpose for which the file is opened (e.g., reading, writing, appending). If omitted, it defaults to `'r'` (read mode).</li>
+                <li>`encoding`: An optional argument recommended for text files, specifying the encoding to be used (e.g., `'utf-8'`, `'ascii'`). Using a specific encoding like `'utf-8'` is good practice for handling a wide range of characters.</li>
+            </ul>
+            <p>Example:</p>
+            <h4>Listing 1: Opening Files</h4>
+            <pre><code># Opening a file for reading (default mode)
+# file_obj = open("myfile.txt")
+
+# Opening a file for writing, specifying encoding
+# file_obj = open("output.txt", "w", encoding="utf-8")
+
+# Opening a file using a raw string for Windows paths to handle backslashes
+# file_obj = open(r"C:\Users\student\notes.txt", "a")
+# The 'r' prefix before a string, as in r"C:\ss.txt",
+# creates a raw string, where backslashes are treated as
+# literal characters, not escape sequences.
+# This is particularly useful for Windows paths.
+# Alternatively, backslashes can be escaped (e.g., "C:\\ss.txt").
+            </code></pre>
+
+            <h3>2.2 File Access Modes for Text Files</h3>
+            <p>The `mode` argument in the `open()` function dictates how the file can be interacted with. For text files, the primary modes are:</p>
+            <h4>Table 1: Text File Access Modes</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Description</th>
+                        <th>File Pointer Position</th>
+                        <th>If File Exists?</th>
+                        <th>If File Does Not Exist?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>`'r'`</td>
+                        <td>Read Only. Default mode. Allows reading from the file.</td>
+                        <td>Beginning</td>
+                        <td>Read</td>
+                        <td>`FileNotFoundError`</td>
+                    </tr>
+                    <tr>
+                        <td>`'w'`</td>
+                        <td>Write Only. Opens for writing.</td>
+                        <td>Beginning</td>
+                        <td>Overwrites (truncates)</td>
+                        <td>Creates new file</td>
+                    </tr>
+                    <tr>
+                        <td>`'a'`</td>
+                        <td>Append Only. Opens for writing. New data is added to the end.</td>
+                        <td>End of file</td>
+                        <td>Appends</td>
+                        <td>Creates new file</td>
+                    </tr>
+                    <tr>
+                        <td>`'r+'`</td>
+                        <td>Read and Write. Opens for both reading and writing.</td>
+                        <td>Beginning</td>
+                        <td>Read/Write</td>
+                        <td>`FileNotFoundError`</td>
+                    </tr>
+                    <tr>
+                        <td>`'w+'`</td>
+                        <td>Write and Read. Opens for both writing and reading.</td>
+                        <td>Beginning</td>
+                        <td>Overwrites (truncates)</td>
+                        <td>Creates new file</td>
+                    </tr>
+                    <tr>
+                        <td>`'a+'`</td>
+                        <td>Append and Read. Opens for both appending (writing at end) and reading.</td>
+                        <td>End of file for write</td>
+                        <td>Appends/Reads</td>
+                        <td>Creates new file</td>
+                    </tr>
+                    <tr>
+                        <td>`'x'`</td>
+                        <td>Exclusive Creation. Creates a new file for writing.</td>
+                        <td>Beginning</td>
+                        <td>`FileExistsError`</td>
+                        <td>Creates new file</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>It is crucial to select the correct mode. For instance, attempting to write to a file opened in `'r'` mode will result in an error. Similarly, opening an existing file in `'w'` mode will erase its previous contents, which might be unintentional. The `'x'` mode is useful for ensuring a new file is created without accidentally overwriting an existing one. The `'+'` modes (`'r+'`, `'w+'`, `'a+'`) provide flexibility by allowing both read and write operations on the same file object, but their specific behaviors regarding truncation and pointer positioning must be understood to avoid errors. For example, `'r+'` will not truncate the file, allowing modification of existing content or appending if the pointer is moved, whereas `'w+'` will truncate it.</p>
+
+            <h3>2.3 The `close()` Method</h3>
+            <p>After all operations on a file are completed, it is imperative to close it using the `file_object.close()` method. Purpose:</p>
+            <ul>
+                <li>**Flushing Buffers:** When writing to a file, data is often stored in an internal buffer in memory. Closing the file ensures that this buffered data is flushed (written) to the actual file on the disk. Failure to close might lead to incomplete data or data loss if the program terminates unexpectedly.</li>
+                <li>**Releasing System Resources:** Open files consume system resources (like file descriptors). Closing files releases these resources, preventing potential resource leaks that could degrade system performance or cause the program to crash if too many files are left open.</li>
+                <li>**Allowing Other Access:** Closing a file can release locks, allowing other programs or processes to access it.</li>
+            </ul>
+            <p>Syntax: `file_object.close()`</p>
+            <p>Example:</p>
+            <h4>Listing 2: Closing a File</h4>
+            <pre><code>f = open("myfile.txt", "w")
+f.write("Hello, Python!")
+f.close() # Essential to save changes and free resources
+            </code></pre>
+
+            <h3>2.4 The `with` Statement (Context Manager)</h3>
+            <p>Manually calling `close()` can be error-prone, especially if exceptions occur before the `close()` method is reached. Python provides a more robust and cleaner way to handle files using the `with` statement, which acts as a context manager. Syntax:</p>
+            <h4>Listing 3: Using the `with` Statement</h4>
+            <pre><code>with open(filename, mode) as file_object:
+    # Perform file operations here
+    # e.g., content = file_object.read()
+    # file_object.write("Some data")
+
+# File is automatically closed here, even if errors occurred within the 'with' block
+            </code></pre>
+            <p>Advantages:</p>
+            <ul>
+                <li>**Automatic Cleanup:** The `with` statement guarantees that the file's `close()` method is automatically called when the block is exited, regardless of how the block is exited (normally or due to an exception). This eliminates the need for an explicit `file_object.close()` call.</li>
+                <li>**Error Safety:** It ensures file closure even if exceptions are raised within the `with` block, preventing resource leaks that might occur if `close()` is skipped due to an error.</li>
+                <li>**Readability:** The `with` statement clearly demarcates the scope of file usage, making the code cleaner and easier to understand.</li>
+            </ul>
+            <p>The `with` statement is the universally recommended best practice for file operations in Python. Manual `close()` calls are susceptible to being overlooked, particularly in complex code with multiple execution paths or error handling. The `with` statement utilizes Python's context management protocol (internally using `__enter__` and `__exit__` methods of the file object) to manage resource setup and teardown automatically. This significantly reduces the likelihood of unclosed files and makes the code more robust and Pythonic. Students should be strongly encouraged to adopt the `with` statement as the standard approach for all file operations.</p>
+        </div>
+
+        <div id="reading" class="tab-content">
+            <h2>3 Reading from Text Files</h2>
+            <p>Once a file is opened in a mode that permits reading (e.g., `'r'`, `'r+'`, `'a+'`, `'w+'`), Python offers several methods to extract its content. Choosing the appropriate method depends on factors like file size and how the data needs to be processed.</p>
+
+            <h3>3.1 `read(size=-1)` Method</h3>
+            <p>Purpose: The `read()` method is used to read data from the file, returning it as a string. Syntax: `file_object.read(size)`</p>
+            <p>Behavior:</p>
+            <ul>
+                <li>If the `size` argument is omitted or is a negative number, `read()` attempts to read the entire content of the file from the current file pointer position to the end of the file and returns it as a single string. This can be memory-intensive for very large files.</li>
+                <li>If `size` is a non-negative integer, `read()` reads and returns at most `size` characters (or bytes in binary mode) as a string. The file pointer advances by the number of characters read.</li>
+                <li>If the end of the file (EOF) has been reached, subsequent calls to `read()` (with or without `size`) return an empty string (`''`).</li>
+            </ul>
+            <p>Example:</p>
+            <h4>Listing 4: Using `read()`</h4>
+            <pre><code>try:
+    with open("document.txt", "r", encoding="utf-8") as f:
+        # Read the entire file
+        full_content = f.read()
+        print("Full content:\n", full_content)
+
+    with open("document.txt", "r", encoding="utf-8") as f:
+        # Read the first 15 characters
+        partial_content = f.read(15)
+        print("\nFirst 15 characters: \n", partial_content)
+
+except FileNotFoundError:
+    print("Error: document.txt not found.")
+            </code></pre>
+
+            <h3>3.2 `readline(size=-1)` Method</h3>
+            <p>Purpose: The `readline()` method reads a single line from the file, starting from the current file pointer position up to and including the next newline character (`\n`). Syntax: `file_object.readline(size)`</p>
+            <p>Behavior:</p>
+            <ul>
+                <li>The returned string will contain the newline character if it's not the last line of the file and the line actually ends with one.</li>
+                <li>If the `size` argument is specified and non-negative, `readline()` reads at most `size` characters from the current line. It will not read beyond the current line, even if `size` is larger than the remaining characters in that line.</li>
+                <li>If the end of the file is reached and no more lines can be read, `readline()` returns an empty string (`''`). This property is often used to control loops that process files line by line.</li>
+            </ul>
+            <p>Example: Reading a file line by line until EOF.</p>
+            <h4>Listing 5: Using `readline()`</h4>
+            <pre><code>try:
+    with open("poem.txt", "r", encoding="utf-8") as f:
+        print("Reading poem.txt line by line:")
+        line = f.readline()
+        while line: # An empty string (EOF) evaluates to False
+            print(line, end="") # Use end="" to prevent double newlines
+            line = f.readline()
+
+except FileNotFoundError:
+    print("Error: poem.txt not found.")
+            </code></pre>
+
+            <h3>3.3 `readlines()` Method</h3>
+            <p>Purpose: The `readlines()` method reads all remaining lines from the current file pointer position to the end of the file and returns them as a list of strings. Syntax: `file_object.readlines()`</p>
+            <p>Behavior:</p>
+            <ul>
+                <li>Each string in the returned list corresponds to a line in the file and includes the trailing newline character (`\n`), if present.</li>
+                <li>This method can consume a significant amount of memory if the file is very large, as it loads all lines into memory at once.</li>
+            </ul>
+            <p>Example:</p>
+            <h4>Listing 6: Using `readlines()`</h4>
+            <pre><code>try:
+    with open("chapters.txt", "r", encoding="utf-8") as f:
+        lines_list = f.readlines()
+        print("\nContents of chapters.txt as a list of lines:")
+        for item in lines_list:
+            print(item, end="")
+
+except FileNotFoundError:
+    print("Error: chapters.txt not found.")
+            </code></pre>
+
+            <h3>3.4 Iterating Over a File Object</h3>
+            <p>Purpose: Python allows direct iteration over a file object. This is generally the most memory-efficient and Pythonic way to process a file line by line. Behavior: The file object, when used in a `for` loop, acts as an iterator, yielding one line at a time (including the newline character). This avoids loading the entire file into memory. Example:</p>
+            <h4>Listing 7: Iterating Over File Object</h4>
+            <pre><code>try:
+    with open("story.txt", "r", encoding="utf-8") as f:
+        print("\nIterating through story.txt:")
+        for current_line in f:
+            print(current_line, end="")
+
+except FileNotFoundError:
+    print("Error: story.txt not found.")
+            </code></pre>
+            <p>When choosing a read method, consider the file's size and the specific requirements of the task. `read()` is suitable for smaller files or when the entire content needs to be treated as a single block of text. `readlines()` is convenient if all lines are needed as a list, but caution is advised for large files due to memory consumption. `readline()` in a `while` loop offers more control and is more memory-efficient than `readlines()` for large files if line-by-line processing is needed without storing all lines simultaneously. Direct iteration (`for line in file_object:`) is often the preferred method for line-by-line processing due to its simplicity, readability, and memory efficiency, making it well-suited for typical tasks encountered in CBSE practicals.</p>
+        </div>
+
+        <div id="writing" class="tab-content">
+            <h2>4 Writing to Text Files</h2>
+            <p>To store data persistently, files must be opened in a mode that permits writing (e.g., `'w'`, `'a'`, `'r+'`, `'w+'`, `'a+'`). Python provides methods to write string data into these opened files.</p>
+
+            <h3>4.1 `write(string)` Method</h3>
+            <p>Purpose: The `write()` method writes the content of the given string to the file at the current file pointer position. Syntax: `file_object.write(string_to_write)`</p>
+            <p>Behavior:</p>
+            <ul>
+                <li>It returns the number of characters that were successfully written to the file.</li>
+                <li>Crucially, the `write()` method does not automatically add a newline character (`\n`) at the end of the string. If you want subsequent writes to appear on new lines, you must explicitly include `\n` in the string being written (e.g., `file.write("This is a line.\n")`).</li>
+            </ul>
+            <p>Example:</p>
+            <h4>Listing 8: Using `write()`</h4>
+            <pre><code>try:
+    # 'w' mode overwrites or creates new
+    with open("output_notes.txt", "w", encoding="utf-8") as f:
+        f.write("Introduction to Python.\n")
+        f.write("Chapter 1: Basics.\n")
+        f.write("Chapter 2: File Handling.") # No newline here
+        f.write(" (Continued)") # Appends to the same line
+        print("Data written to output_notes.txt")
+
+    # 'a' mode appends
+    with open("output_notes.txt", "a", encoding="utf-8") as f:
+        f.write("\nChapter 3: Advanced Topics.\n") # Add newline before
+        print("More data appended to output_notes.txt")
+
+except IOError as e:
+    print(f"An error occurred during writing: {e}")
+            </code></pre>
+
+            <h3>4.2 `writelines(list_of_strings)` Method</h3>
+            <p>Purpose: The `writelines()` method is used to write a list (or any iterable that yields strings) of strings to the file. Syntax: `file_object.writelines(sequence_of_strings)`</p>
+            <p>Behavior:</p>
+            <ul>
+                <li>It iterates through the sequence and writes each string to the file, one after another, at the current file pointer position.</li>
+                <li>Similar to `write()`, `writelines()` does not automatically add newline characters or any other separators between the strings in the sequence. If newlines are required between the written lines, each string within the input sequence must already terminate with a `\n` character.</li>
+            </ul>
+            <p>Example:</p>
+            <h4>Listing 9: Using `writelines()`</h4>
+            <pre><code>lines_to_add = ["Report Title\n", "Section 1: Analysis\n", "Conclusion\n"]
+
+try:
+    with open("report.txt", "w", encoding="utf-8") as f:
+        f.writelines(lines_to_add)
+    print("Report content written to report.txt using writelines()")
+except IOError as e:
+    print(f"An error occurred: {e}")
+            </code></pre>
+            <p>It is a common misconception that `writelines()` automatically adds newlines. However, standard Python behavior dictates that newline characters must be managed by the programmer. If `writelines()` were to automatically add newlines, it would offer less control over the output format. Therefore, students must be explicitly taught to include `\n` within the strings of the list if they intend for each string to occupy a separate line in the file.</p>
+        </div>
+
+        <div id="attributes" class="tab-content">
+            <h2>5 File Object Attributes</h2>
+            <p>When a file is opened using the `open()` function, it returns a file object. This object possesses several attributes that provide metadata or status information about the file it represents. These attributes can be accessed using the dot notation (e.g., `file_object.attribute_name`).</p>
+
+            <h3>5.1 `file_object.name`</h3>
+            <p>Description: This attribute holds a string representing the name of the file with which the file object is associated. This is the same filename (which could be a path) that was passed to the `open()` function.</p>
+            <p>Example:</p>
+            <h4>Listing 10: `f.name` Attribute</h4>
+            <pre><code>try:
+    with open("sample_data.txt", "r") as f:
+        print(f"File name: {f.name}")
+
+except FileNotFoundError:
+    print("Error: sample_data.txt not found.")
+            </code></pre>
+
+            <h3>5.2 `file_object.mode`</h3>
+            <p>Description: This attribute returns a string indicating the mode in which the file was opened. This will be one of the mode strings like `'r'`, `'w'`, `'a'`, etc., that was specified in the `open()` function call.</p>
+            <p>Example:</p>
+            <h4>Listing 11: `f.mode` Attribute</h4>
+            <pre><code>try:
+    with open("config.ini", "r+") as config_file:
+        print(f"File opened in mode: {config_file.mode}")
+
+except FileNotFoundError:
+    print("Error: config.ini not found.")
+            </code></pre>
+
+            <h3>5.3 `file_object.closed`</h3>
+            <p>Description: This attribute is a boolean value that indicates the current state of the file object's connection to the actual file. It returns `True` if the file has been closed (either explicitly via `file_object.close()` or implicitly by exiting a `with` block) and `False` if the file is still open.</p>
+            <p>Example:</p>
+            <h4>Listing 12: `f.closed` Attribute</h4>
+            <pre><code>f = open("temp.log", "w")
+print(f"Is file closed after opening? {f.closed}") # Expected: False
+f.write("Log entry.")
+
+f.close()
+print(f"Is file closed after f.close()? {f.closed}") # Expected: True
+
+with open("another_temp.log", "w") as af:
+    print(f"Is file closed inside 'with' block? {af.closed}") # Expected: False
+    af.write("Another log entry.")
+
+# After exiting the 'with' block, 'af' is automatically closed
+# print(f"Is file closed after exiting 'with' block? {af.closed}") # This line would cause an error if af was not closed.
+                                                                    # The original document had this line commented out,
+                                                                    # but the comment was misleading. The 'with' statement
+                                                                    # ensures closure, making 'af.closed' True after the block.
+                                                                    # However, accessing 'af' outside the 'with' block
+                                                                    # after it's closed can sometimes lead to issues depending
+                                                                    # on the Python version/context. It's safer to assume it's closed.
+
+except IOError as e:
+    print(f"An error occurred: {e}")
+            </code></pre>
+            <p>These attributes allow a program to introspect the state and properties of a file object. `f.name` can be valuable for logging purposes. `f.mode` could be checked if a function needs to ensure a file object is suitable for an operation. `f.closed` is useful for debugging or verifying file closure. While the `with` statement largely automates closing, understanding these attributes provides a complete comprehension of Python's file objects. The attribute `file.softspace`, mentioned in older documentation, is a legacy Python 2 feature and not relevant for modern Python 3.</p>
+        </div>
+
+        <div id="pointer" class="tab-content">
+            <h2>6 Manipulating the File Pointer: `seek()` and `tell()`</h2>
+            <p>Text files in Python are treated as a sequence of characters. The file pointer (or current file position) is an internal marker that indicates where the next read or write operation will begin. Python provides two methods, `tell()` and `seek()`, to query and manipulate this file pointer.</p>
+
+            <h3>6.1 `tell()` Method</h3>
+            <p>Purpose: The `tell()` method returns an integer representing the current position of the file pointer. Syntax: `current_position = file_object.tell()`</p>
+            <p>Behavior in Text Files:</p>
+            <ul>
+                <li>For files opened in text mode, the value returned by `tell()` is an "opaque" number. It doesn't necessarily correspond directly to the number of bytes from the beginning, especially with variable-width encodings like UTF-8.</li>
+                <li>The primary reliable use of the value returned by `tell()` in text mode is to save a position to return to it later using `seek()`.</li>
+            </ul>
+            <p>Example:</p>
+            <h4>Listing 13: Using `tell()`</h4>
+            <pre><code>try:
+    with open("article.txt", "w+", encoding="utf-8") as f: # Ensure file exists
+        f.write("First line for tell.\nSecond line.\n")
+        f.seek(0) # Go to beginning to read
+
+        initial_pos = f.tell()
+        print(f"Initial file pointer position: {initial_pos}") # Usually 0
+
+        first_line = f.readline()
+        print(f"Read first line: {first_line.strip()}")
+
+        pos_after_readline = f.tell()
+        print(f"Position after reading one line: {pos_after_readline}")
+
+        remaining_content = f.read(20) # Read next 20 characters
+        print(f"Read next 20 chars: {remaining_content.strip()}")
+
+        pos_after_read_20 = f.tell()
+        print(f"Position after reading 20 more characters: {pos_after_read_20}")
+
+except FileNotFoundError:
+    print("Error: article.txt not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+            </code></pre>
+
+            <h3>6.2 `seek(offset, whence=0)` Method</h3>
+            <p>Purpose: The `seek()` method is used to change the position of the file pointer to a specific location within the file. Syntax: `file_object.seek(offset, whence)`</p>
+            <p>Parameters:</p>
+            <ul>
+                <li>`offset`: An integer representing the number of bytes (or a position from `tell()` in text mode) to move.</li>
+                <li>`whence` (optional, defaults to 0): An integer specifying the reference point.
+                    <ul>
+                        <li>`0` (or `os.SEEK_SET`): Reference is the beginning of the file. Offset is from the start. Most common for text files.</li>
+                        <li>`1` (or `os.SEEK_CUR`): Reference is the current pointer position. Offset can be positive/negative.</li>
+                        <li>`2` (or `os.SEEK_END`): Reference is the end of the file. Offset usually negative/zero. `seek(0, 2)` moves to the end.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>Behavior in Text Files (Important Considerations):</p>
+            <ul>
+                <li>In text mode, the only offset values guaranteed to work reliably with `whence=0` are `0` (to go to the beginning) or values previously returned by `f.tell()`.</li>
+                <li>Using `whence=1` or `whence=2` (except `seek(0, 2)`) with arbitrary non-zero offsets can lead to undefined behavior due to multi-byte characters.</li>
+                <li>For flexible byte-level seeking, binary mode (`'rb'`) is more predictable.</li>
+            </ul>
+            <p>Example (Text File using `tell()`'s output and `seek(0)`):</p>
+            <h4>Listing 14: Using `seek()`</h4>
+            <pre><code>try:
+    with open("data_log.txt", "w+", encoding="utf-8") as f: # w+ to write then read
+        f.write("Line one: Data A\n")
+        position_after_line1 = f.tell()
+        f.write("Line two: Data B\n")
+        f.write("Line three: Data C\n")
+        print(f"Current position after writing: {f.tell()}")
+
+        # Go back to the position after line one to re-read line two
+        f.seek(position_after_line1)
+        print(f"Position after seek to {position_after_line1}: {f.tell()}")
+        line_two_content = f.readline()
+        print(f"Content of line two (reread): '{line_two_content.strip()}'")
+
+        # Go to the beginning of the file to read everything
+        f.seek(0)
+        print(f"Position after seek(0): {f.tell()}")
+        all_content = f.read()
+        print("\nFull content after seeking to beginning:\n" + all_content)
+
+except IOError as e:
+    print(f"An error occurred: {e}")
+            </code></pre>
+            <p>The interplay between `seek()` and `tell()` allows non-sequential access. However, for text files, this is more constrained. `seek()` is primarily for returning to marked positions or navigating to the absolute beginning/end.</p>
+        </div>
+
+        <div id="exceptions" class="tab-content">
+            <h2>7 Exception Handling in File Operations</h2>
+            <p>File operations can fail. Robust programs must manage these errors using `try-except-finally` blocks.</p>
+
+            <h3>7.1 The `try-except` Block</h3>
+            <ul>
+                <li>`try` Clause: Code that might raise an exception.</li>
+                <li>`except ExceptionType as e:` Clause: Code executed if a matching exception occurs. Multiple `except` blocks can handle different types. `as e` captures the exception object. A generic `except Exception:` or `except:` catches any exception but catching specific ones is better.</li>
+            </ul>
+
+            <h3>7.2 Common File-Related Exceptions</h3>
+            <ul>
+                <li>`FileNotFoundError`: Raised when a file to be opened (e.g., in `'r'` mode) doesn't exist.</li>
+                <li>`PermissionError`: Raised if the program lacks OS permissions to access/modify the file.</li>
+                <li>`IOError` / `OSError`: `IOError` is a general I/O error. Many I/O errors, including `FileNotFoundError` and `PermissionError`, are subclasses of `OSError`. Catching `OSError` handles broader issues like "disk full".</li>
+                <li>`FileExistsError`: Raised when using exclusive creation mode (`'x'`) if the file already exists.</li>
+                <li>`IsADirectoryError` / `NotADirectoryError`: Raised for operations on the wrong type (e.g., opening a directory as a file).</li>
+                <li>`ValueError`: Can be raised for an invalid mode string or operations on a closed file.</li>
+            </ul>
+
+            <h3>7.3 The `else` Block (Optional)</h3>
+            <p>Executed only if the `try` block completes successfully without exceptions. Must follow all `except` clauses.</p>
+
+            <h3>7.4 The `finally` Block (Optional)</h3>
+            <p>Always executed, regardless of exceptions. Used for cleanup actions like ensuring a file is closed.</p>
+
+            <h3>7.5 Syntax and Flow Example</h3>
+            <h4>Listing 15: Exception Handling Example</h4>
+            <pre><code>file_path = "my_document.txt"
+
+try:
+    print(f"Attempting to open {file_path}...")
+    # The 'with' statement is preferred.
+    with open(file_path, "r", encoding="utf-8") as f:
+        print(f"File '{f.name}' opened in '{f.mode}' mode.")
+        data = f.read()
+        # data_as_int = int(data) # This could raise ValueError
+        print("File content read.")
+
+except FileNotFoundError:
+    print(f"Error: The file '{file_path}' was not found.")
+except PermissionError:
+    print(f"Error: Permission denied to access {file_path}.")
+except IOError: # More general I/O error
+    print(f"Error: An I/O error occurred accessing '{file_path}'.")
+except ValueError as ve:
+    print(f"Error: Could not convert file data. {ve}")
+except Exception as e: # Catch any other unexpected exceptions.
+    print(f"An unexpected error occurred: {e}")
+else:
+    # Executes if try block completes without exceptions
+    print("File operations completed successfully.")
+finally:
+    # Always executes
+    # If 'f' was opened outside 'with', close it here.
+    print(f"Exiting try-except-finally for '{file_path}'.")
+            </code></pre>
+            <p>While both `finally` and `with` ensure files are closed, `with` is more concise for this. `try-except-finally` is a general error handling tool. Students should prefer `with` for opening/closing, but use `try-except` around or inside it for specific operational errors.</p>
+        </div>
+
+        <div id="examples" class="tab-content">
+            <h2>8 Practical Examples</h2>
+            <p>The following examples align with common tasks and CBSE syllabus requirements.</p>
+
+            <h3>8.1 Reading a Text File and Displaying Its Contents Line by Line</h3>
+            <h4>Listing 16: Read and Display Line by Line</h4>
+            <pre><code>file_to_read = "story.txt" # Assume story.txt exists
+
+try:
+    with open(file_to_read, "r", encoding="utf-8") as file:
+        print(f"Contents of '{file_to_read}':")
+        for line_number, line_content in enumerate(file, 1):
+            print(f"{line_number}: {line_content}", end="")
+except FileNotFoundError:
+    print(f"Error: The file '{file_to_read}' was not found.")
+except PermissionError:
+    print(f"Error: Permission denied to read '{file_to_read}'.")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
+            </code></pre>
+
+            <h3>8.2 Counting Lines, Words, and Characters in a File</h3>
+            <h4>Listing 17: File Analysis</h4>
+            <pre><code>target_file = "analysis_data.txt" # Assume this file exists
+line_count = 0
+word_count = 0
+char_count = 0
+
+try:
+    with open(target_file, "r", encoding="utf-8") as f:
+        for line in f:
+            line_count += 1
+            char_count += len(line) # Includes newlines
+            words_in_line = line.split() # Splits by whitespace.
+            word_count += len(words_in_line) # Accumulate word count from each line
+
+    print(f"\nAnalysis of '{target_file}':")
+    print(f"Number of lines: {line_count}")
+    print(f"Number of words: {word_count}")
+    print(f"Number of characters (incl newlines): {char_count}")
+
+except FileNotFoundError:
+    print(f"Error: The file '{target_file}' was not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+            </code></pre>
+
+            <h3>8.3 Writing User Input to a File</h3>
+            <h4>Listing 18: Appending User Input</h4>
+            <pre><code>output_filename = "user_journal.txt"
+
+try:
+    num_entries = int(input("How many journal entries to add? "))
+    with open(output_filename, "a", encoding="utf-8") as journal_file: # Append mode
+        for i in range(num_entries):
+            entry = input(f"Enter journal entry {i+1}: ")
+            journal_file.write(entry + "\n") # Add newline
+    print(f"\n{num_entries} entries saved to '{output_filename}'.")
+
+except ValueError:
+    print("Invalid input for number of entries.")
+except IOError:
+    print(f"Error: Could not write to '{output_filename}'.")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
+            </code></pre>
+
+            <h3>8.4 CBSE Specific Practical Problem Examples</h3>
+
+            <h4>1. Read a text file line by line and display each word separated by a `#`.</h4>
+            <h4>Listing 19: Words Separated by `#`</h4>
+            <pre><code>input_file_words = "source_text.txt" # Assume exists
+
+try:
+    with open(input_file_words, "r", encoding="utf-8") as file:
+        print(f"\nWords from '{input_file_words}' separated by '#':")
+        for line in file:
+            words = line.split()
+            if words: # Check if list is not empty
+                print("#".join(words))
+
+except FileNotFoundError:
+    print(f"Error: File '{input_file_words}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+            </code></pre>
+
+            <h4>2. Read a text file and display the number of vowels, consonants, uppercase, and lowercase characters.</h4>
+            <h4>Listing 20: Character Analysis</h4>
+            <pre><code>char_analysis_file = "document_to_analyze.txt" # Assume exists
+
+vowels = "aeiouAEIOU"
+v_count, c_count, u_count, l_count = 0, 0, 0, 0
+
+try:
+    with open(char_analysis_file, "r", encoding="utf-8") as file:
+        content = file.read()
+        for char in content:
+            if char.isalpha():
+                if char in vowels:
+                    v_count += 1
+                else:
+                    c_count += 1
+                
+                if char.isupper():
+                    u_count += 1
+                elif char.islower():
+                    l_count += 1
+
+    print(f"\nAnalysis of '{char_analysis_file}':")
+    print(f"Vowels: {v_count}")
+    print(f"Consonants: {c_count}")
+    print(f"Uppercase: {u_count}")
+    print(f"Lowercase: {l_count}")
+
+except FileNotFoundError:
+    print(f"Error: File '{char_analysis_file}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+            </code></pre>
+
+            <h4>3. Remove all lines that contain the character 'a' (case-insensitive) in a file and write the remaining lines to another file.</h4>
+            <h4>Listing 21: Filter Lines</h4>
+            <pre><code>original_data_file = "original_lines.txt" # Assume exists
+modified_data_file = "modified_lines.txt"
+char_to_check = 'a'
+
+try:
+    with open(original_data_file, "r", encoding="utf-8") as infile, \
+         open(modified_data_file, "w", encoding="utf-8") as outfile:
+        lines_written = 0
+        for line in infile:
+            if char_to_check.lower() not in line.lower():
+                outfile.write(line)
+                lines_written += 1
+    print(f"\nProcessed. Lines not containing '{char_to_check}' "
+          f"written to '{modified_data_file}'.")
+    print(f"Lines written: {lines_written}")
+
+except FileNotFoundError:
+    print(f"Error: Input file '{original_data_file}' not found.")
+except IOError as e:
+    print(f"An I/O error occurred: {e}")
+except Exception as e:
+    print(f"An unexpected error: {e}")
+            </code></pre>
+            <p>These practical examples illustrate combining file operations with string methods, loops, and conditionals. Consistent use of `with open(...)` and `try-except` ensures robust solutions.</p>
+        </div>
+
+        <div id="summary" class="tab-content">
+            <h2>9 Summary and Best Practices</h2>
+            <p>Mastering file handling is crucial for Python programming, enabling interaction with persistent data.</p>
+
+            <h3>9.1 Recap of Key Concepts</h3>
+            <ul>
+                <li>**Files as Persistent Storage:** Named data collections on secondary storage.</li>
+                <li>**`open()`**, **File Modes**, **`close()`**: `open()` initiates interaction (modes: `'r'`, `'w'`, `'a'`, etc.). `close()` finalizes.</li>
+                <li>**Importance of `with` Statement:** Ensures automatic, reliable file closure. Preferred method.</li>
+                <li>**Reading Methods:** `read()` (entire/sized), `readline()` (single line), `readlines()` (all lines to list), Iteration (memory-efficient line by line).</li>
+                <li>**Writing Methods:** `write()` (single string, no auto-newline), `writelines()` (list of strings, no auto-newline).</li>
+                <li>**File Pointer (`seek()` and `tell()`):** `tell()` (current position), `seek()` (moves pointer; limited in text mode).</li>
+                <li>**Error Handling (`try-except-finally`):** Gracefully manages runtime errors (`FileNotFoundError`, etc.).</li>
+            </ul>
+
+            <h3>9.2 Reinforcement of Best Practices</h3>
+            <ul>
+                <li>Always use `with` statement for opening files.</li>
+                <li>Handle potential exceptions robustly (`FileNotFoundError`, `PermissionError`, `IOError`).</li>
+                <li>Specify file encoding (e.g., `encoding='utf-8'`) for text files.</li>
+                <li>Choose the correct file mode based on the intended operation.</li>
+                <li>Be mindful of memory usage for large files; prefer iteration.</li>
+                <li>If not using `with` (discouraged), ensure files are explicitly closed in a `finally` block.</li>
+                <li>Understand absolute vs. relative paths; prefer relative for portability.</li>
+            </ul>
+
+            <h3>9.3 Final Encouragement</h3>
+            <p>File handling is a fundamental skill. The ability to read/write files unlocks vast possibilities. Solid understanding of these concepts and best practices is beneficial for academic pursuits, practical exams, and future programming. Consistent practice solidifies understanding.</p>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Declare all variables
+            var i, tabcontent, tabbuttons;
+
+            // Get all elements with class="tab-content" and hide them
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Get all elements with class="tab-button" and remove the "active" class
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Set the default active tab on page load
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Click the first tab button to show its content by default
+            document.querySelector('.tabs-container .tab-button').click();
+        });
+    </script>
+</body>
+</html>
