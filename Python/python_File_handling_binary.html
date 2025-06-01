@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python File Handling - Working with Binary Files</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-900 text-gray-200 p-4">
+    <div class="container mx-auto max-w-4xl mt-8 mb-8 p-6 bg-gray-800 rounded-2xl shadow-xl">
+        <a href="python.html" class="btn-home mb-6 inline-block">Python Home</a> <h1 class="text-4xl text-center mb-8 text-slate-50 font-bold">Python File Handling - Working with Binary Files</h1>
+
+        <div class="tabs-container mb-6 pb-2 border-b-2 border-gray-700 flex flex-wrap gap-2">
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out active" onclick="openTab(event, 'intro_binary')">1: Intro & Pickling</button>
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'open_close_binary')">2: Opening & Closing</button>
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'writing_binary')">3: Writing (Pickling)</button>
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'appending_binary')">4: Appending Records</button>
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'reading_binary')">5: Reading (Unpickling)</button>
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'searching_binary')">6: Searching</button>
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'updating_binary')">7: Updating Records</button>
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'modifying_considerations')">8: Modifying Considerations</button>
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'pickle_exceptions')">9: Pickle Exceptions</button>
+        </div>
+
+        <div id="intro_binary" class="tab-content active pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">1 Introduction to Binary Files and Serialization (Pickling)</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">In Python, you've learned to write lines/strings and lists to files. However, when you need to store and retrieve more complex Python objects such as dictionaries, tuples, lists (especially nested ones), or even custom class objects simply writing them as plain text can lead to a loss of their inherent structure or hierarchy. To ensure that these objects retain their original structure and relationships when stored and retrieved, they are often serialized and then saved into binary files.</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">Serialization, commonly referred to as Pickling, is the process of converting a Python object hierarchy into a byte stream. This byte stream is a sequence of bytes that represents the object in a way that can be written to a file. The primary advantage of pickling is its ability to transform a complex object into a compact, storable format from which it can be perfectly reconstructed (unpickled or de-serialized) back into its original, identical form at a later time.</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">Unpickling is the inverse operation of Pickling. It involves reading a byte stream from a binary file and converting it back into the original Python object hierarchy. The unpickling process aims to produce an exact replica of the original object that was pickled. Python provides the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle</code> module to achieve this serialization and de-serialization. As per Python's documentation, "The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle</code> module implements a fundamental, but powerful algorithm for serializing and de-serializing a Python object structure."</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">General Process for Working with Binary Files using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle</code> module:</p>
+            <ol class="list-decimal ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong>Import <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle</code> module:</strong> You must include the statement <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">import pickle</code> at the beginning of your Python program to use its functionalities.</li>
+                <li><strong>Open binary file:</strong> Open the file in the appropriate binary file mode. This typically involves adding "b" to the standard file modes (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'rb'</code> for read binary, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'wb'</code> for write binary, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'ab'</code> for append binary).</li>
+                <li><strong>Process binary file:</strong> Perform operations like writing objects using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.dump()</code> or reading objects using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load()</code>.</li>
+                <li><strong>Close the file:</strong> After all operations are completed, it is crucial to close the file using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code> method to release system resources and ensure data integrity.</li>
+            </ol>
+        </div>
+
+        <div id="open_close_binary" class="tab-content pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">2 Creating, Opening, and Closing Binary Files</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">Opening a binary file in Python follows a similar pattern to opening text files, but with a critical distinction: you must explicitly specify "b" with the file mode to indicate that the file is being handled in binary mode.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed">Syntax for Opening a Binary File: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_handle = open("filename", "modeb")</code></p>
+            <p class="mb-4 text-gray-300 leading-relaxed">Here, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">modeb</code> represents a binary file mode such as <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'wb'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'rb'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'ab'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'wb+'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'rb+'</code>, or <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'ab+'</code>.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed">Examples:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
+                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Dfile = open("stu.dat", "wb+")</code>
+                    <p class="ml-4">This statement opens a binary file named <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">stu.dat</code> in write binary mode with read/write access (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'wb+'</code>). If <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">stu.dat</code> does not exist, it will be created. If <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">stu.dat</code> already exists, its existing contents will be truncated (emptied) from the beginning before any new data is written. The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">+</code> sign allows both writing and reading operations on the file.</p>
+                </li>
+                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Filel = open("stu.dat", "rb")</code>
+                    <p class="ml-4">This statement opens <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">stu.dat</code> in read binary mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'rb'</code>). If <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">stu.dat</code> does not exist, a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">FileNotFoundError</code> exception will be raised, as this mode expects the file to already exist for reading.</p>
+                </li>
+            </ul>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Important Notes on File Modes for Binary Files:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
+                <li>Similar to text files, a binary file will be automatically created if it does not exist and is opened in an output-oriented mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w+'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a+'</code>).</li>
+                <li>If the file already exists:
+                    <ul class="list-disc ml-6 my-1 space-y-1">
+                        <li>The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w'</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w+'</code> modes will overwrite the file's existing contents, effectively starting with an empty file.</li>
+                        <li>The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a'</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a+'</code> modes will retain the existing contents and position the file pointer at the end of the file, allowing new data to be appended without affecting previous data.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Closing Binary Files:</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">An open binary file must be closed using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code> method associated with its file handle. This action is vital for releasing system resources and ensuring that all buffered data is written from memory to the disk. Example: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Dfile.close()</code></p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Exception Handling for Reading Binary Files:</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">When opening a binary file in read mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'rb'</code> or <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'rb+'</code>), the file must exist. If it does not, a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">FileNotFoundError</code> will be raised. Furthermore, when reading multiple records from an existing file using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load()</code>, attempting to read beyond the actual end of the file (EOF) will result in an <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">EOFError</code> exception. Proper exception handling is therefore crucial to prevent your program from crashing. It is strongly advised to handle these potential exceptions either by enclosing your file reading logic within <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try...except</code> blocks or by utilizing the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement, which provides automatic resource management.</p>
+        </div>
+
+        <div id="writing_binary" class="tab-content pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">3 Writing onto a Binary File (Pickling)</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">To write a Python object (such as a dictionary, list, tuple, or custom object) onto a binary file that has been opened in a write-compatible mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'wb'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'ab'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'wb+'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'ab+'</code>), you use the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">dump()</code> function from the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle</code> module.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed">Syntax of <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.dump()</code>: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.dump(object_to_be_written, file_handle_of_open_file)</code></p>
+            <p class="mb-4 text-gray-300 leading-relaxed">The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">dump()</code> function takes two arguments: the Python object you wish to serialize and the file handle of the open binary file where the object will be written. Python's <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle</code> module is capable of pickling a wide variety of Python data types, including:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
+                <li>Booleans (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">True</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">False</code>)</li>
+                <li>Integers (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">int</code>)</li>
+                <li>Floating-point numbers (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">float</code>)</li>
+                <li>Complex numbers (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">complex</code>)</li>
+                <li>Strings (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">str</code>)</li>
+                <li>Tuples (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tuple</code>)</li>
+                <li>Lists (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">list</code>)</li>
+                <li>Sets (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">set</code>)</li>
+                <li>Dictionaries (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">dict</code>), provided they contain picklable elements</li>
+                <li>Custom class objects</li>
+            </ul>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 1: Getting student data from the user and writing it to a binary file (Stu.dat)</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program interactively collects student details (roll number, name, and marks) from the user and stores each student's data as a dictionary in a binary file named <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Stu.dat</code>. The program continues to prompt for more records until the user chooses to stop.</p>
+            <p class="mb-2 text-gray-300">(Listing 1: Writing Student Data to Stu.dat)</p>
+            <pre class="code-block"><code>import pickle
+
+stu = {} # Initialize an empty dictionary to temporarily hold each student's data
+
+# Open the binary file 'Stu.dat' in write binary mode ('wb')
+stufile = open('Stu.dat', 'wb')
+
+ans = 'y' # Initialize a control variable for the loop
+while ans.lower() == 'y': # Make comparison case insensitive
+    rno = int(input("Enter roll number: "))
+    name = input("Enter name:")
+    marks = float(input("Enter marks: "))
+
+    # Populate the 'stu' dictionary with the collected data
+    stu['Rollno'] = rno
+    stu['Name'] = name
+    stu['Marks'] = marks
+
+    # Write the current 'stu' dictionary (record) into the binary file
+    pickle.dump(stu, stufile)
+
+    # Ask the user if they want to enter more records
+    ans = input("Want to enter more records? (y/n)...")
+
+# Close the file after all records have been entered
+stufile.close()
+print("Student data written to Stu.dat")</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Sample Run Output:</p>
+            <pre class="code-block"><code>Enter roll number: 11
+Enter name: Sia
+Enter marks: 83.5
+Want to enter more records? (y/n)...y
+Enter roll number: 12
+Enter name: Guneet
+Enter marks: 80.5
+Want to enter more records? (y/n)...y
+Enter roll number: 13
+Enter name: James
+Enter marks: 81
+Want to enter more records? (y/n)...n
+Student data written to Stu.dat</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program successfully creates <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Stu.dat</code> and populates it with multiple student records, each stored as a pickled dictionary.</p>
+        </div>
+
+        <div id="appending_binary" class="tab-content pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">4 Appending Records in Binary Files</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">Appending records to an existing binary file means adding new data to the end of the file without overwriting its current contents. This operation is very similar to writing, but it requires opening the file in a specific append mode. To append records, you must open the file in append binary mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"ab"</code>) or append binary read-write mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"ab+"</code>). When a file is opened in append mode, the file pointer is automatically positioned at the end of the file, ensuring that any new data written will be added after the existing records. The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.dump()</code> function is used for appending, just as it is for initial writing.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example: Appending student records to Stu.dat</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program demonstrates how to add new student records to the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Stu.dat</code> file by prompting the user for additional data.</p>
+            <p class="mb-2 text-gray-300">(Listing 2: Appending Records to Stu.dat)</p>
+            <pre class="code-block"><code>import pickle
+
+stu = {} # Initialize an empty dictionary for new student data
+# Open the binary file 'Stu.dat' in append binary mode ('ab')
+# This mode ensures existing data is preserved and new data is added at the end.
+stufile = open('Stu.dat', 'ab')
+
+ans = 'y' # Control variable for the loop
+while ans.lower() == 'y':
+    rno = int(input("Enter roll number: "))
+    name = input("Enter name:")
+    marks = float(input("Enter marks: "))
+
+    # Populate the 'stu' dictionary with the new data
+    stu['Rollno'] = rno
+    stu['Name'] = name
+    stu['Marks'] = marks
+
+    # Write the new dictionary (record) into the file.
+    # Since the file is in 'ab' mode, this will append the record.
+    pickle.dump(stu, stufile)
+
+    # Ask the user if they want to append more records
+    ans = input("Want to append more records? (y/n)...")
+
+# Close the file after all records have been appended
+stufile.close()
+print("Student data appended to Stu.dat")</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Sample Run Output:</p>
+            <pre class="code-block"><code>Enter roll number: 14
+Enter name: Ali
+Enter marks: 80.5
+Want to append more records? (y/n)...n
+Student data appended to Stu.dat</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">After executing this program, the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Stu.dat</code> file will contain the initial three student records followed by the newly appended record for Ali.</p>
+        </div>
+
+        <div id="reading_binary" class="tab-content pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">5 Reading from a Binary File (Unpickling)</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">Once Python objects have been serialized and written to a binary file using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.dump()</code>, they can be read back (unpickled) into Python objects using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">load()</code> function from the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle</code> module.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed">Syntax of <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load()</code>: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">object = pickle.load(file_handle)</code></p>
+            <p class="mb-4 text-gray-300 leading-relaxed">The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">load()</code> function reads one pickled object from the file at a time, moving the file pointer forward after each successful read.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Important: Handling EOFError</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">A critical point to remember when reading from binary files is that the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load()</code> function will raise an <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">EOFError</code> (End Of File Error) when it attempts to read beyond the actual end of the file. This is a common runtime exception, especially when reading multiple records in a loop, and it must be handled properly to prevent your program from crashing.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed">There are two primary and recommended methods to handle <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">EOFError</code> during binary file reading:</p>
+            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">1. Method 1: Using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">except</code> blocks</h4>
+            <p class="mb-4 text-gray-300 leading-relaxed">This method involves placing the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load()</code> statement (and any subsequent processing of the loaded object) within a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try</code> block. If an <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">EOFError</code> occurs, the program's control will immediately jump to the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">except EOFError</code> block, where you can define actions to be taken, typically closing the file.</p>
+            <p class="mb-2 text-gray-300">General Syntax with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try...except</code> (Listing 3: try-except for EOFError):</p>
+            <pre class="code-block"><code># file_handle = open("filename", "readmode binary")
+# try:
+#     while True: # Loop indefinitely; it will be exited by EOFError
+#         obj = pickle.load(file_handle) # Attempt to read an object
+#         # Process the 'obj' here (e.g., print its contents)
+# except EOFError:
+#     # This block executes when the end of the file is reached
+#     file_handle.close() # Crucially, close the file here
+#     print("End of file reached.")</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 2: Reading and displaying student records from Stu.dat</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program reads and displays all student records stored in the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Stu.dat</code> file, including any records that were appended.</p>
+            <p class="mb-2 text-gray-300">(Listing 4: Reading All Records from Stu.dat)</p>
+            <pre class="code-block"><code>import pickle
+
+stu = {} # Initialize an empty dictionary for holding read records
+
+# Open the binary file 'Stu.dat' in read binary mode ('rb')
+fin = open('Stu.dat', 'rb')
+print("File Stu.dat stores these records:")
+try:
+    while True: # Loop to continuously read records
+        stu = pickle.load(fin) # Read the next record into 'stu'
+        print(stu) # Print the read record
+except EOFError:
+    # Upon reaching the end of the file, close it
+    print("--- End of Records ---")
+    fin.close()</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Output (assuming initial 3 records + 1 appended):</p>
+            <pre class="code-block"><code>File Stu.dat stores these records:
+{'Rollno': 11, 'Name': 'Sia', 'Marks': 83.5}
+{'Rollno': 12, 'Name': 'Guneet', 'Marks': 80.5}
+{'Rollno': 13, 'Name': 'James', 'Marks': 81.0}
+{'Rollno': 14, 'Name': 'Ali', 'Marks': 80.5}
+--- End of Records ---</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">Notice that the appended record for Ali is also successfully displayed.</p>
+
+            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">2. Method 2: Using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement</h4>
+            <p class="mb-4 text-gray-300 leading-relaxed">The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement is the preferred and more Pythonic way to handle file operations. It acts as a context manager, guaranteeing that the file is automatically closed when the code block within the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement is exited, regardless of whether exceptions occur or not. This simplifies resource management and makes code cleaner. When using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load()</code> within a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement loop, you typically still use a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try...except EOFError</code> block to catch the end-of-file condition, but you don't need to explicitly call <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code> in the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">except</code> block, as <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> handles it.</p>
+            <p class="mb-2 text-gray-300">General Syntax with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement (Listing 5: with statement and EOFError):</p>
+            <pre class="code-block"><code># with open("filename", "modeb") as file_handle:
+#     try:
+#         while True:
+#             obj = pickle.load(file_handle)
+#             # Process the object
+#     except EOFError:
+#         pass # The 'with' statement will automatically close the file
+#     print("End of file reached with 'with' statement.")
+# # File is automatically closed when execution leaves this 'with' block</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">Notice that you do not explicitly need to mention any exception handling for file closing with the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement, as it's built-in.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 1: Creating a binary file and writing a string using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement</p>
+            <p class="mb-2 text-gray-300">(Listing 6: Writing with 'with' statement)</p>
+            <pre class="code-block"><code>import pickle
+string_data = "This is my first line. This is the second line."
+# Open file "myfile.info" in write binary mode ('wb') using the with statement
+with open("myfile.info", "wb") as fh:
+    pickle.dump(string_data, fh) # Write the string object to the file
+print("File successfully created: myfile.info")</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program creates <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">myfile.info</code> and stores the given string in its binary format.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 2: Reading from <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">myfile.info</code> and displaying part of the string using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program reads the string object from <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">myfile.info</code> and displays the text until the first occurrence of the letter 'o'.</p>
+            <p class="mb-2 text-gray-300">(Listing 7: Reading with 'with' and String Manipulation)</p>
+            <pre class="code-block"><code>import pickle
+st = "" # Initialize an empty string variable
+# Open file "myfile.info" in read binary mode ('rb') using the with statement
+try:
+    with open("myfile.info", "rb") as fh:
+        st = pickle.load(fh) # Read the entire string object from the file
+        lst = st.split('o') # Split string where 'o' appears
+        print(lst[0]) # Print part before the first 'o'
+except FileNotFoundError:
+    print("Error: myfile.info not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Output:</p>
+            <pre class="code-block"><code>This is my first line. This is sec</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">This output correctly shows the portion of the string before the first 'o'.</p>
+        </div>
+
+        <div id="searching_binary" class="tab-content pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">6 Searching in a Binary File</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">Searching for a specific value or record within a binary file typically involves a sequential search approach. This means you read records (objects) from the file one by one and check if each read record matches your search criteria.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Steps for Sequential Search in a Binary File:</p>
+            <ol class="list-decimal ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong>Open the file:</strong> Open the binary file in read binary mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'rb'</code>).</li>
+                <li><strong>Read records iteratively:</strong> Use a loop (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">while True</code> with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try...except EOFError</code>) to read the file contents record by record (object by object) using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load()</code>.</li>
+                <li><strong>Apply search condition:</strong> For each record that is read, apply your desired search condition (e.g., check a specific field's value).</li>
+                <li><strong>Process if found:</strong> If the search key is found within a record, perform the desired action (e.g., display the record, extract data).</li>
+                <li><strong>Continue or report not found:</strong> If the current record does not match, continue to the next record. If the loop completes (i.e., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">EOFError</code> is encountered) and the search key was never found, report that no such value exists in the file.</li>
+                <li><strong>Handle <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">EOFError</code>:</strong> Always wrap your <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load()</code> call in a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try...except EOFError</code> block to gracefully handle the end of the file.</li>
+            </ol>
+
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 1: Searching for records with specific roll numbers (12 or 14) in Stu.dat</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program reads through the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Stu.dat</code> file and displays any student records where the 'Rollno' field is either 12 or 14.</p>
+            <p class="mb-2 text-gray-300">(Listing 8: Searching by Roll Numbers)</p>
+            <pre class="code-block"><code>import pickle
+
+stu = {} # Initialize an empty dictionary to hold each read record
+found = False # Boolean flag to track if any matching record is found
+
+# Open the binary file 'Stu.dat' in read binary mode ('rb')
+fin = open('Stu.dat', 'rb')
+searchkeys = [12, 14] # A list of roll numbers to search for
+print("Searching in File Stu.dat...")
+try:
+    while True: # Loop to read records until EOF
+        stu = pickle.load(fin) # Read the next record into 'stu'
+        # Check if the 'Rollno' of the current record is in our list of search keys
+        if stu['Rollno'] in searchkeys:
+            print(stu) # If a match is found, print the entire record
+            found = True # Set the flag to True
+except EOFError:
+    # This block executes when the end of the file is reached
+    if not found: # If found is still False
+        print("No such records found in the file.")
+    else:
+        print("Search successful.") # Message if at least one record was found
+    fin.close() # Close the file</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Output:</p>
+            <pre class="code-block"><code>Searching in File Stu.dat...
+{'Rollno': 12, 'Name': 'Guneet', 'Marks': 80.5}
+{'Rollno': 14, 'Name': 'Ali', 'Marks': 80.5}
+Search successful.</code></pre>
+
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 2: Searching for records with marks greater than 81 in Stu.dat (using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement)</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program demonstrates searching using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement for file handling, looking for students with marks above 81.</p>
+            <p class="mb-2 text-gray-300">(Listing 9: Searching by Marks using 'with')</p>
+            <pre class="code-block"><code>import pickle
+
+stu = {} # Initialize an empty dictionary
+found = False # Flag to indicate if any record matches
+print("Searching in file Stu.dat for Marks > 81...")
+
+# Open 'Stu.dat' in read binary mode ('rb') using 'with'
+try:
+    with open('Stu.dat', 'rb') as fin:
+        try:
+            while True:
+                stu = pickle.load(fin) # Read the next record
+                if stu['Marks'] > 81: # Check the condition
+                    print(stu) # Print record if condition met
+                    found = True # Set flag to True
+        except EOFError:
+            pass # Loop ends, 'with' closes file
+    if not found:
+        print("No records with Marks > 81 found.")
+    else:
+        print("Search successful.")
+except FileNotFoundError:
+    print("Error: Stu.dat not found.")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Output:</p>
+            <pre class="code-block"><code>Searching in file Stu.dat for Marks > 81...
+{'Rollno': 11, 'Name': 'Sia', 'Marks': 83.5}
+Search successful.</code></pre>
+        </div>
+
+        <div id="updating_binary" class="tab-content pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">7 Updating Records in a Binary File</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">Updating records in a binary file involves modifying the values of an existing record and then writing the changed record back into the file. This process is more intricate than simply reading or writing, as it often requires precise manipulation of the file pointer's position to overwrite the old record with the new one. The update process can be broken down into three logical steps:</p>
+            <ol class="list-decimal ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong>Locate the record:</strong> Find the specific record that needs to be updated by searching for it within the file.</li>
+                <li><strong>Make changes in memory:</strong> Once the desired record is loaded into a Python object (e.g., a dictionary), modify its values as required.</li>
+                <li><strong>Write back onto the file at the exact location:</strong> This is the most critical step, ensuring that the modified record overwrites only the original record's space in the file.</li>
+            </ol>
+            <p class="mb-4 text-gray-300 leading-relaxed">To achieve the third step, Python provides functions to manipulate the file pointer's position, allowing for what is known as "random access" within the file.</p>
+
+            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">7.1 Accessing and Manipulating Location of File Pointer (Random Access)</h3>
+            <p class="mb-4 text-gray-300 leading-relaxed">Python offers two essential functions for controlling the file pointer's position: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code>. These functions work identically for both text and binary files (though behavior in text mode can be more nuanced with encodings).</p>
+            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code> Function</h4>
+            <p class="mb-4 text-gray-300 leading-relaxed">The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code> function returns the current position of the file pointer (in bytes) within the file. The position is an integer representing the number of bytes from the beginning of the file. Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">current_position = file_object.tell()</code></p>
+            <p class="mb-2 text-gray-300">(Listing 10: Using tell())</p>
+            <pre class="code-block"><code># Assume 'Marks.txt' is a text file containing:
+# "12. Hazel, 67.75\n15. Jiya, 78.5\n..."
+try:
+    with open("Marks.txt", "w") as temp_f: # Create the file for example
+        temp_f.write("12. Hazel, 67.75\\n15. Jiya, 78.5\\n")
+
+    with open("Marks.txt", "r") as fh: # Open in text mode
+        print("Initially file-pointer's position is at:", fh.tell()) # Output: 0
+        # Read 3 bytes from the file
+        print("3 bytes read are:", fh.read(3)) # Output: 12.
+        print("After previous read, Current position of file pointer:", fh.tell()) # Output: 3
+except Exception as e:
+    print(f"Error in tell() example: {e}")</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">This example shows that after reading 3 bytes, the file pointer moves from position 0 to position 3.</p>
+
+            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code> Function</h4>
+            <p class="mb-2 text-gray-300 leading-relaxed">The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code> function changes the position of the file pointer by placing it at a specified offset from a given mode (reference point) within the open file. Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.seek(offset, mode)</code></p>
+            <p class="mb-2 text-gray-300 leading-relaxed"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">offset</code>: An integer specifying the number of bytes to move.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">mode</code>: An integer (0, 1, or 2) indicating the reference point:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-1 text-gray-300">
+                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">0</code>: Beginning of file (SEEK_SET). Default if mode not specified. Pointer moves <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">offset</code> bytes from start.</li>
+                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">1</code>: Current position (SEEK_CUR). Pointer moves <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">offset</code> bytes relative to current position.</li>
+                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">2</code>: End of file (SEEK_END). Pointer moves <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">offset</code> bytes relative to end.</li>
+            </ul>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Important Notes on <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code> for Binary Files:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-1 text-gray-300">
+                <li>For binary files, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">offset</code> can be any integer value when <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">mode</code> is 0.</li>
+                <li>When <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">mode</code> is 1 (current position) or 2 (end of file) for binary files, the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">offset</code> must be 0 or a negative value for reliable behavior with standard Python file objects due to buffering. Positive offsets with these modes might not work as expected.</li>
+                <li>You can move the file pointer in both forward (positive offset with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">mode=0</code>) and backward (negative offset with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">mode=1</code> or <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">mode=2</code>) directions.</li>
+                <li>Constraints: Backward movement is not possible from the beginning of the file. Forward movement is not possible from the end.</li>
+            </ul>
+            <p class="mb-2 text-gray-300">(Listing 11: Using seek())</p>
+            <pre class="code-block"><code>try:
+    with open("Marks.txt", "r") as fh: # Using a text file for demonstration
+        fh.seek(30) # Places file pointer at 30th byte from beginning
+        print(f"Position after seek(30): {fh.tell()}")
+        fh.seek(10, 0) # Same as seek(10)
+        print(f"Position after seek(10,0): {fh.tell()}")
+        # Example for other modes (careful with text files, better in binary)
+        # fh.seek(5, 1)  # Moves 5 bytes ahead of current position
+        # fh.seek(-5, 2) # Places pointer 5 bytes behind end-of-file
+except Exception as e:
+    print(f"Error in seek() example: {e}")</code></pre>
+
+            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">7.2 Updating Record(s) in a File (Enhanced Process)</h3>
+            <p class="mb-4 text-gray-300 leading-relaxed">To update a record in place within a binary file, you need to combine searching with file pointer manipulation.</p>
+            <ol class="list-decimal ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong>Open file in read and write binary mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'rb+'</code>):</strong> This mode allows both reading to find the record and writing to update it. The file pointer is initially at the beginning.</li>
+                <li><strong>Locate the record to be updated:</strong>
+                    <ul class="list-disc ml-6 my-1 space-y-1">
+                        <li>Before each <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load()</code> call in your loop, store the current position of the file pointer using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">rpos = fin.tell()</code>. This <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">rpos</code> holds the starting byte position of the record about to be read.</li>
+                        <li>Read the record using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load(fin)</code>.</li>
+                        <li>Apply your search condition. If this record matches, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">rpos</code> is its location.</li>
+                    </ul>
+                </li>
+                <li><strong>Make changes in memory:</strong> Modify the values of the loaded record (e.g., a dictionary) in memory.</li>
+                <li><strong>Write back onto the file at the exact location:</strong>
+                    <ul class="list-disc ml-6 my-1 space-y-1">
+                        <li>Place the file pointer back: Use <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">fin.seek(rpos)</code> to move the file pointer to the beginning of the record you just read and modified.</li>
+                        <li>Write the modified record: Use <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.dump(stu, fin)</code> to serialize the updated object and write its byte representation, overwriting the old record.</li>
+                    </ul>
+                </li>
+            </ol>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 1: Updating marks for students with marks > 81.0 in Stu.dat</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program reads <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Stu.dat</code> and adds 2 bonus marks to students with marks > 81.0.</p>
+            <p class="mb-2 text-gray-300">(Listing 12: Updating Marks in Stu.dat)</p>
+            <pre class="code-block"><code>import pickle
+
+stu = {} # Initialize an empty dictionary
+found_updated = False # Flag for updated records
+
+# Open 'Stu.dat' in read and write binary mode ('rb+')
+try:
+    with open('Stu.dat', 'rb+') as fin:
+        print("Updating records in Stu.dat...")
+        try:
+            while True:
+                # Store current file pointer position BEFORE reading
+                rpos = fin.tell()
+                stu = pickle.load(fin) # Read record
+                # Check update condition
+                if stu['Marks'] > 81.0:
+                    stu['Marks'] += 2 # Modify in memory
+                    # Move file-pointer back to start of this record
+                    fin.seek(rpos)
+                    # Write modified record back
+                    pickle.dump(stu, fin)
+                    found_updated = True # Mark as updated
+        except EOFError:
+            if not found_updated:
+                print("Sorry, no matching record found for update.")
+            else:
+                print("Record(s) successfully updated.")
+            # 'with' statement handles closing
+except FileNotFoundError:
+    print("Error: Stu.dat not found.")
+except Exception as e:
+    print(f"An unexpected error during update: {e}")</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Output:</p>
+            <pre class="code-block"><code>Updating records in Stu.dat...
+Record(s) successfully updated.</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">To verify, run the reading program again. If Sia (Rollno 11) had 83.5, marks would be 85.5.</p>
+
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 2: Modifying the name of Rollno 12 to 'Gurnam' in Stu.dat</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program searches for Rollno 12 and updates the name.</p>
+            <p class="mb-2 text-gray-300">(Listing 13: Modifying Name for Rollno 12)</p>
+            <pre class="code-block"><code>import pickle
+
+stu = {}
+found_modified = False
+try:
+    with open('Stu.dat', 'rb+') as fin:
+        print("Modifying record for Rollno 12...")
+        try:
+            while True:
+                rpos = fin.tell()
+                stu = pickle.load(fin)
+                if stu['Rollno'] == 12:
+                    stu['Name'] = 'Gurnam' # Modify name
+                    fin.seek(rpos) # Go back
+                    pickle.dump(stu, fin) # Overwrite
+                    found_modified = True
+                    # break # Optional: stop if only one such record expected
+        except EOFError:
+            if not found_modified:
+                print("Sorry, no matching record found for update.")
+            else:
+                print("Record for Rollno 12 successfully updated.")
+except FileNotFoundError:
+    print("Error: Stu.dat not found.")
+except Exception as e:
+    print(f"An unexpected error during name modification: {e}")</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Output:</p>
+            <pre class="code-block"><code>Modifying record for Rollno 12...
+Record for Rollno 12 successfully updated.</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">If you read <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Stu.dat</code> again, Rollno 12's name would be 'Gurnam'.</p>
+        </div>
+
+        <div id="modifying_considerations" class="tab-content pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">8 Important Considerations for Modifying Binary Files</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">When performing in-place modifications on binary files using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.dump()</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load()</code>, ensure that the data types of the values being modified do not change in a way that alters the serialized byte size of the object.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Why this is crucial:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong>Pickling and Byte Size:</strong> The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle</code> module serializes objects into a specific byte sequence whose length depends on the object's type and value.</li>
+                <li><strong>File Corruption and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">UnpicklingError</code>:</strong> If a modification changes the pickled byte size (e.g., int to float, short string to longer), overwriting the old record's space can corrupt the file. This leads to <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">UnpicklingError</code> when reading subsequent records due to misaligned pointers or uninterpretable byte streams.</li>
+            </ul>
+            <p class="mb-4 text-gray-300 leading-relaxed">Example of a potential issue: If <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'Marks': 80</code> (int) is changed to <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'Marks': 80.5</code> (float), the float might take more bytes. Dumping this might overwrite part of the next record.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Alternative Approach for Type-Changing Modifications:</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">If a modification must change data type or significantly alter object size, avoid in-place updates. Use a file-rebuilding strategy:</p>
+            <ol class="list-decimal ml-8 mb-4 space-y-2 text-gray-300">
+                <li>Create a new, temporary binary file.</li>
+                <li>Read records from the original file.</li>
+                <li>Write records to the new temporary file:
+                    <ul class="list-disc ml-6 my-1 space-y-1">
+                        <li>For unmodified records, read from old and write to new.</li>
+                        <li>When the record to modify is reached: read it, modify in memory (allowing type/size changes), and write the modified record to the new file.</li>
+                    </ul>
+                </li>
+                <li>Continue writing remaining records to the new file.</li>
+                <li>Delete the old file (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">os.remove(old_filename)</code>).</li>
+                <li>Rename the new file to the original name (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">os.rename(new_filename, old_filename)</code>).</li>
+            </ol>
+            <p class="mb-4 text-gray-300 leading-relaxed">(Remember to <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">import os</code>.) This method ensures file structure integrity.</p>
+        </div>
+
+        <div id="pickle_exceptions" class="tab-content pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">9 Exceptions in <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle</code> Module</h2>
+            <p class="mb-2 text-gray-300 leading-relaxed">Two common exceptions:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.PicklingError</code>:</strong> Raised when an unpicklable object is encountered during <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.dump()</code>. Some objects representing external system resources (like open file handles) are inherently not picklable. Example: trying to <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.dump(open('file.txt', 'r'), file_handle)</code>.</li>
+                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.UnpicklingError</code>:</strong> Raised during <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle.load()</code> if there's a problem reconstructing the object. Reasons include:
+                    <ul class="list-disc ml-6 my-1 space-y-1">
+                        <li><strong>Data Corruption:</strong> Damaged, partial, or incomplete file contents.</li>
+                        <li><strong>Access Violation:</strong> File permission issues.</li>
+                        <li><strong>Version Mismatch:</strong> Data pickled with an incompatible Python/pickle protocol version.</li>
+                        <li><strong>Incorrect Data Type Modification:</strong> In-place updates changing byte size can corrupt structure.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="mb-4 text-gray-300 leading-relaxed">Understanding these helps implement robust <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try...except</code> blocks.</p>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+                tabcontent[i].style.display = "none"; // Ensure content is hidden
+            }
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block"; // Show selected tab
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Ensure the first tab is correctly displayed on load
+            const firstTabButton = document.querySelector('.tabs-container .tab-button');
+            if (firstTabButton) {
+                firstTabButton.click();
+            }
+        });
+    </script>
+</body>
+</html>

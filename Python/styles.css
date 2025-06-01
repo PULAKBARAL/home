@@ -1,0 +1,167 @@
+/* General Body Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Tailwind classes bg-gray-900 text-gray-200 min-h-screen are applied directly in HTML */
+}
+
+/* Solution Content Styling */
+.solution-content {
+    display: none; /* Initially hidden */
+    white-space: pre-wrap; /* Preserve line breaks and spaces */
+    background-color: #2d3748; /* Darker gray for solution background (Tailwind: bg-gray-700) */
+    border: 1px solid #4a5568; /* Medium gray border (Tailwind: border-gray-600) */
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    /* Tailwind class text-gray-300 leading-relaxed applied directly in HTML */
+}
+
+/* Question and Solution Container Margins */
+.question-container, .solution-container {
+    margin-bottom: 20px;
+}
+
+/* Code Block Styling */
+.code-block {
+    background-color: #1a202c; /* Even darker for code blocks (Tailwind: bg-gray-800/900) */
+    color: #e2e8f0; /* Light gray text for code (Tailwind: text-gray-200) */
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto; /* Enable horizontal scrolling for long code lines */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #2d3748; /* (Tailwind: border-gray-700) */
+}
+
+/* Sidebar Navigation Container */
+.sidebar-nav-container {
+    max-height: calc(100vh - 180px); /* Adjust based on header/footer/padding height */
+    overflow-y: auto; /* Enable vertical scrollbar when content exceeds max-height */
+    padding-right: 8px; /* Space for the scrollbar to prevent content overlap */
+}
+
+/* Custom Scrollbar for WebKit Browsers (Chrome, Safari, Edge) */
+.sidebar-nav-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar-nav-container::-webkit-scrollbar-track {
+    background: #2d3748; /* Dark gray track (Tailwind: bg-gray-700) */
+    border-radius: 10px;
+}
+
+.sidebar-nav-container::-webkit-scrollbar-thumb {
+    background: #4a5568; /* Medium gray thumb (Tailwind: bg-gray-600) */
+    border-radius: 10px;
+}
+
+.sidebar-nav-container::-webkit-scrollbar-thumb:hover {
+    background: #718096; /* Lighter gray thumb on hover (Tailwind: bg-gray-500) */
+}
+
+/* Sidebar Item Styling */
+.sidebar-item {
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Tailwind classes text-gray-300 hover:text-purple-300 applied directly in HTML */
+}
+
+.sidebar-item:hover, .sidebar-item.active {
+    background-color: #4a5568; /* Medium gray for hover/active (Tailwind: bg-gray-600) */
+    color: #e2e8f0; /* Light gray text (Tailwind: text-gray-200) */
+}
+
+/* Content Title Styling (e.g., "Questions" in sidebar, "Problem X" in main) */
+.content-title {
+    border-bottom: 2px solid #7c3aed; /* Brighter Purple underline (Tailwind: border-purple-500) */
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    /* Tailwind classes for text color applied directly in HTML */
+}
+
+/* "Show/Hide Solution" Button Styling */
+.btn-solution {
+    background-color: #6d28d9; /* Darker Purple button (Tailwind: bg-purple-700) */
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+.btn-solution:hover {
+    background-color: #5b21b6; /* Even darker purple on hover (Tailwind: bg-purple-800) */
+}
+
+/* Home Button Styling */
+.btn-home {
+    background-color: #7c3aed; /* Brighter Purple button (Tailwind: bg-purple-500) */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+    font-weight: 500;
+}
+
+.btn-home:hover {
+    background-color: #6d28d9; /* (Tailwind: bg-purple-700) */
+}
+
+/* Text Formatting for Questions and Solutions */
+.question-text, .solution-text-intro {
+    white-space: pre-wrap; /* Preserve line breaks and spaces */
+    word-wrap: break-word; /* Prevent long strings from breaking layout */
+     /* Tailwind classes for text color and leading applied directly in HTML */
+}
+
+/* General Container Styling (if you want to apply this to all pages) */
+.page-container {
+    /* Tailwind class mx-auto p-4 md:p-8 applied directly in HTML body's child div */
+}
+
+/* Header Styling */
+.page-header {
+    /* Tailwind classes text-center mb-10 relative applied directly in HTML */
+}
+.page-header h1 {
+     /* Tailwind classes text-4xl font-bold text-purple-400 applied directly in HTML */
+}
+.page-header p {
+    /* Tailwind classes text-lg text-gray-400 mt-2 applied directly in HTML */
+}
+
+/* Main Layout Flex Container */
+.main-layout {
+    /* Tailwind classes flex flex-col md:flex-row gap-8 applied directly in HTML */
+}
+
+/* Sidebar General Styling */
+.sidebar {
+    /* Tailwind classes md:w-1/4 bg-gray-800 p-6 rounded-lg shadow-2xl applied directly in HTML */
+}
+.sidebar h2 {
+    /* Tailwind classes text-2xl font-semibold mb-6 text-purple-400 content-title applied directly in HTML */
+}
+
+/* Main Content Area General Styling */
+.main-content-area {
+     /* Tailwind classes md:w-3/4 bg-gray-800 p-6 rounded-lg shadow-2xl applied directly in HTML */
+}
+.main-content-area #content-placeholder {
+    /* Tailwind classes text-2xl font-semibold text-gray-400 applied directly in HTML */
+}
+
+/* Footer Styling */
+.page-footer {
+    /* Tailwind classes text-center mt-12 py-6 border-t border-gray-700 applied directly in HTML */
+}
+.page-footer p {
+    /* Tailwind class text-gray-500 applied directly in HTML */
+}

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python File Handling - Working with CSV Files</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-900 text-gray-200 p-4">
+    <div class="container mx-auto max-w-4xl mt-8 mb-8 p-6 bg-gray-800 rounded-2xl shadow-xl">
+        <a href="python.html" class="btn-home mb-6 inline-block">Python Home</a> <h1 class="text-4xl text-center mb-8 text-slate-50 font-bold">Python File Handling - Working with CSV Files</h1>
+
+        <div class="tabs-container mb-6 pb-2 border-b-2 border-gray-700 flex flex-wrap gap-2">
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out active" onclick="openTab(event, 'intro_csv')">1: Intro to CSV</button>
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'open_close_csv')">2: Opening & Closing CSV</button>
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'writing_csv')">3: Writing in CSV</button>
+            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'reading_csv')">4: Reading in CSV</button>
+        </div>
+
+        <div id="intro_csv" class="tab-content active pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">1 Introduction to CSV Files</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">CSV (Comma Separated Values) files are a common and widely used format for storing tabular data. Tabular data refers to data organized in rows and columns, like what you would see in spreadsheets or databases. In a CSV file, each line typically represents a data record, and within each record, individual values (or fields) are separated by a specific character, most commonly a comma (,). While the comma is the default and most popular delimiter, modern implementations of CSV files are flexible and allow you to choose a different delimiter character. Other popular delimiters include the tab (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\t</code>), colon (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">:</code>), pipe (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">|</code>), and semi-colon (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">;</code>) characters. The separator character used in a CSV file is generally referred to as a delimiter.</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">Since CSV files are essentially text files, you could technically apply standard text file procedures to them (reading lines and then splitting values using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">split()</code> function). However, Python offers a much more robust and convenient way to handle CSV files through its built-in <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv</code> module. This module provides specialized functionalities to read and write tabular data in CSV format, abstracting away the complexities of parsing delimiters and handling various data types. The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv</code> module simplifies working with delimited sequences as records in a CSV file by providing two specific types of objects:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong>Reader objects:</strong> Used for reading data from CSV files.</li>
+                <li><strong>Writer objects:</strong> Used for writing data to CSV files.</li>
+            </ul>
+            <p class="mb-4 text-gray-300 leading-relaxed">To use the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv</code> module in your Python program, you must first import it:</p>
+            <pre class="code-block"><code>import csv</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed">CSV files are popular for several reasons:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
+                <li>They are easy to create and understand.</li>
+                <li>They are a preferred export and import format for databases and spreadsheets due to their simple, universal structure.</li>
+                <li>They are capable of storing large amounts of data efficiently.</li>
+            </ul>
+        </div>
+
+        <div id="open_close_csv" class="tab-content pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">2 Opening and Closing CSV Files</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">Opening a CSV file in Python is similar to opening any other text file. However, there are two important considerations to ensure proper handling:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong>File Extension:</strong> It is a convention to specify the file extension as <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">.csv</code> (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">student.csv</code>).</li>
+                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline</code> Argument:</strong> This is an optional but crucial argument in the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> function, especially when working with CSV files, to handle newline characters correctly.</li>
+            </ul>
+            <p class="mb-2 text-gray-300 leading-relaxed">Basic Syntax for Opening a CSV File:</p>
+            <pre class="code-block"><code>Dfile = open("stu.csv", "w") # CSV file opened in write mode
+# Or
+Filel = open("stu.csv", "r") # CSV file opened in read mode</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed">Closing CSV Files: An open CSV file is closed in the same manner as any other file, using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code> method associated with its file handle:</p>
+            <pre class="code-block"><code>Dfile.close()</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Important Notes on File Modes for CSV Files:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
+                <li>Like text files, a CSV file will be created automatically if it does not exist and is opened in an output-oriented file mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"w"</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"w+"</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"a"</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"a+"</code>).</li>
+                <li>If the file already exists:
+                    <ul class="list-disc ml-6 my-1 space-y-1">
+                        <li>The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"w"</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"w+"</code> modes will overwrite the existing contents of the file.</li>
+                        <li>The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"a"</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"a+"</code> modes will retain the existing contents and append new data to the end of the file.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">2.1 Role of the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline</code> Argument in Opening CSV Files</h3>
+            <p class="mb-4 text-gray-300 leading-relaxed">The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline</code> argument in the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> function plays a significant role in how Python handles newline characters when working with CSV files. This is particularly important because different operating systems use different characters or sequences of characters to designate the End-of-Line (EOL).</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Table 1: EOL Characters Used in Different Operating Systems</p>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse mb-6 rounded-lg overflow-hidden shadow-md">
+                    <thead class="bg-gray-700">
+                        <tr>
+                            <th class="border border-gray-600 p-3 text-left text-slate-100">Symbol/Character</th>
+                            <th class="border border-gray-600 p-3 text-left text-slate-100">Meaning</th>
+                            <th class="border border-gray-600 p-3 text-left text-slate-100">Operating System</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-gray-800 text-gray-300">
+                        <tr>
+                            <td class="border border-gray-600 p-3"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\r</code></td>
+                            <td class="border border-gray-600 p-3">CR (Carriage Return)</td>
+                            <td class="border border-gray-600 p-3">Macintosh</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-600 p-3"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\n</code></td>
+                            <td class="border border-gray-600 p-3">LF (Line Feed)</td>
+                            <td class="border border-gray-600 p-3">UNIX</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-600 p-3"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\r\n</code></td>
+                            <td class="border border-gray-600 p-3">CR/LF (Carriage Return/Line Feed)</td>
+                            <td class="border border-gray-600 p-3">MS-DOS, Windows, OS/2</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-600 p-3"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\0</code></td>
+                            <td class="border border-gray-600 p-3">Null character</td>
+                            <td class="border border-gray-600 p-3">Other OSs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">The Problem of EOL Translation:</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">When you create a text file (including CSV files) on one operating system and then attempt to read it on another, the EOL characters might be misinterpreted. For example, if a CSV file created on a Windows OS (using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\r\n</code> as EOL) is read on a UNIX system (which expects <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\n</code>), the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\r</code> character might be treated as part of the data rather than an EOL marker. Conversely, if you have a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\r</code> character as part of your text string (not intended as an EOL) and open the file on a Macintosh system, the Mac OS might incorrectly treat every <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\r</code> as an EOL, leading to unexpected line breaks.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">The Solution: Suppressing EOL Translation with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code></p>
+            <p class="mb-4 text-gray-300 leading-relaxed">To prevent these EOL translation issues and ensure consistent behavior across different platforms, you should specify the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline</code> argument as an empty string (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">""</code>) — no space in between the quotes — when opening CSV files.</p>
+            <p class="mb-2 text-gray-300">Syntax with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline</code> Argument:</p>
+            <pre class="code-block"><code>Dfile = open("stu.csv", "w", newline="") # CSV file opened in write mode with no EOL translation
+# Or
+Filel = open("stu.csv", "r", newline="") # CSV file opened in read mode with no EOL translation</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">By setting <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code> (a null string), you instruct Python to suppress the EOL translation. This ensures that the CSV file is created or read without any additional characters being inserted or misinterpreted due to operating system differences. This practice is beneficial not only for cross-platform compatibility but also for consistent behavior even when working on the same platform, as it prevents blank rows from appearing when reading files that were written without <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code> (a common issue discussed later).</p>
+        </div>
+
+        <div id="writing_csv" class="tab-content pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">3 Writing in CSV Files</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">Writing data into CSV files involves converting your Python data (typically in the form of lists or tuples) into a delimited string format suitable for the CSV structure, and then storing it in the file. The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv</code> module provides specialized functions for this purpose. The three primary functions used for writing to CSV files are:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv.writer()</code>:</strong> This function returns a writer object. This object is responsible for converting the user's data into the CSV-writable, delimited string form according to the CSV settings (e.g., delimiter character).</li>
+                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writerobject.writerow()</code>:</strong> This method writes one row of data (a sequence like a list or tuple) onto the writer object. The writer object then handles the conversion and writes the delimited string to the linked CSV file on disk.</li>
+                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writerobject.writerows()</code>:</strong> This method writes multiple rows of data (a nested sequence, like a list of lists or a list of tuples) onto the writer object in one go. Each inner sequence is treated as a separate row.</li>
+            </ul>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Figure 1: Role of the csv.writer object (textual description)</p>
+            <ul class="list-disc ml-8 mb-4 space-y-1 text-gray-300">
+                <li>User Data: Input from the user (e.g., via keyboard) or existing Python data.</li>
+                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv.writerow()</code> / <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv.writerows()</code>: This function is used to write the user data (as a Python sequence) to the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv.writer</code> object.</li>
+                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv.writer</code> object (in Memory): This object is the key intermediary. It takes the Python sequence, converts it into the CSV-writable delimited string format (e.g., by inserting commas between values), as per the CSV settings (like the chosen delimiter).</li>
+                <li>Delimited Data: The converted, delimited data is then streamed out.</li>
+                <li>CSV file on storage disk: The delimited data is written to the actual CSV file on the disk.</li>
+            </ul>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Steps to Write onto a CSV File:</p>
+            <ol class="list-decimal ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong>Import <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv</code> module:</strong> <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">import csv</code></li>
+                <li><strong>Open CSV file:</strong> Open the CSV file in a write mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"w"</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"a"</code>, etc.) using a file handle. For optimal behavior, it's highly recommended to use <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code> here (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">fh = open("student.csv", "w", newline="")</code>).</li>
+                <li><strong>Create the writer object:</strong> Use <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv.writer()</code> to create a writer object, linking it to your file handle.
+                    <p>Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">name_of_writer_object = csv.writer(file_handle, [delimiter = 'delimiter_character'])</code><br>
+                    If you omit the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">delimiter</code> argument, the default delimiter (comma) will be used.<br>
+                    Example (default delimiter): <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">stuwriter = csv.writer(fh)</code><br>
+                    Example (custom delimiter): <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">stuwriter = csv.writer(fh, delimiter='|')</code> (This will create a file with pipe <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">|</code> as the delimiter).</p>
+                </li>
+                <li><strong>Prepare user data:</strong> Obtain user data and organize it into a Python sequence (typically a list or a tuple) that represents a single row.
+                    <p>Example: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">sturec = [11, "Neelam", 79.0]</code></p>
+                </li>
+                <li><strong>Write the data:</strong> Use <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writerow()</code> for single rows or <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writerows()</code> for multiple rows.
+                    <ul class="list-disc ml-6 my-1 space-y-1">
+                        <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writerow()</code>: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">stuwriter.writerow(sturec)</code></li>
+                        <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writerows()</code>: This function takes a nested sequence (e.g., a list of lists) where each inner list is a row.
+                            <p>Example: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Sturec_multiple = [[11, "Nistha", 79.0], [12, "Rudy", 89.0]]</code><br>
+                            <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">stuwriter.writerows(Sturec_multiple)</code></p>
+                        </li>
+                    </ul>
+                    You can also write column headings (header rows) in the same way as any other row: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">stuwriter.writerow(['Rollno', 'Name', 'Marks'])</code>
+                </li>
+                <li><strong>Close the file:</strong> After writing all data, close the file using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">fh.close()</code>.</li>
+            </ol>
+            <p class="mb-4 text-gray-300 leading-relaxed">You only need to write data to the writer object; the writer object itself handles the conversion to delimited form and writing to the linked CSV file.</p>
+
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 1: Creating a CSV file (Student.csv) and writing 5 student records</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program demonstrates writing a header row and then iteratively collecting student data from the user to write 5 records into <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Student.csv</code> using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writerow()</code>.</p>
+            <p class="mb-2 text-gray-300">(Listing 1: Writing 5 Student Records to Student.csv)</p>
+            <pre class="code-block"><code>import csv
+
+# Open the CSV file in write mode.
+# For this example, newline="" is omitted to demonstrate EOL translation issues later.
+fh = open("Student.csv", "w")
+
+# Create a writer object linked to the file handle
+stuwriter = csv.writer(fh)
+
+# Write the header row
+stuwriter.writerow(['Rollno', 'Name', 'Marks'])
+
+# Loop to get and write 5 student records
+for i in range(5):
+    print(f"Student record {i+1}")
+    rollno = int(input("Enter rollno: "))
+    name = input("Enter name: ")
+    marks = float(input("Enter marks: "))
+    # Create a list representing the current student record
+    sturec = [rollno, name, marks]
+    # Write the student record to the CSV file
+    stuwriter.writerow(sturec)
+
+# Close the file
+fh.close()
+print("Student.csv created.")</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Sample Run Output:</p>
+            <pre class="code-block"><code>Student record 1
+Enter rollno:11
+Enter name: Nistha
+Enter marks:79
+Student record 2
+Enter rollno:12
+Enter name: Rudy
+Enter marks:89
+... ( dalších 3 záznamů) ...
+Student.csv created.</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">After running this program, a file named <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Student.csv</code> will be created. If you open it with a text editor, it will look like this:</p>
+            <pre class="code-block"><code>Rollno,Name,Marks
+11,Nistha,79.0
+12,Rudy,89.0
+13,Rustom,75.0
+14,Gurjot,89.0
+15,Sadaf,85.0</code></pre>
+
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 2: Writing multiple rows using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writerows()</code></p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program demonstrates writing a complete set of data to <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">compresult.csv</code> using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writerows()</code>.</p>
+            <p class="mb-2 text-gray-300">(Listing 2: Writing Multiple Rows with writerows())</p>
+            <pre class="code-block"><code>import csv
+
+# Open the CSV file in write mode (newline="" omitted for demo)
+fh = open("compresult.csv", "w")
+cwriter = csv.writer(fh)
+
+# Data for the competitive programming competition, including header
+compdata = [
+    ['Name', 'Points', 'Rank'],
+    ['Shradha', 4500, 23],
+    ['Nishchay', 4800, 31],
+    ['Ali', 4500, 25],
+    ['Adi', 5100, 14]
+]
+
+# Write all rows from the nested list to the CSV file
+cwriter.writerows(compdata)
+
+# Close the file
+fh.close()
+print("compresult.csv created.")</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">After running this program, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">compresult.csv</code> will contain:</p>
+            <pre class="code-block"><code>Name,Points,Rank
+Shradha,4500,23
+Nishchay,4800,31
+Ali,4500,25
+Adi,5100,14</code></pre>
+        </div>
+
+        <div id="reading_csv" class="tab-content pt-4">
+            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">4 Reading in CSV Files</h2>
+            <p class="mb-4 text-gray-300 leading-relaxed">Reading from a CSV file involves loading its data, parsing it (removing delimiters), and then making it available in a Python iterable (like a list of lists) from which you can fetch rows one by one. The primary function for reading from CSV files is:</p>
+            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv.reader()</code>:</strong> This function returns a reader object. This object loads data from the CSV file, parses it (removes the delimiters), and presents the data in the form of a Python iterable. From this iterable, you can fetch one row of data at a time, typically using a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">for</code> loop.</li>
+            </ul>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Figure 2: Role of the csv.reader object (textual description)</p>
+            <ul class="list-disc ml-8 mb-4 space-y-1 text-gray-300">
+                <li>CSV file on storage disk: The source of the delimited data.</li>
+                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv.reader</code> object (in Memory): This object reads the delimited data from the CSV file, parses it (removes the delimiters), and loads it into an iterable structure in memory.</li>
+                <li>Loop for reading: A <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">for</code> loop is used to fetch one row of data at a time from the reader object.</li>
+                <li>Iterable (in Memory): Each fetched row becomes an element in this iterable, ready for processing.</li>
+            </ul>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Steps to Read from a CSV File:</p>
+            <ol class="list-decimal ml-8 mb-4 space-y-2 text-gray-300">
+                <li><strong>Import <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv</code> module:</strong> <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">import csv</code></li>
+                <li><strong>Open CSV file:</strong> Open the CSV file in read mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"r"</code>) using a file handle. The file must exist, otherwise a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">FileNotFoundError</code> will be raised. It's crucial to handle this exception.</li>
+                <li><strong>Create the reader object:</strong> Use <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv.reader()</code> to create a reader object, linking it to your file handle.
+                    <p>Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">name_of_reader_object = csv.reader(file_handle, [delimiter = 'delimiter_character'])</code><br>
+                    You can specify a delimiter if the file uses something other than a comma.</p>
+                </li>
+                <li><strong>Fetch data row by row:</strong> The reader object stores the parsed data as an iterable. Fetch rows using a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">for</code> loop.
+                    <p>Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">for rec in stureader: # Process the fetched row (e.g., print(rec))</code></p>
+                </li>
+                <li><strong>Process the fetched row:</strong> Each <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">rec</code> in the loop will be a list of strings representing the fields of that row.</li>
+                <li><strong>Close the file:</strong> After processing all data, close the file.</li>
+            </ol>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Recommended Practice: Using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement for reading</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement is highly recommended for reading CSV files. It automatically handles file opening/closing and manages exceptions.</p>
+            <p class="mb-2 text-gray-300">Syntax with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement:</p>
+            <pre class="code-block"><code>with open(csv_file, read_mode, newline='') as file_handle:
+    # Note: newline='' is crucial
+    name_of_reader_object = csv.reader(file_handle)
+    for row_identifier in name_of_reader_object:
+        # Process the fetched row in row_identifier</code></pre>
+
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 1: Reading and displaying records from compresult.csv (without <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline</code> in <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code>)</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program attempts to read <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">compresult.csv</code> (created where <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code> was not used during writing) and display its contents.</p>
+            <p class="mb-2 text-gray-300">(Listing 3: Problematic Reading of compresult.csv)</p>
+            <pre class="code-block"><code>import csv
+
+# Open the file in read mode using with statement
+try:
+    with open("compresult.csv", "r") as fh:
+        creader = csv.reader(fh) # Create reader object
+        # Loop to fetch and print each row
+        for rec in creader:
+            print(rec)
+except FileNotFoundError:
+    print("Error: compresult.csv not found.")</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Output (Problematic):</p>
+            <pre class="code-block"><code>['Name', 'Points', 'Rank']
+[]
+['Shradha', '4500', '23']
+[]
+['Nishchay', '4800', '31']
+[]
+['Ali', '4500', '25']
+[]
+['Adi', '5100', '14']
+[]</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Explanation of Empty Rows:</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">The presence of unexpected empty rows (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">[]</code>) is common when reading CSV files written without <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code> in <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code>. This happens due to EOL translation. On Windows, EOL is <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\r\n</code>. If <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv.writer</code> writes a row and then <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> (text mode, no <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code>) adds its own <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\r\n</code>, it results in <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\r\n\r\n</code>. <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv.reader</code> interprets the first <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\r\n</code> as a row terminator and the second as an empty row.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">The Solution:</p>
+            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">1. Method 1: Create/Write onto CSV file with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code> argument in <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> (Preferred)</h4>
+            <p class="mb-4 text-gray-300 leading-relaxed">If the CSV file is created correctly by suppressing EOL translation during writing, you don't need to worry during reading.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 2: Creating Employee.csv by suppressing EOL translation (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code>)</p>
+            <p class="mb-2 text-gray-300">(Listing 4: Creating Employee.csv with newline="")</p>
+            <pre class="code-block"><code>import csv
+
+# Open file in write mode, crucially specifying newline=""
+fh = open("Employee.csv", "w", newline='')
+ewriter = csv.writer(fh)
+empdata = [
+    ['Empno', 'Name', 'Designation', 'Salary'],
+    [1001, 'Trupti', 'Manager', 56000],
+    [1002, 'Raziya', 'Manager', 55900],
+    [1003, 'Simran', 'Analyst', 35000],
+    [1004, 'Silviya', 'Clerk', 25000],
+    [1005, 'Suji', 'PR Officer', 31000]
+]
+ewriter.writerows(empdata) # Write all employee data
+print("File Employee.csv successfully created with no EOL translation.")
+fh.close()</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">If you open <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Employee.csv</code> in Notepad, it will look clean, without extra blank lines.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 3: Reading and displaying Employee.csv (created with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code>)</p>
+            <p class="mb-4 text-gray-300 leading-relaxed">This program reads <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">Employee.csv</code>. Notice <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline</code> argument is not typically needed here for reading if written correctly with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code>.</p>
+            <p class="mb-2 text-gray-300">(Listing 5: Reading Correctly Written Employee.csv)</p>
+            <pre class="code-block"><code>import csv
+
+# Open the file in read mode using with statement
+try:
+    # Using newline="" for reading is also a good practice for consistency
+    with open("Employee.csv", "r", newline='') as fh:
+        ereader = csv.reader(fh) # Create reader object
+        print("File Employee.csv contains:")
+        for rec in ereader: # Loop to fetch and print each record
+            print(rec)
+except FileNotFoundError:
+    print("Error: Employee.csv not found.")</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Output:</p>
+            <pre class="code-block"><code>File Employee.csv contains:
+['Empno', 'Name', 'Designation', 'Salary']
+['1001', 'Trupti', 'Manager', '56000']
+['1002', 'Raziya', 'Manager', '55900']
+['1003', 'Simran', 'Analyst', '35000']
+['1004', 'Silviya', 'Clerk', '25000']
+['1005', 'Suji', 'PR Officer', '31000']</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">As expected, no blank lines.</p>
+
+            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">2. Method 2: To read from a file created with EOL translation (if you can't control writing)</h4>
+            <p class="mb-4 text-gray-300 leading-relaxed">If reading a CSV created without <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline=""</code>, tell <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> what EOL to expect.</p>
+            <p class="mb-2 text-gray-300">Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open(csvfilename, readmode, newline='EOL_character_of_OS')</code></p>
+            <p class="mb-4 text-gray-300 leading-relaxed">For example, if created on Windows, use <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline='\r\n'</code>.</p>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Example 4: Reading compresult.csv by specifying <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline='\r\n'</code></p>
+            <p class="mb-4 text-gray-300 leading-relaxed">Modifies earlier problematic reading for <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">compresult.csv</code>.</p>
+            <p class="mb-2 text-gray-300">(Listing 6: Reading compresult.csv with Specific newline)</p>
+            <pre class="code-block"><code>import csv
+
+# Open file, explicitly telling it to treat \r\n as newline
+try:
+    with open("compresult.csv", "r", newline='\\r\\n') as fh:
+        creader = csv.reader(fh)
+        for rec in creader:
+            print(rec)
+except FileNotFoundError:
+    print("Error: compresult.csv not found.")</code></pre>
+            <p class="mb-2 text-gray-300 leading-relaxed font-medium">Output:</p>
+            <pre class="code-block"><code>['Name', 'Points', 'Rank']
+['Shradha', '4500', '23']
+['Nishchay', '4800', '31']
+['Ali', '4500', '25']
+['Adi', '5100', '14']</code></pre>
+            <p class="mb-4 text-gray-300 leading-relaxed">No blank lines, as <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">newline='\r\n'</code> correctly interprets the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\r\n</code> sequence.</p>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+                tabcontent[i].style.display = "none"; // Ensure content is hidden
+            }
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block"; // Show selected tab
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Ensure the first tab is correctly displayed on load
+            const firstTabButton = document.querySelector('.tabs-container .tab-button');
+            if (firstTabButton) {
+                firstTabButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
