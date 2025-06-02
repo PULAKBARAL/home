@@ -3,664 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python File Handling - Comprehensive Guide</title>
+    <title>Python Functions - Comprehensive Guide (PDF Content)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom responsive adjustments if needed, complementing styles.css and Tailwind */
+        /* For tabs stacking on small screens, if not handled by Tailwind alone or in styles.css */
+        @media (max-width: 768px) {
+            .tabs-container {
+                flex-direction: column;
+                align-items: stretch; /* Make tabs full width */
+            }
+            .tab-button {
+                width: 100%;
+                margin-bottom: 0.5rem; /* Add some space between stacked buttons */
+                text-align: center;
+            }
+            .page-header-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem; /* Space between title and home button if stacked */
+            }
+            .page-header .btn-home {
+                position: static; /* Override absolute positioning for mobile */
+                margin-top: 1rem; /* Add some space if it stacks below title */
+            }
+             .container { /* Reduce max-width on very small screens */
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            h1 {
+                font-size: 1.875rem; /* Equivalent to text-3xl */
+            }
+            h2 {
+                font-size: 1.5rem; /* text-2xl */
+            }
+            h3 {
+                font-size: 1.25rem; /* text-xl */
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-200 p-4">
-    <div class="container mx-auto max-w-4xl mt-8 mb-8 p-6 bg-gray-800 rounded-2xl shadow-xl">
-        <a href="python.html" class="btn-home mb-6 inline-block">Python Home</a> <h1 class="text-4xl text-center mb-8 text-slate-50 font-bold">Python File Handling</h1>
-        <div class="tabs-container mb-6 pb-2 border-b-2 border-gray-700 flex flex-wrap gap-2">
-            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out active" onclick="openTab(event, 'intro_files')">1: Intro to Files</button>
-            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'opening_closing')">2: Opening & Closing</button>
-            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'reading_files')">3: Reading Text Files</button>
-            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'writing_files')">4: Writing Text Files</button>
-            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'file_attributes')">5: File Attributes</button>
-            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'file_pointer')">6: File Pointer</button>
-            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'exception_handling')">7: Exception Handling</button>
-            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'practical_examples')">8: Practical Examples</button>
-            <button class="tab-button py-3 px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out" onclick="openTab(event, 'summary_practices')">9: Summary & Best Practices</button>
-        </div>
+<body class="bg-gray-900 text-gray-200 min-h-screen">
+    <div class="mx-auto p-2 sm:p-4">
+        <div class="container mx-auto max-w-4xl mt-4 md:mt-8 mb-8 p-4 md:p-6 bg-gray-800 rounded-2xl shadow-xl">
+            <header class="mb-8 relative">
+                <div class="page-header-content flex flex-col sm:flex-row justify-between items-center">
+                    <a href="index.html" class="btn-home order-2 sm:order-1 mt-4 sm:mt-0">Python Home</a>
+                    <div class="text-center order-1 sm:order-2 sm:flex-grow">
+                        <h1 class="text-3xl md:text-4xl text-slate-50 font-bold">Python Functions</h1>
+                        <span class="author italic text-gray-400 block mt-1">Pulak Baral</span>
+                    </div>
+                    <div class="hidden sm:block sm:w-[calc(theme(space.20)+theme(space.6))]"></div>
+                </div>
+            </header>
 
-        <div id="intro_files" class="tab-content active pt-4">
-            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">1 Introduction to Files and File Handling</h2>
-            <p class="mb-4 text-gray-300 leading-relaxed">In the realm of computer science, data persistence—the ability to store data and retrieve it later—is a fundamental requirement. Files serve as the primary mechanism for achieving this persistence. A file can be conceptualized as a named collection of related information, typically stored on a secondary storage device such as a hard disk, SSD, or thumb drive. This information is stored as a sequence of bytes. File handling, therefore, encompasses the set of operations that a program can perform on these files, including their creation, opening, reading, writing, appending, and closing. The CBSE Class 12 Computer Science syllabus specifically emphasizes understanding and manipulating different types of files, primarily focusing on text files, binary files, and CSV (Comma Separated Values) files.</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">1.1 What is a File?</h3>
-            <p class="mb-4 text-gray-300 leading-relaxed">A file is essentially a container in a computer system for storing data. Each file is uniquely identified by its name and its path, which specifies its location within the file system hierarchy. Files allow programs to store output, read input from persistent storage, and share data between different program executions or even different applications.</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">1.2 Types of Files</h3>
-            <p class="mb-4 text-gray-300 leading-relaxed">While various file formats exist, Python, in the context of the CBSE syllabus, categorizes them broadly for handling purposes:</p>
-            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">Text Files:</h4>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>Text files store information as a sequence of characters, typically human-readable.</li>
-                <li>Data in text files is usually organized into lines, where each line is terminated by a special end-of-line (EOL) character, such as a newline character (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\n</code>).</li>
-                <li>Python's built-in functions like <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">write()</code>, and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">read()</code> are commonly used to create and manipulate text files.</li>
-                <li>Examples include <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">.txt</code> files, Python script files (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">.py</code>), and HTML files.</li>
-                <li>The content is typically encoded using character sets like ASCII or UTF-8.</li>
-                <li>It highlights the importance of specifying encoding, such as UTF-8, for broader character support.</li>
-            </ul>
-            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">Binary Files:</h4>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>Binary files store data in a binary format, as a sequence of bytes, which may represent any type of data, including text, images, audio, executable code, or serialized Python objects.</li>
-                <li>Unlike text files, binary files are not directly human-readable using a simple text editor, as their byte sequences do not necessarily correspond to printable characters.</li>
-                <li>Python provides specific modes like <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'rb'</code> (read binary) and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'wb'</code> (write binary) for handling binary files.</li>
-                <li>The CBSE syllabus includes operations like using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">pickle</code> module's <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">dump()</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">load()</code> methods for reading and writing data structures to binary files.</li>
-            </ul>
-            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">CSV (Comma Separated Values) Files:</h4>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>CSV files are a special type of text file used to store tabular data (numbers and text in plain text form).</li>
-                <li>Each line in a CSV file represents a row of data, and the values within that row are separated by a delimiter, typically a comma.</li>
-                <li>Python's <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">csv</code> module provides functions like <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">reader()</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writer()</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writerow()</code>, and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writerows()</code> to work with CSV files efficiently.</li>
-            </ul>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">1.3 File Paths: Absolute and Relative</h3>
-            <p class="mb-4 text-gray-300 leading-relaxed">To access a file, its location must be specified. This is done using a file path.</p>
-            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">Absolute Path:</h4>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>An absolute path provides the complete location of a file or directory starting from the root of the file system.</li>
-                <li>On Windows, it typically starts with a drive letter (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">C:\Users\Admin\document.txt</code>).</li>
-                <li>On Unix-like systems (Linux, macOS), it starts with a forward slash (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">/</code>) (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">/home/user/document.txt</code>).</li>
-                <li>Absolute paths are unambiguous but less portable if the project directory structure is moved.</li>
-                <li>The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">os.path.abspath()</code> function can be used to obtain the absolute path of a file.</li>
-            </ul>
-            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">Relative Path:</h4>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>A relative path specifies a file's location relative to the current working directory (CWD) of the program.</li>
-                <li>If a file <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">data.txt</code> is in the CWD, it can be referred to simply as <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"data.txt"</code>.</li>
-                <li>If it's in a subdirectory <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">output</code> within the CWD, it might be <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"output/data.txt"</code> (or <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">"output\\data.txt"</code> on Windows).</li>
-                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">".."</code> can be used to refer to the parent directory.</li>
-                <li>Relative paths make projects more portable, as they do not depend on the fixed location of the root directory.</li>
-                <li>It's important to note that Python's behavior with file paths has evolved; in Python 3.9 and later, file tends to return an absolute path, whereas in earlier versions, it could return a relative path if specified that way during execution.</li>
-                <li>The current working directory can be found using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">os.getcwd()</code>. When opening a file, if only the filename is provided, Python assumes it is in the CWD.</li>
-            </ul>
-        </div>
-
-        <div id="opening_closing" class="tab-content pt-4">
-            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">2 Opening and Closing Text Files</h2>
-            <p class="mb-4 text-gray-300 leading-relaxed">The foundational step in file handling is opening a file. This establishes a connection between the program and the file on the storage device, returning a file object (also known as a file handle) that is used to perform subsequent operations. Equally important is closing the file once operations are complete to free up system resources and ensure data is properly written to disk.</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">2.1 The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> Function</h3>
-            <p class="mb-4 text-gray-300 leading-relaxed">Python's built-in <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> function is the primary tool for opening files. Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object = open(filename, mode, encoding=None)</code></p>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">filename</code>: A string representing the name of the file, which can be an absolute or relative path.</li>
-                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">mode</code>: An optional string that specifies the purpose for which the file is opened (e.g., reading, writing, appending). If omitted, it defaults to <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r'</code> (read mode).</li>
-                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">encoding</code>: An optional argument recommended for text files, specifying the encoding to be used (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'utf-8'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'ascii'</code>). Using a specific encoding like <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'utf-8'</code> is good practice for handling a wide range of characters.</li>
-            </ul>
-            <p class="mb-2 text-gray-300">Example (Listing 1: Opening Files):</p>
-            <pre class="code-block"><code># Opening a file for reading (default mode)
-# file_obj = open("myfile.txt")
-
-# Opening a file for writing, specifying encoding
-# file_obj = open("output.txt", "w", encoding="utf-8")
-
-# Opening a file using a raw string for Windows paths to handle backslashes
-# file_obj = open(r"C:\Users\student\notes.txt", "a")
-# The r prefix before a string, as in r"C:\ss.txt",
-# creates a raw string, where backslashes are treated as
-# literal characters, not escape sequences.
-# This is particularly useful for Windows paths.
-# Alternatively, backslashes can be escaped (e.g., "C:\\ss.txt").</code></pre>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">2.2 File Access Modes for Text Files</h3>
-            <p class="mb-4 text-gray-300 leading-relaxed">The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">mode</code> argument in the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> function dictates how the file can be interacted with. For text files, the primary modes are:</p>
-            <p class="mb-2 text-gray-300">Table 1: Text File Access Modes</p>
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse mb-6 rounded-lg overflow-hidden shadow-md">
-                    <thead class="bg-gray-700">
-                        <tr>
-                            <th class="border border-gray-600 p-3 text-left text-slate-100">Mode</th>
-                            <th class="border border-gray-600 p-3 text-left text-slate-100">Description</th>
-                            <th class="border border-gray-600 p-3 text-left text-slate-100">File Pointer Position</th>
-                            <th class="border border-gray-600 p-3 text-left text-slate-100">If File Exists?</th>
-                            <th class="border border-gray-600 p-3 text-left text-slate-100">If File Does Not Exist?</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-gray-800 text-gray-300">
-                        <tr>
-                            <td class="border border-gray-600 p-3"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r'</code></td>
-                            <td class="border border-gray-600 p-3">Read Only. Default mode. Allows reading from the file.</td>
-                            <td class="border border-gray-600 p-3">Beginning</td>
-                            <td class="border border-gray-600 p-3">Read</td>
-                            <td class="border border-gray-600 p-3">FileNotFoundError</td>
-                        </tr>
-                        <tr>
-                            <td class="border border-gray-600 p-3"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w'</code></td>
-                            <td class="border border-gray-600 p-3">Write Only. Opens for writing.</td>
-                            <td class="border border-gray-600 p-3">Beginning</td>
-                            <td class="border border-gray-600 p-3">Overwrites (truncates)</td>
-                            <td class="border border-gray-600 p-3">Creates new file</td>
-                        </tr>
-                        <tr>
-                            <td class="border border-gray-600 p-3"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a'</code></td>
-                            <td class="border border-gray-600 p-3">Append Only. Opens for writing. New data is added to the end.</td>
-                            <td class="border border-gray-600 p-3">End of file</td>
-                            <td class="border border-gray-600 p-3">Appends</td>
-                            <td class="border border-gray-600 p-3">Creates new file</td>
-                        </tr>
-                        <tr>
-                            <td class="border border-gray-600 p-3"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r+'</code></td>
-                            <td class="border border-gray-600 p-3">Read and Write. Opens for both reading and writing.</td>
-                            <td class="border border-gray-600 p-3">Beginning</td>
-                            <td class="border border-gray-600 p-3">Read/Write</td>
-                            <td class="border border-gray-600 p-3">FileNotFoundError</td>
-                        </tr>
-                        <tr>
-                            <td class="border border-gray-600 p-3"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w+'</code></td>
-                            <td class="border border-gray-600 p-3">Write and Read. Opens for both writing and reading.</td>
-                            <td class="border border-gray-600 p-3">Beginning</td>
-                            <td class="border border-gray-600 p-3">Overwrites (truncates)</td>
-                            <td class="border border-gray-600 p-3">Creates new file</td>
-                        </tr>
-                        <tr>
-                            <td class="border border-gray-600 p-3"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a+'</code></td>
-                            <td class="border border-gray-600 p-3">Append and Read. Opens for both appending (writing at end) and reading.</td>
-                            <td class="border border-gray-600 p-3">End of file for write</td>
-                            <td class="border border-gray-600 p-3">Appends/Reads</td>
-                            <td class="border border-gray-600 p-3">Creates new file</td>
-                        </tr>
-                        <tr>
-                            <td class="border border-gray-600 p-3"><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'x'</code></td>
-                            <td class="border border-gray-600 p-3">Exclusive Creation. Creates a new file for writing.</td>
-                            <td class="border border-gray-600 p-3">Beginning</td>
-                            <td class="border border-gray-600 p-3">FileExistsError</td>
-                            <td class="border border-gray-600 p-3">Creates new file</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="tabs-container mb-6 pb-2 border-b-2 border-gray-700 flex flex-wrap gap-2">
+                <button class="tab-button py-2 px-3 md:py-3 md:px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out text-sm md:text-base active" onclick="openTab(event, 'introduction')">1-2: Intro & Types</button>
+                <button class="tab-button py-2 px-3 md:py-3 md:px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out text-sm md:text-base" onclick="openTab(event, 'udfs')">3: User-Defined Functions</button>
+                <button class="tab-button py-2 px-3 md:py-3 md:px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out text-sm md:text-base" onclick="openTab(event, 'arguments')">4: Arguments & Parameters</button>
+                <button class="tab-button py-2 px-3 md:py-3 md:px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out text-sm md:text-base" onclick="openTab(event, 'return')">5: Return Statement</button>
+                <button class="tab-button py-2 px-3 md:py-3 md:px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out text-sm md:text-base" onclick="openTab(event, 'flow_scope')">6-7: Flow & Scope</button>
+                <button class="tab-button py-2 px-3 md:py-3 md:px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out text-sm md:text-base" onclick="openTab(event, 'modules')">8: Functions in Modules</button>
+                <button class="tab-button py-2 px-3 md:py-3 md:px-5 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md font-medium transition-all duration-150 ease-in-out text-sm md:text-base" onclick="openTab(event, 'examples_summary')">9-10: Examples & Summary</button>
             </div>
-            <p class="mb-4 text-gray-300 leading-relaxed">It is crucial to select the correct mode. For instance, attempting to write to a file opened in <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r'</code> mode will result in an error. Similarly, opening an existing file in <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w'</code> mode will erase its previous contents, which might be unintentional. The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'x'</code> mode is useful for ensuring a new file is created without accidentally overwriting an existing one. The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'+'</code> modes (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r+'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w+'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a+'</code>) provide flexibility by allowing both read and write operations on the same file object, but their specific behaviors regarding truncation and pointer positioning must be understood to avoid errors. For example, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r+'</code> will not truncate the file, allowing modification of existing content or appending if the pointer is moved, whereas <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w+'</code> will truncate it.</p>
 
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">2.3 The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code> Method</h3>
-            <p class="mb-4 text-gray-300 leading-relaxed">After all operations on a file are completed, it is imperative to close it using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.close()</code> method. Purpose:</p>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li><strong>Flushing Buffers:</strong> When writing to a file, data is often stored in an internal buffer in memory. Closing the file ensures that this buffered data is flushed (written) to the actual file on the disk. Failure to close might lead to incomplete data or data loss if the program terminates unexpectedly.</li>
-                <li><strong>Releasing System Resources:</strong> Open files consume system resources (like file descriptors). Closing files releases these resources, preventing potential resource leaks that could degrade system performance or cause the program to crash if too many files are left open.</li>
-                <li><strong>Allowing Other Access:</strong> Closing a file can release locks, allowing other programs or processes to access it.</li>
-            </ul>
-            <p class="mb-2 text-gray-300">Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.close()</code></p>
-            <p class="mb-2 text-gray-300">Example (Listing 2: Closing a File):</p>
-            <pre class="code-block"><code>f = open("myfile.txt", "w")
-f.write("Hello, Python!")
-f.close() # Essential to save changes and free resources</code></pre>
+            <div id="introduction" class="tab-content active pt-4">
+                <h2 class="text-2xl md:text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">1 Introduction to Functions</h2>
+                <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">In programming, a function is a named, self-contained block of reusable code designed to perform a specific task. Think of functions as mini-programs within your main program. They take some input (called arguments), process it according to a set of instructions, and often produce an output (called a return value).</p>
+                <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">Functions are fundamental building blocks in Python and most other programming languages. Their primary purpose is to organize code, making programs more structured, efficient, and easier to manage. By encapsulating a sequence of operations under a single name, functions allow programmers to execute that sequence multiple times without rewriting the code, promoting the crucial principle of code reusability. This concept is often referred to as "Don't Repeat Yourself (DRY)."</p>
 
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">2.4 The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> Statement (Context Manager)</h3>
-            <p class="mb-4 text-gray-300 leading-relaxed">Manually calling <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code> can be error-prone, especially if exceptions occur before the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code> method is reached. Python provides a more robust and cleaner way to handle files using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement, which acts as a context manager.</p>
-            <p class="mb-2 text-gray-300">Syntax (Listing 3: Using the with Statement):</p>
-            <pre class="code-block"><code>with open(filename, mode) as file_object:
-    # Perform file operations here
-    # e.g., content = file_object.read()
-    # file_object.write("Some data")
+                <h2 class="text-2xl md:text-3xl text-slate-50 font-semibold mt-8 mb-4 content-title">2 Types of Functions in Python</h2>
+                <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">Python provides different categories of functions, each serving a distinct purpose. Understanding these three main types is essential:</p>
 
-# File is automatically closed here, even if errors occurred within the 'with' block</code></pre>
-            <p class="mb-2 text-gray-300">Advantages:</p>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li><strong>Automatic Cleanup:</strong> The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement guarantees that the file's <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code> method is automatically called when the block is exited, regardless of how the block is exited (normally or due to an exception). This eliminates the need for an explicit <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.close()</code> call.</li>
-                <li><strong>Error Safety:</strong> It ensures file closure even if exceptions are raised within the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> block, preventing resource leaks that might occur if <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code> is skipped due to an error.</li>
-                <li><strong>Readability:</strong> The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement clearly demarcates the scope of file usage, making the code cleaner and easier to understand.</li>
-            </ul>
-            <p class="mb-4 text-gray-300 leading-relaxed">The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement is the universally recommended best practice for file operations in Python. Manual <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code> calls are susceptible to being overlooked, particularly in complex code with multiple execution paths or error handling. The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement utilizes Python's context management protocol (internally using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">__enter__</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">__exit__</code> methods of the file object) to manage resource setup and teardown automatically. This significantly reduces the likelihood of unclosed files and makes the code more robust and Pythonic. Students should be strongly encouraged to adopt the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement as the standard approach for all file operations.</p>
-        </div>
-
-        <div id="reading_files" class="tab-content pt-4">
-            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">3 Reading from Text Files</h2>
-            <p class="mb-4 text-gray-300 leading-relaxed">Once a file is opened in a mode that permits reading (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r+'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a+'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w+'</code>), Python offers several methods to extract its content. Choosing the appropriate method depends on factors like file size and how the data needs to be processed.</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">3.1 <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">read(size=-1)</code> Method</h3>
-            <p class="mb-2 text-gray-300">Purpose: The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">read()</code> method is used to read data from the file, returning it as a string.</p>
-            <p class="mb-2 text-gray-300">Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.read(size)</code></p>
-            <p class="mb-2 text-gray-300">Behavior:</p>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>If the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">size</code> argument is omitted or is a negative number, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">read()</code> attempts to read the entire content of the file from the current file pointer position to the end of the file and returns it as a single string. This can be memory-intensive for very large files.</li>
-                <li>If <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">size</code> is a non-negative integer, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">read()</code> reads and returns at most <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">size</code> characters (or bytes in binary mode) as a string. The file pointer advances by the number of characters read.</li>
-                <li>If the end of the file (EOF) has been reached, subsequent calls to <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">read()</code> (with or without size) return an empty string (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">''</code>).</li>
-            </ul>
-            <p class="mb-2 text-gray-300">Example (Listing 4: Using read()):</p>
-            <pre class="code-block"><code>try:
-    with open("document.txt", "r", encoding="utf-8") as f:
-        # Read the entire file
-        full_content = f.read()
-        print("Full content:\\n", full_content)
-
-    with open("document.txt", "r", encoding="utf-8") as f:
-        # Read the first 15 characters
-        partial_content = f.read(15)
-        print("\\nFirst 15 characters:\\n", partial_content)
-except FileNotFoundError:
-    print("Error: document.txt not found.")</code></pre>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">3.2 <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">readline(size=-1)</code> Method</h3>
-            <p class="mb-2 text-gray-300">Purpose: The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">readline()</code> method reads a single line from the file, starting from the current file pointer position up to and including the next newline character (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\n</code>).</p>
-            <p class="mb-2 text-gray-300">Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.readline(size)</code></p>
-            <p class="mb-2 text-gray-300">Behavior:</p>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>The returned string will contain the newline character if it's not the last line of the file and the line actually ends with one.</li>
-                <li>If the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">size</code> argument is specified and non-negative, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">readline()</code> reads at most <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">size</code> characters from the current line. It will not read beyond the current line, even if <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">size</code> is larger than the remaining characters in that line.</li>
-                <li>If the end of the file is reached and no more lines can be read, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">readline()</code> returns an empty string (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">''</code>). This property is often used to control loops that process files line by line.</li>
-            </ul>
-            <p class="mb-2 text-gray-300">Example (Listing 5: Using readline()): Reading a file line by line until EOF.</p>
-            <pre class="code-block"><code>try:
-    with open("poem.txt", "r", encoding="utf-8") as f:
-        print("Reading poem.txt line by line:")
-        line = f.readline()
-        while line: # An empty string (EOF) evaluates to False
-            print(line, end='') # Use end='' to prevent double newlines
-            line = f.readline()
-except FileNotFoundError:
-    print("Error: poem.txt not found.")</code></pre>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">3.3 <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">readlines()</code> Method</h3>
-            <p class="mb-2 text-gray-300">Purpose: The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">readlines()</code> method reads all remaining lines from the current file pointer position to the end of the file and returns them as a list of strings.</p>
-            <p class="mb-2 text-gray-300">Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.readlines()</code></p>
-            <p class="mb-2 text-gray-300">Behavior:</p>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>Each string in the returned list corresponds to a line in the file and includes the trailing newline character (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\n</code>), if present.</li>
-                <li>This method can consume a significant amount of memory if the file is very large, as it loads all lines into memory at once.</li>
-            </ul>
-            <p class="mb-2 text-gray-300">Example (Listing 6: Using readlines()):</p>
-            <pre class="code-block"><code>try:
-    with open("chapters.txt", "r", encoding="utf-8") as f:
-        lines_list = f.readlines()
-        print("\\nContents of chapters.txt as a list of lines:")
-        for item in lines_list:
-            print(item, end='')
-except FileNotFoundError:
-    print("Error: chapters.txt not found.")</code></pre>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">3.4 Iterating Over a File Object</h3>
-            <p class="mb-2 text-gray-300">Purpose: Python allows direct iteration over a file object. This is generally the most memory-efficient and Pythonic way to process a file line by line.</p>
-            <p class="mb-2 text-gray-300">Behavior: The file object, when used in a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">for</code> loop, acts as an iterator, yielding one line at a time (including the newline character). This avoids loading the entire file into memory.</p>
-            <p class="mb-2 text-gray-300">Example (Listing 7: Iterating Over File Object):</p>
-            <pre class="code-block"><code>try:
-    with open("story.txt", "r", encoding="utf-8") as f:
-        print("\\nIterating through story.txt:")
-        for current_line in f:
-            print(current_line, end='')
-except FileNotFoundError:
-    print("Error: story.txt not found.")</code></pre>
-            <p class="mb-4 text-gray-300 leading-relaxed">When choosing a read method, consider the file's size and the specific requirements of the task. <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">read()</code> is suitable for smaller files or when the entire content needs to be treated as a single block of text. <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">readlines()</code> is convenient if all lines are needed as a list, but caution is advised for large files due to memory consumption. <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">readline()</code> in a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">while</code> loop offers more control and is more memory-efficient than <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">readlines()</code> for large files if line-by-line processing is needed without storing all lines simultaneously. Direct iteration (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">for line in file_object:</code>) is often the preferred method for line-by-line processing due to its simplicity, readability, and memory efficiency, making it well-suited for typical tasks encountered in CBSE practicals.</p>
-        </div>
-
-        <div id="writing_files" class="tab-content pt-4">
-            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">4 Writing to Text Files</h2>
-            <p class="mb-4 text-gray-300 leading-relaxed">To store data persistently, files must be opened in a mode that permits writing (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r+'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w+'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a+'</code>). Python provides methods to write string data into these opened files.</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">4.1 <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">write(string)</code> Method</h3>
-            <p class="mb-2 text-gray-300">Purpose: The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">write()</code> method writes the content of the given string to the file at the current file pointer position.</p>
-            <p class="mb-2 text-gray-300">Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.write(string_to_write)</code></p>
-            <p class="mb-2 text-gray-300">Behavior:</p>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>It returns the number of characters that were successfully written to the file.</li>
-                <li>Crucially, the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">write()</code> method does not automatically add a newline character (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\n</code>) at the end of the string. If you want subsequent writes to appear on new lines, you must explicitly include <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\n</code> in the string being written (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file.write("This is a line.\\n")</code>).</li>
-            </ul>
-            <p class="mb-2 text-gray-300">Example (Listing 8: Using write()):</p>
-            <pre class="code-block"><code>try:
-    # 'w' mode overwrites or creates new
-    with open("output_notes.txt", "w", encoding="utf-8") as f:
-        f.write("Introduction to Python.\\n")
-        f.write("Chapter 1: Basics.\\n")
-        f.write("Chapter 2: File Handling.") # No newline here
-        f.write(" (Continued)") # Appends to the same line
-    print("Data written to output_notes.txt")
-
-    # 'a' mode appends
-    with open("output_notes.txt", "a", encoding="utf-8") as f:
-        f.write("\\nChapter 3: Advanced Topics.\\n") # Add newline before
-    print("More data appended to output_notes.txt")
-except IOError as e:
-    print(f"An error occurred during writing: {e}")</code></pre>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">4.2 <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writelines(list_of_strings)</code> Method</h3>
-            <p class="mb-2 text-gray-300">Purpose: The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writelines()</code> method is used to write a list (or any iterable that yields strings) of strings to the file.</p>
-            <p class="mb-2 text-gray-300">Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.writelines(sequence_of_strings)</code></p>
-            <p class="mb-2 text-gray-300">Behavior:</p>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>It iterates through the sequence and writes each string to the file, one after another, at the current file pointer position.</li>
-                <li>Similar to <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">write()</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writelines()</code> does not automatically add newline characters or any other separators between the strings in the sequence. If newlines are required between the written lines, each string within the input sequence must already terminate with a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\n</code> character.</li>
-            </ul>
-            <p class="mb-2 text-gray-300">Example (Listing 9: Using writelines()):</p>
-            <pre class="code-block"><code>lines_to_add = ["Report Title\\n", "Section 1: Analysis\\n", "Conclusion\\n"]
-try:
-    with open("report.txt", "w", encoding="utf-8") as f:
-        f.writelines(lines_to_add)
-    print("Report content written to report.txt using writelines()")
-except IOError as e:
-    print(f"An error occurred: {e}")</code></pre>
-            <p class="mb-4 text-gray-300 leading-relaxed">It is a common misconception that <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writelines()</code> automatically adds newlines. However, standard Python behavior dictates that newline characters must be managed by the programmer. If <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writelines()</code> were to automatically add newlines, it would offer less control over the output format. Therefore, students must be explicitly taught to include <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">\n</code> within the strings of the list if they intend for each string to occupy a separate line in the file.</p>
-        </div>
-
-        <div id="file_attributes" class="tab-content pt-4">
-            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">5 File Object Attributes</h2>
-            <p class="mb-4 text-gray-300 leading-relaxed">When a file is opened using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> function, it returns a file object. This object possesses several attributes that provide metadata or status information about the file it represents. These attributes can be accessed using the dot notation (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.attribute_name</code>).</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">5.1 <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.name</code></h3>
-            <p class="mb-2 text-gray-300">Description: This attribute holds a string representing the name of the file with which the file object is associated. This is the same filename (which could be a path) that was passed to the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> function.</p>
-            <p class="mb-2 text-gray-300">Example (Listing 10: f.name Attribute):</p>
-            <pre class="code-block"><code>try:
-    with open("sample_data.txt", "r") as f:
-        print(f"File name: {f.name}")
-except FileNotFoundError:
-    print("Error: sample_data.txt not found.")</code></pre>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">5.2 <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.mode</code></h3>
-            <p class="mb-2 text-gray-300">Description: This attribute returns a string indicating the mode in which the file was opened. This will be one of the mode strings like <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a'</code>, etc., that was specified in the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> function call.</p>
-            <p class="mb-2 text-gray-300">Example (Listing 11: f.mode Attribute):</p>
-            <pre class="code-block"><code>try:
-    with open("config.ini", "r+") as config_file:
-        print(f"File opened in mode: {config_file.mode}")
-except FileNotFoundError:
-    print("Error: config.ini not found.")</code></pre>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">5.3 <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.closed</code></h3>
-            <p class="mb-2 text-gray-300">Description: This attribute is a boolean value that indicates the current state of the file object's connection to the actual file. It returns <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">True</code> if the file has been closed (either explicitly via <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.close()</code> or implicitly by exiting a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> block) and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">False</code> if the file is still open.</p>
-            <p class="mb-2 text-gray-300">Example (Listing 12: f.closed Attribute):</p>
-            <pre class="code-block"><code>try:
-    f = open("temp.log", "w")
-    print(f"Is file closed after opening? {f.closed}") # Expected: False
-    f.write("Log entry.")
-    f.close()
-    print(f"Is file closed after f.close()? {f.closed}") # Expected: True
-
-    with open("another_temp.log", "w") as af:
-        print(f"Is file closed inside 'with' block? {af.closed}") # Expected: False
-        af.write("Another log entry.")
-    print(f"Is file closed after exiting 'with' block? {af.closed}") # Expected: True
-except IOError as e:
-    print(f"An error occurred: {e}")</code></pre>
-            <p class="mb-4 text-gray-300 leading-relaxed">These attributes allow a program to introspect the state and properties of a file object. <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">f.name</code> can be valuable for logging purposes. <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">f.mode</code> could be checked if a function needs to ensure a file object is suitable for an operation. <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">f.closed</code> is useful for debugging or verifying file closure. While the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement largely automates closing, understanding these attributes provides a complete comprehension of Python's file objects. The attribute <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file.softspace</code>, mentioned in older documentation, is a legacy Python 2 feature and not relevant for modern Python 3.</p>
-        </div>
-
-        <div id="file_pointer" class="tab-content pt-4">
-            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">6 Manipulating the File Pointer: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code></h2>
-            <p class="mb-4 text-gray-300 leading-relaxed">Text files in Python are treated as a sequence of characters. The file pointer (or current file position) is an internal marker that indicates where the next read or write operation will begin. Python provides two methods, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code>, to query and manipulate this file pointer.</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">6.1 <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code> Method</h3>
-            <p class="mb-2 text-gray-300">Purpose: The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code> method returns an integer representing the current position of the file pointer.</p>
-            <p class="mb-2 text-gray-300">Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">current_position = file_object.tell()</code></p>
-            <p class="mb-2 text-gray-300">Behavior in Text Files:</p>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>For files opened in text mode, the value returned by <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code> is an "opaque" number. It doesn't necessarily correspond directly to the number of bytes from the beginning, especially with variable-width encodings like UTF-8.</li>
-                <li>The primary reliable use of the value returned by <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code> in text mode is to save a position to return to it later using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code>.</li>
-            </ul>
-            <p class="mb-2 text-gray-300">Example (Listing 13: Using tell()):</p>
-            <pre class="code-block"><code>try:
-    with open("article.txt", "w+", encoding="utf-8") as f: # Ensure file exists
-        f.write("First line for tell.\\nSecond line.\\n")
-        f.seek(0) # Go to beginning to read
-        initial_pos = f.tell()
-        print(f"Initial file pointer position: {initial_pos}") # Usually 0
-        first_line = f.readline()
-        print(f"Read first line: {first_line.strip()}")
-        pos_after_readline = f.tell()
-        print(f"Position after reading one line: {pos_after_readline}")
-        remaining_content = f.read(20) # Read next 20 characters
-        print(f"Read next 20 chars: {remaining_content.strip()}")
-        pos_after_read_20 = f.tell()
-        print(f"Position after reading 20 more characters: {pos_after_read_20}")
-except FileNotFoundError:
-    print("Error: article.txt not found.")
-except Exception as e:
-    print(f"An error occurred: {e}")</code></pre>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">6.2 <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek(offset, whence=0)</code> Method</h3>
-            <p class="mb-2 text-gray-300">Purpose: The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code> method is used to change the position of the file pointer to a specific location within the file.</p>
-            <p class="mb-2 text-gray-300">Syntax: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">file_object.seek(offset, whence)</code></p>
-            <p class="mb-2 text-gray-300">Parameters:</p>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">offset</code>: An integer representing the number of bytes (or a position from <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code> in text mode) to move.</li>
-                <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">whence</code> (optional, defaults to 0): An integer specifying the reference point.
-                    <ul class="list-disc ml-6 my-1 space-y-1">
-                        <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">0</code> (or <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">os.SEEK_SET</code>): Reference is the beginning of the file. Offset is from the start. Most common for text files.</li>
-                        <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">1</code> (or <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">os.SEEK_CUR</code>): Reference is the current pointer position. Offset can be positive/negative.</li>
-                        <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">2</code> (or <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">os.SEEK_END</code>): Reference is the end of the file. Offset usually negative/zero. <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek(0, 2)</code> moves to the end.</li>
+                <h3 class="text-xl md:text-2xl text-slate-100 font-medium mt-6 mb-3">1. Built-in Functions:</h3>
+                <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">These functions are pre-defined within the Python interpreter itself and are always available for use without needing to import any special modules. They perform common, fundamental tasks. Examples include:</p>
+                <ul class="list-disc ml-6 md:ml-8 mb-4 space-y-2 text-gray-300 text-sm sm:text-base">
+                    <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded text-xs sm:text-sm">print()</code>: Displays output to the console.</li>
+                    <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded text-xs sm:text-sm">input()</code>: Reads input from the user.</li>
+                    <li><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded text-xs sm:text-sm">len()</code>: Returns the length (number of items) of an object.</li>
                     </ul>
-                </li>
-            </ul>
-            <p class="mb-2 text-gray-300">Behavior in Text Files (Important Considerations):</p>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>In text mode, the only <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">offset</code> values guaranteed to work reliably with <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">whence=0</code> are <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">0</code> (to go to the beginning) or values previously returned by <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">f.tell()</code>.</li>
-                <li>Using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">whence=1</code> or <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">whence=2</code> (except <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek(0, 2)</code>) with arbitrary non-zero offsets can lead to undefined behavior due to multi-byte characters.</li>
-                <li>For flexible byte-level seeking, binary mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'rb'</code>) is more predictable.</li>
-            </ul>
-            <p class="mb-2 text-gray-300">Example (Listing 14: Using seek() in Text File):</p>
-            <pre class="code-block"><code>try:
-    with open("data_log.txt", "w+", encoding="utf-8") as f: # w+ to write then read
-        f.write("Line one: Data A\\n")
-        position_after_line1 = f.tell()
-        f.write("Line two: Data B\\n")
-        f.write("Line three: Data C\\n")
-        print(f"Current position after writing: {f.tell()}")
+                <h3 class="text-xl md:text-2xl text-slate-100 font-medium mt-6 mb-3">2. Functions Defined in Modules:</h3>
+                 <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">Python comes with a rich standard library organized into modules...</p>
+                <h3 class="text-xl md:text-2xl text-slate-100 font-medium mt-6 mb-3">3. User-Defined Functions (UDFs):</h3>
+                 <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">These are functions created by the programmer...</p>
+            </div>
 
-        # Go back to the position after line one to re-read line two
-        f.seek(position_after_line1)
-        print(f"Position after seek to {position_after_line1}: {f.tell()}")
-        line_two_content = f.readline()
-        print(f"Content of line two (reread): '{line_two_content.strip()}'")
+            <div id="udfs" class="tab-content pt-4">
+                <h2 class="text-2xl md:text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">3 User-Defined Functions (UDFs)</h2>
+                <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">User-defined functions (UDFs) are functions written by programmers to perform specific tasks within their applications. They are a cornerstone of structured and efficient programming in Python.</p>
+                <h3 class="text-xl md:text-2xl text-slate-100 font-medium mt-6 mb-3">3.1 Need and Advantages</h3>
+                <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">While Python's built-in functions and standard library modules provide a vast array of tools, programmers often need to create custom logic or repeat specific sequences of operations. Defining your own functions offers several significant advantages:</p>
+                <ul class="list-disc ml-6 md:ml-8 mb-4 space-y-2 text-gray-300 text-sm sm:text-base">
+                    <li><strong>Modularity:</strong> Functions allow you to break down large, complex programs into smaller, more manageable, and logical units.</li>
+                    <li><strong>Reusability:</strong> Once a function is defined, it can be called (invoked) multiple times from different parts of the program.</li>
+                    <li><strong>Readability:</strong> Giving a function a descriptive name makes the code easier to read.</li>
+                    <li><strong>Maintainability:</strong> When changes or bug fixes are needed, you only need to modify the code within the corresponding function.</li>
+                    <li><strong>Abstraction:</strong> Functions hide the internal implementation details.</li>
+                </ul>
+                <h3 class="text-xl md:text-2xl text-slate-100 font-medium mt-6 mb-3">3.2 Syntax of Defining a Function</h3>
+                <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">Defining a function in Python involves a specific structure using the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded text-xs sm:text-sm">def</code> keyword.</p>
+                <pre class="code-block text-xs sm:text-sm"><code>def function_name(parameter1, parameter2,...):
+    """Optional docstring explaining what the function does."""
+    # Function body: indented block of statements
+    statement1
+    statement2
+    return optional_return_value # Optional return statement</code></pre>
+                </div>
 
-        # Go to the beginning of the file to read everything
-        f.seek(0)
-        print(f"Position after seek(0): {f.tell()}")
-        all_content = f.read()
-        print("\\nFull content after seeking to beginning:\\n" + all_content)
-except IOError as e:
-    print(f"An error occurred: {e}")</code></pre>
-            <p class="mb-4 text-gray-300 leading-relaxed">The interplay between <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code> allows non-sequential access. However, for text files, this is more constrained. <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code> is primarily for returning to marked positions or navigating to the absolute beginning/end.</p>
+            <div id="arguments" class="tab-content pt-4">
+                <h2 class="text-2xl md:text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">4 Arguments and Parameters</h2>
+                <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">Although often used interchangeably...</p>
+                <h3 class="text-xl md:text-2xl text-slate-100 font-medium mt-6 mb-3">4.1 Positional Arguments</h3>
+                <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">This is the most common...</p>
+            </div>
+
+            <div id="return" class="tab-content pt-4">
+                <h2 class="text-2xl md:text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">5 The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded text-xs sm:text-sm">return</code> Statement</h2>
+                <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">The return statement plays a critical role...</p>
+            </div>
+
+            <div id="flow_scope" class="tab-content pt-4">
+                <h2 class="text-2xl md:text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">6 Flow of Execution in Function Calls</h2>
+                 <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">Understanding how Python executes code...</p>
+                <h2 class="text-2xl md:text-3xl text-slate-50 font-semibold mt-8 mb-4 content-title">7 Variable Scope</h2>
+                 <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">Scope refers to the region or context...</p>
+                 <h3 class="text-xl md:text-2xl text-slate-100 font-medium mt-6 mb-3">7.5 Table: Local vs. Global Scope</h3>
+                 <div class="overflow-x-auto my-4"> <table class="w-full border-collapse rounded-lg overflow-hidden shadow-md text-sm sm:text-base">
+                        <thead class="bg-gray-700">
+                            <tr>
+                                <th class="border border-gray-600 p-2 md:p-3 text-left text-slate-100">Feature</th>
+                                <th class="border border-gray-600 p-2 md:p-3 text-left text-slate-100">Local Scope</th>
+                                <th class="border border-gray-600 p-2 md:p-3 text-left text-slate-100">Global Scope</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-gray-800 text-gray-300">
+                            <tr><td class="border border-gray-600 p-2 md:p-3">Definition Location</td><td class="border border-gray-600 p-2 md:p-3">Inside a function</td><td class="border border-gray-600 p-2 md:p-3">Outside all functions</td></tr>
+                            <tr><td class="border border-gray-600 p-2 md:p-3">Accessibility</td><td class="border border-gray-600 p-2 md:p-3">Only within defining function</td><td class="border border-gray-600 p-2 md:p-3">Anywhere in module (after def)</td></tr>
+                            <tr><td class="border border-gray-600 p-2 md:p-3">Lifetime</td><td class="border border-gray-600 p-2 md:p-3">Function's execution</td><td class="border border-gray-600 p-2 md:p-3">Entire program execution</td></tr>
+                            <tr><td class="border border-gray-600 p-2 md:p-3">Modifying from Local</td><td class="border border-gray-600 p-2 md:p-3">Modifies own locals</td><td class="border border-gray-600 p-2 md:p-3">Needs <code class="bg-gray-600 text-purple-300 px-1 py-0.5 rounded text-xs sm:text-sm">global</code> keyword</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+
+            <div id="modules" class="tab-content pt-4">
+                <h2 class="text-2xl md:text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">8 Functions in Modules (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded text-xs sm:text-sm">math</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded text-xs sm:text-sm">random</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded text-xs sm:text-sm">statistics</code>)</h2>
+                <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">Python's power is greatly extended by its standard library...</p>
+            </div>
+
+            <div id="examples_summary" class="tab-content pt-4">
+                <h2 class="text-2xl md:text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">9 Examples and Practice Problems</h2>
+                 <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">Applying the concepts learned is essential...</p>
+                <h2 class="text-2xl md:text-3xl text-slate-50 font-semibold mt-8 mb-4 content-title">10 Chapter Summary</h2>
+                 <p class="mb-4 text-gray-300 leading-relaxed text-sm sm:text-base">This chapter provided a comprehensive overview...</p>
+                </div>
+
         </div>
-
-        <div id="exception_handling" class="tab-content pt-4">
-            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">7 Exception Handling in File Operations</h2>
-            <p class="mb-4 text-gray-300 leading-relaxed">File operations can fail. Robust programs must manage these errors using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try-except-finally</code> blocks.</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">7.1 The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try-except</code> Block</h3>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try</code> Clause:</strong> Code that might raise an exception.</li>
-                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">except ExceptionType as e:</code> Clause:</strong> Code executed if a matching exception occurs. Multiple <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">except</code> blocks can handle different types. <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">as e</code> captures the exception object. A generic <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">except Exception:</code> or <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">except:</code> catches any exception but catching specific ones is better.</li>
-            </ul>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">7.2 Common File-Related Exceptions</h3>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">FileNotFoundError</code>:</strong> Raised when a file to be opened (e.g., in <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r'</code> mode) doesn't exist.</li>
-                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">PermissionError</code>:</strong> Raised if the program lacks OS permissions to access/modify the file.</li>
-                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">IOError</code> / <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">OSError</code>:</strong> <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">IOError</code> is a general I/O error. Many I/O errors, including <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">FileNotFoundError</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">PermissionError</code>, are subclasses of <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">OSError</code>. Catching <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">OSError</code> handles broader issues like "disk full".</li>
-                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">FileExistsError</code>:</strong> Raised when using exclusive creation mode (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'x'</code>) if the file already exists.</li>
-                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">IsADirectoryError</code> / <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">NotADirectoryError</code>:</strong> Raised for operations on the wrong type (e.g., opening a directory as a file).</li>
-                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">ValueError</code>:</strong> Can be raised for an invalid mode string or operations on a closed file.</li>
-            </ul>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">7.3 The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">else</code> Block (Optional)</h3>
-            <p class="mb-4 text-gray-300 leading-relaxed">Executed only if the <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try</code> block completes successfully without exceptions. Must follow all <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">except</code> clauses.</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">7.4 The <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">finally</code> Block (Optional)</h3>
-            <p class="mb-4 text-gray-300 leading-relaxed">Always executed, regardless of exceptions. Used for cleanup actions like ensuring a file is closed.</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">7.5 Syntax and Flow Example</h3>
-            <p class="mb-2 text-gray-300">(Listing 15: Exception Handling Example)</p>
-            <pre class="code-block"><code>file_path = "my_document.txt"
-try:
-    print(f"Attempting to open {file_path}...")
-    # The 'with' statement is preferred.
-    with open(file_path, "r", encoding="utf-8") as f:
-        print(f"File '{f.name}' opened in '{f.mode}' mode.")
-        data = f.read()
-        # data_as_int = int(data) # This could raise ValueError
-        print("File content read.")
-except FileNotFoundError:
-    print(f"Error: The file '{file_path}' was not found.")
-except PermissionError:
-    print(f"Error: Permission denied to access '{file_path}'.")
-except IOError: # More general I/O error
-    print(f"Error: An I/O error occurred accessing '{file_path}'.")
-except ValueError as ve:
-    print(f"Error: Could not convert file data. {ve}")
-except Exception as e: # Catch any other unexpected exceptions.
-    print(f"An unexpected error occurred: {e}")
-else:
-    # Executes if try block completes without exceptions
-    print("File operations completed successfully.")
-finally:
-    # Always executes
-    # If 'f' was opened outside 'with', close it here.
-    print(f"Exiting try-except-finally for '{file_path}'.")</code></pre>
-            <p class="mb-4 text-gray-300 leading-relaxed">While both <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">finally</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> ensure files are closed, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> is more concise for this. <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try-except-finally</code> is a general error handling tool. Students should prefer <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> for opening/closing, but use <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try-except</code> around or inside it for specific operational errors.</p>
-        </div>
-
-        <div id="practical_examples" class="tab-content pt-4">
-            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">8 Practical Examples</h2>
-            <p class="mb-4 text-gray-300 leading-relaxed">The following examples align with common tasks and CBSE syllabus requirements.</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">8.1 Reading a Text File and Displaying Its Contents Line by Line</h3>
-            <p class="mb-2 text-gray-300">(Listing 16: Read and Display Line by Line)</p>
-            <pre class="code-block"><code>file_to_read = "story.txt" # Assume story.txt exists
-try:
-    with open(file_to_read, "r", encoding="utf-8") as file:
-        print(f"Contents of '{file_to_read}':")
-        for line_number, line_content in enumerate(file, 1):
-            print(f"{line_number}: {line_content}", end="")
-except FileNotFoundError:
-    print(f"Error: The file '{file_to_read}' was not found.")
-except PermissionError:
-    print(f"Error: Permission denied to read '{file_to_read}'.")
-except Exception as e:
-    print(f"An unexpected error occurred: {e}")</code></pre>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">8.2 Counting Lines, Words, and Characters in a File</h3>
-            <p class="mb-2 text-gray-300">(Listing 17: File Analysis)</p>
-            <pre class="code-block"><code>target_file = "analysis_data.txt" # Assume this file exists
-line_count = 0
-word_count = 0
-char_count = 0
-try:
-    with open(target_file, "r", encoding="utf-8") as f:
-        for line in f:
-            line_count += 1
-            char_count += len(line) # Includes newlines
-            words_in_line = line.split() # Splits by whitespace
-            word_count += len(words_in_line)
-    print(f"\\nAnalysis of '{target_file}':")
-    print(f"Number of lines: {line_count}")
-    print(f"Number of words: {word_count}")
-    print(f"Number of characters (incl newlines): {char_count}")
-except FileNotFoundError:
-    print(f"Error: The file '{target_file}' was not found.")
-except Exception as e:
-    print(f"An error occurred: {e}")</code></pre>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">8.3 Writing User Input to a File</h3>
-            <p class="mb-2 text-gray-300">(Listing 18: Appending User Input)</p>
-            <pre class="code-block"><code>output_filename = "user_journal.txt"
-try:
-    num_entries = int(input("How many journal entries to add? "))
-    with open(output_filename, "a", encoding="utf-8") as journal_file: # Append mode
-        for i in range(num_entries):
-            entry = input(f"Enter journal entry {i+1}: ")
-            journal_file.write(entry + "\\n") # Add newline
-    print(f"\\n{num_entries} entries saved to {output_filename}")
-except ValueError:
-    print("Invalid input for number of entries.")
-except IOError:
-    print(f"Error: Could not write to '{output_filename}'.")
-except Exception as e:
-    print(f"An unexpected error occurred: {e}")</code></pre>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">8.4 CBSE Specific Practical Problem Examples</h3>
-            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">1. Read a text file line by line and display each word separated by a #.</h4>
-            <p class="mb-2 text-gray-300">(Listing 19: Words Separated by #)</p>
-            <pre class="code-block"><code>input_file_words = "source_text.txt" # Assume exists
-try:
-    with open(input_file_words, "r", encoding="utf-8") as file:
-        print(f"\\nWords from '{input_file_words}' separated by '#':")
-        for line in file:
-            words = line.split()
-            if words: # Check if list is not empty
-                print("#".join(words))
-except FileNotFoundError:
-    print(f"Error: File '{input_file_words}' not found.")
-except Exception as e:
-    print(f"An error occurred: {e}")</code></pre>
-
-            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">2. Read a text file and display the number of vowels, consonants, uppercase, and lowercase characters.</h4>
-            <p class="mb-2 text-gray-300">(Listing 20: Character Analysis)</p>
-            <pre class="code-block"><code>char_analysis_file = "document_to_analyze.txt" # Assume exists
-vowels = "aeiouAEIOU"
-v_count, c_count, u_count, l_count = 0, 0, 0, 0
-try:
-    with open(char_analysis_file, "r", encoding="utf-8") as file:
-        content = file.read()
-        for char in content:
-            if char.isalpha():
-                if char in vowels:
-                    v_count += 1
-                else:
-                    c_count += 1
-                if char.isupper():
-                    u_count += 1
-                elif char.islower():
-                    l_count += 1
-    print(f"\\nAnalysis of '{char_analysis_file}':")
-    print(f"Vowels: {v_count}")
-    print(f"Consonants: {c_count}")
-    print(f"Uppercase: {u_count}")
-    print(f"Lowercase: {l_count}")
-except FileNotFoundError:
-    print(f"Error: File '{char_analysis_file}' not found.")
-except Exception as e:
-    print(f"An error occurred: {e}")</code></pre>
-
-            <h4 class="text-xl text-slate-200 font-medium mt-4 mb-2">3. Remove all lines that contain the character 'a' (case-insensitive) in a file and write the remaining lines to another file.</h4>
-            <p class="mb-2 text-gray-300">(Listing 21: Filter Lines)</p>
-            <pre class="code-block"><code>original_data_file = "original_lines.txt" # Assume exists
-modified_data_file = "modified_lines.txt"
-char_to_check = 'a'
-try:
-    with open(original_data_file, "r", encoding="utf-8") as infile, \
-         open(modified_data_file, "w", encoding="utf-8") as outfile:
-        lines_written = 0
-        for line in infile:
-            if char_to_check.lower() not in line.lower():
-                outfile.write(line)
-                lines_written += 1
-    print(f"\\nProcessed. Lines not containing '{char_to_check}' written to '{modified_data_file}'.")
-    print(f"Lines written: {lines_written}")
-except FileNotFoundError:
-    print(f"Error: Input file '{original_data_file}' not found.")
-except IOError as e:
-    print(f"An I/O error occurred: {e}")
-except Exception as e:
-    print(f"An unexpected error: {e}")</code></pre>
-            <p class="mt-4 text-gray-300 leading-relaxed">These practical examples illustrate combining file operations with string methods, loops, and conditionals. Consistent use of <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with open(...)</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try-except</code> ensures robust solutions.</p>
-        </div>
-
-        <div id="summary_practices" class="tab-content pt-4">
-            <h2 class="text-3xl text-slate-50 font-semibold mt-6 mb-4 content-title">9 Summary and Best Practices</h2>
-            <p class="mb-4 text-gray-300 leading-relaxed">Mastering file handling is crucial for Python programming, enabling interaction with persistent data.</p>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">9.1 Recap of Key Concepts</h3>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li><strong>Files as Persistent Storage:</strong> Named data collections on secondary storage.</li>
-                <li><strong><code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code>, File Modes, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code>:</strong> <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">open()</code> initiates interaction (modes: <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'r'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'w'</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">'a'</code>, etc.). <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">close()</code> finalizes.</li>
-                <li><strong>Importance of <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> Statement:</strong> Ensures automatic, reliable file closure. Preferred method.</li>
-                <li><strong>Reading Methods:</strong> <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">read()</code> (entire/sized), <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">readline()</code> (single line), <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">readlines()</code> (all lines to list), Iteration (memory-efficient line by line).</li>
-                <li><strong>Writing Methods:</strong> <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">write()</code> (single string, no auto-newline), <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">writelines()</code> (list of strings, no auto-newline).</li>
-                <li><strong>File Pointer (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code> and <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code>):</strong> <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">tell()</code> (current position), <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">seek()</code> (moves pointer; limited in text mode).</li>
-                <li><strong>Error Handling (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">try-except-finally</code>):</strong> Gracefully manages runtime errors (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">FileNotFoundError</code>, etc.).</li>
-            </ul>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">9.2 Reinforcement of Best Practices</h3>
-            <ul class="list-disc ml-8 mb-4 space-y-2 text-gray-300">
-                <li>Always use <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> statement for opening files.</li>
-                <li>Handle potential exceptions robustly (<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">FileNotFoundError</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">PermissionError</code>, <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">IOError</code>).</li>
-                <li>Specify file encoding (e.g., <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">encoding='utf-8'</code>) for text files.</li>
-                <li>Choose the correct file mode based on the intended operation.</li>
-                <li>Be mindful of memory usage for large files; prefer iteration.</li>
-                <li>If not using <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">with</code> (discouraged), ensure files are explicitly closed in a <code class="bg-gray-700 text-purple-300 px-2 py-1 rounded">finally</code> block.</li>
-                <li>Understand absolute vs. relative paths; prefer relative for portability.</li>
-            </ul>
-
-            <h3 class="text-2xl text-slate-100 font-medium mt-6 mb-3">9.3 Final Encouragement</h3>
-            <p class="mb-4 text-gray-300 leading-relaxed">File handling is a fundamental skill. The ability to read/write files unlocks vast possibilities. Solid understanding of these concepts and best practices is beneficial for academic pursuits, practical exams, and future programming. Consistent practice solidifies understanding.</p>
-        </div>
-
     </div>
 
     <script>
