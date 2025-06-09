@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python File Handling Exercises</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .solution {
+            display: none;
+            background-color: #374151; /* bg-gray-700 */
+            border-left: 4px solid #4ade80; /* A bright green border for contrast */
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 0.5rem;
+        }
+        .solution-content {
+            display: none;
+            white-space: pre-wrap; /* Preserve line breaks and spaces */
+            background-color: #2d3748; /* Darker gray for solution background */
+            border: 1px solid #4a5568; /* Medium gray border */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .question-container, .solution-container {
+            margin-bottom: 20px;
+        }
+        .code-block {
+            background-color: #1a202c; /* Even darker for code blocks */
+            color: #e2e8f0; /* Light gray text for code */
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #2d3748;
+        }
+        .sidebar-nav-container {
+            max-height: calc(100vh - 220px); /* Adjust based on header/footer/padding */
+            overflow-y: auto;
+            padding-right: 8px; /* For scrollbar spacing */
+        }
+        .sidebar-item {
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .sidebar-item:hover, .sidebar-item.active {
+            background-color: #4a5568; /* Medium gray for hover/active */
+            color: #e2e8f0; /* Light gray text */
+        }
+        .content-title {
+            border-bottom: 2px solid #7c3aed; /* Brighter Purple underline */
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+        .btn-solution {
+            background-color: #6d28d9; /* Darker Purple button */
+        }
+        .question-text, .solution-text-intro {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .tab-button {
+            background-color: #6d28d9;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+            font-weight: 500;
+        }
+        .tab-button.active {
+            background-color: #5b21b6;
+        }
+        code {
+            background-color: #4a5568;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 p-4">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-purple-400">Python File Handling Exercises</h1>
+            <p class="text-lg text-gray-400 mt-2">CBSE Class 12 Computer Science</p>
+        </header>
+
+        <div class="text-center mb-8 space-x-4">
+            <button id="mcq-btn" class="tab-button">MCQ</button>
+            <button id="long-question-btn" class="tab-button">Long Question</button>
+        </div>
+
+        <div id="mcq-content" class="hidden bg-gray-800 rounded-2xl shadow-xl p-6">
+            <!-- Content from python_File_handling_MCQ.html -->
+            <main class="space-y-8">
+                 <section id="mcqs">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-2 mb-4 text-slate-200">Multiple Choice Questions (MCQs)</h2>
+                    <ol class="list-decimal list-inside space-y-6 text-gray-300">
+                        <li>Information stored on a storage device with a specific name is called a...
+                            <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) array</li><li>(b) dictionary</li><li>(c) file</li><li>(d) tuple</li></ul>
+                        </li>
+                        <li>Which of the following formats of files can be created programmatically through Python to store some data?
+                            <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) Data files</li><li>(b) Text files</li><li>(c) Video files</li><li>(d) Binary files</li></ul>
+                        </li>
+                        <li>To open a file <code>c:\ss.txt</code> for appending data, we use...
+                            <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) <code>file=open("c:\\ss.txt","a")</code></li><li>(b) <code>file=open("c:\\ss.txt","rw")</code></li><li>(c) <code>file=open(r"c:\ss.txt","a")</code></li><li>(d) <code>file=open(file="c:\ss.txt","w")</code></li></ul>
+                        </li>
+                        <li>To read the next line of the file from a file object <code>infi</code>, we use...
+                             <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) <code>infi.read(all)</code></li><li>(b) <code>infi.read()</code></li><li>(c) <code>infi.readline()</code></li><li>(d) <code>infi.readlines()</code></li></ul>
+                        </li>
+                        <li>To read the remaining lines of the file from a file object <code>infi</code>, we use...
+                            <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) <code>infi.read(all)</code></li><li>(b) <code>infi.read()</code></li><li>(c) <code>infi.readline()</code></li><li>(d) <code>infi.readlines()</code></li></ul>
+                        </li>
+                        <li>The <code>readlines()</code> method returns...
+                            <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) str</li><li>(b) a list of lines</li><li>(c) a list of single characters</li><li>(d) a list of integers</li></ul>
+                        </li>
+                         <li>Which of the following mode will refer to binary data?
+                            <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) r</li><li>(b) w</li><li>(c) +</li><li>(d) b</li></ul>
+                        </li>
+                        <li>In file handling, what does this term means "r, a"?
+                            <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) read, append</li><li>(b) append, read</li><li>(c) all of the mentioned</li><li>(d) none of these</li></ul>
+                        </li>
+                    </ol>
+                </section>
+
+                <section id="fill-in-the-blanks">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-2 mb-4 text-slate-200">Fill in the Blanks</h2>
+                    <ol class="list-decimal list-inside space-y-4 text-gray-300">
+                        <li>The default file-open mode is _______________ mode.</li>
+                        <li>A _______________ governs the type of operations (e.g., read/write/append) possible in the opened file.</li>
+                        <li>The two types of data files can be _______________ files and _______________ files.</li>
+                        <li>The other name for file object is _______________.</li>
+                        <li>The _______________ file mode will open a file for read and write purpose.</li>
+                        <li>To close an open file, _______________ method is used.</li>
+                        <li>To read all the file contents in the form of a list, _______________ method is used.</li>
+                        <li>To write a list in a file, _______________ method may be used.</li>
+                        <li>The conversion of an object hierarchy in byte stream is called _______________.</li>
+                        <li>The character that separates the values in csv files is called the _______________.</li>
+                    </ol>
+                </section>
+
+                <section id="true-false">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-2 mb-4 text-slate-200">True/False Questions</h2>
+                    <ol class="list-decimal list-inside space-y-4 text-gray-300">
+                        <li>When you open a file for reading, if the file does not exist, an error occurs.</li>
+                        <li>When you open a file for writing, if the file does not exist, an error occurs.</li>
+                        <li>When you open a file for writing, if the file exists, the existing file is overwritten with the new file.</li>
+                        <li>The absolute paths are from the topmost level of the directory structure.</li>
+                        <li>The relative paths are relative to the current working directory.</li>
+                        <li>Functions <code>readline()</code> and <code>readlines()</code> are essentially the same.</li>
+                        <li>Python automatically flushes the file buffers before closing a file with <code>close()</code> function.</li>
+                        <li>Conversion of an object hierarchy in byte stream is called Serialisation.</li>
+                        <li>The csv files are text files.</li>
+                    </ol>
+                </section>
+
+                <div class="text-center mt-12">
+                    <button id="toggle-solution-btn-mcq" class="bg-purple-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Show Solutions
+                    </button>
+                </div>
+                
+                <section id="solutions-section-mcq" class="solution space-y-8">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-600 pb-2 mb-4 text-slate-50">Solutions</h2>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-slate-200">Multiple Choice Questions (MCQs)</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                            <li>(c) file</li>
+                            <li>(b) Text files, (d) Binary files (Both are correct)</li>
+                            <li>(a) <code>file=open("c:\\ss.txt","a")</code> and (c) <code>file=open(r"c:\ss.txt","a")</code> are correct.</li>
+                            <li>(c) <code>infi.readline()</code></li>
+                            <li>(d) <code>infi.readlines()</code></li>
+                            <li>(b) a list of lines</li>
+                            <li>(d) b</li>
+                            <li>(a) read, append</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-slate-200">Fill in the Blanks</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                            <li><b>read (r)</b></li>
+                            <li><b>file mode</b></li>
+                            <li><b>text</b> files and <b>binary</b> files</li>
+                            <li><b>file handle</b></li>
+                            <li><b>r+</b></li>
+                            <li><b>close()</b></li>
+                            <li><b>readlines()</b></li>
+                            <li><b>writelines()</b></li>
+                            <li><b>Serialization</b> (or <b>Pickling</b>)</li>
+                            <li><b>delimiter</b></li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-slate-200">True/False Questions</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                            <li><b>True</b></li>
+                            <li><b>False</b> (A new file is created.)</li>
+                            <li><b>True</b> (for w and w+ modes)</li>
+                            <li><b>True</b></li>
+                            <li><b>True</b></li>
+                            <li><b>False</b> (<code>readline()</code> reads one line, <code>readlines()</code> reads all lines into a list.)</li>
+                            <li><b>True</b></li>
+                            <li><b>True</b></li>
+                            <li><b>True</b></li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <div id="long-question-content" class="hidden">
+            <!-- Content from python_File_handling_questions.html -->
+             <div class="flex flex-col md:flex-row gap-8">
+                <aside class="md:w-1/4 bg-gray-800 p-6 rounded-lg shadow-2xl">
+                    <h2 class="text-2xl font-semibold mb-6 text-purple-400 content-title">Questions</h2>
+                    <div class="sidebar-nav-container">
+                        <nav id="sidebar-nav" class="space-y-2">
+                        </nav>
+                    </div>
+                </aside>
+
+                <main class="md:w-3/4 bg-gray-800 p-6 rounded-lg shadow-2xl">
+                    <div id="main-content">
+                        <h2 class="text-2xl font-semibold text-gray-400" id="content-placeholder">Select a question from the sidebar to view it here.</h2>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <footer class="text-center mt-12 py-6 border-t border-gray-700">
+            <p class="text-gray-500">&copy; Python Q&A Platform</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- Tab Switching Logic ---
+        const mcqBtn = document.getElementById('mcq-btn');
+        const longQuestionBtn = document.getElementById('long-question-btn');
+        const mcqContent = document.getElementById('mcq-content');
+        const longQuestionContent = document.getElementById('long-question-content');
+
+        mcqBtn.addEventListener('click', () => {
+            mcqContent.classList.remove('hidden');
+            longQuestionContent.classList.add('hidden');
+            mcqBtn.classList.add('active');
+            longQuestionBtn.classList.remove('active');
+        });
+
+        longQuestionBtn.addEventListener('click', () => {
+            mcqContent.classList.add('hidden');
+            longQuestionContent.classList.remove('hidden');
+            mcqBtn.classList.remove('active');
+            longQuestionBtn.classList.add('active');
+        });
+        
+        // --- MCQ Solution Toggle Logic ---
+        const toggleBtnMcq = document.getElementById('toggle-solution-btn-mcq');
+        const solutionsSectionMcq = document.getElementById('solutions-section-mcq');
+
+        toggleBtnMcq.addEventListener('click', () => {
+            const isVisible = solutionsSectionMcq.style.display === 'block';
+            if (isVisible) {
+                solutionsSectionMcq.style.display = 'none';
+                toggleBtnMcq.textContent = 'Show Solutions';
+            } else {
+                solutionsSectionMcq.style.display = 'block';
+                toggleBtnMcq.textContent = 'Hide Solutions';
+                solutionsSectionMcq.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        // --- Long Question Logic ---
+        const qaData = [
+            { id: 1, question: "What is the difference between a text file and a binary file?", solution: "A text file is a file that stores information in the form of a stream of ASCII or Unicode characters. In text files, each line of text is terminated with a special character (as per the Operating System) known as EOL (End of Line) character.\n\nA binary file is a file that stores the information in the form of a stream of bytes. In a binary file, there is no delimiter for a line and no character translations occur here." },
+            { id: 2, question: "What is the difference between read() and readlines() function?", solution: "The read() function reads from a file in read mode, and stores its entire contents in a single string type variable.\n\nThe readlines() function reads from a file in read mode and returns a list of all lines in the file." },
+            { id: 3, question: "Differentiate between the following:\n(i) f = open('diary.txt', 'r')\n(ii) f = open('diary.txt', 'w')", solution: "(i) The text file diary.txt has been opened in read mode with file handle f. This means the program can only read from the file. If the file does not exist, a FileNotFoundError will be raised.\n\n(ii) The text file diary.txt has been opened in write mode with file handle f. This means the program can write to the file. If the file exists, its contents will be truncated (overwritten). If the file does not exist, a new empty file will be created." },
+            { id: 4, question: "What is the difference between readline() and readlines() function?", solution: "The readline() function reads from a file in read mode and returns the next line in the file or a blank string ('') if there are no more lines. The returned data is of string type.\n\nThe readlines() function, also reads from a file in read mode and returns a list of all lines in the file. The returned data is of list type." },
+            { id: 5, question: "What is the difference between write() and writelines() functions?", solution: "Both write() and writelines() functions are used to write data to text files.\n\nThe write() function takes an argument of string type and writes it to the file. It does not automatically add a newline character (\\n) after the string.\n\nThe writelines() function, on the other hand, takes an iterable (such as a list or tuple of strings, or even a string itself) as an argument and writes all its elements to the file. Like write(), it does not automatically add newline characters; each string in the iterable should typically include \\n if separate lines are desired." },
+            { id: 6, question: "Write a single loop to display all the contents of a text file poem.txt after removing leading and trailing whitespaces.", solution: "```python\n# Assume poem.txt exists with some content\n# For example:\n#   \"  This is a line.  \\n\"\n#   \"Another line. \\n\"\n#   \"  Last one.  \"\nfor line in open(\"poem.txt\"):\n    print(line.strip())\n```\n**Explanation:**\nThe open(\"poem.txt\") directly returns an iterable file object. The for loop iterates through each line of the file. For each line, line.strip() removes any leading and trailing whitespace characters (including newlines) before print() displays it." },
+            { id: 7, question: "Write a function stats() that accepts a filename and reports the file's longest line.", solution: "```python\ndef stats(filename):\n    longest = \"\" # Initialize with an empty string\n    \n    # Open the file for reading\n    # Using 'with' statement is generally preferred for file handling\n    with open(filename, \"r\") as file_handle:\n        for line in file_handle: # Iterate through each line in the file\n            if len(line) > len(longest): # Compare current line's length with longest found so far\n                longest = line # Update longest if current line is longer\n    \n    print(\"Longest line's length =\", len(longest))\n    print(longest)\n\n# Example usage (assuming 'poem.txt' exists with some lines)\n# stats(\"poem.txt\")\n```\n**Explanation:**\nThe function initializes longest as an empty string. It then iterates through each line in the specified filename. In each iteration, it compares the len() of the current line with the len() of longest. If the current line is longer, it updates longest to that line. Finally, it prints the length and content of the longest line found." },
+            { id: 8, question: "What is the output of following code fragment? Explain.\nout = open(\"output.txt\", \"w\") # Changed file() to open() for modern Python\nout.write(\"Hello, world!\\n\")\nout.write(\"How are you?\")\nout.close()\nopen(\"output.txt\").read() # Changed file() to open()", solution: "The output will be:\n'Hello, world!\\nHow are you?'\n\n**Explanation:**\n1. out = open(\"output.txt\", \"w\"): This line opens a file named output.txt in write mode (\"w\"). If the file exists, it truncates its contents. If not, it creates a new file.\n2. out.write(\"Hello, world!\\n\"): This writes the string \"Hello, world!\" followed by a newline character to output.txt.\n3. out.write(\"How are you?\"): This writes the string \"How are you?\" immediately after the previous content (on the next line due to \\n).\n4. out.close(): This line closes the file, ensuring that all buffered data is written to disk.\n5. open(\"output.txt\").read(): This line re-opens output.txt (by default in read mode r) and then reads its entire content using read(). The read() function returns the entire file content as a single string.\nTherefore, the output is the combined string content of the file." },
+            { id: 9, question: "Write a function remove_lowercase() that accepts two filenames, and copies all lines that do not start with a lowercase letter from the first file into the second.", solution: "```python\ndef remove_lowercase(infile, outfile):\n    # Open the output file in write mode\n    with open(outfile, \"w\") as output_file:\n        # Open the input file in read mode\n        with open(infile, \"r\") as input_file:\n            for line in input_file: # Iterate through each line in the input file\n                # Check if the line is not empty and its first character is not a lowercase letter\n                if line and not ('a' <= line[0] <= 'z'):\n                    output_file.write(line) # Write the line to the output file\n\n# Example usage:\n# Create a dummy input file for testing\n# with open(\"input.txt\", \"w\") as f:\n#     f.write(\"Hello World\\n\")\n#     f.write(\"apple pie\\n\")\n#     f.write(\"123 Numbers\\n\")\n#     f.write(\"Zebra\\n\")\n#     f.write(\"another line\\n\")\n# remove_lowercase(\"input.txt\", \"output_filtered.txt\")\n\n# To verify the output_filtered.txt:\n# with open(\"output_filtered.txt\", \"r\") as f:\n#     print(f.read())\n# Expected output_filtered.txt:\n# Hello World\n# 123 Numbers\n# Zebra\n```\n**Explanation:**\nThe function opens both input and output files. It iterates through each line of the infile. For each line, it checks if the line is not empty and if its first character (line[0]) is NOT within the range of lowercase letters ('a' to 'z'). If the condition is true, the line is written to the outfile." },
+            { id: 10, question: "What is the output of following code?\nopen(\"e:\\\\poem.txt\", \"r\").readline().split()\nRecall that poem.txt has some leading and trailing whitespaces.", solution: "Assuming poem.txt contains a line like: \" WHY?\\n\"\nThe output will be:\n['WHY?']\n\n**Explanation:**\n1. open(\"e:\\\\poem.txt\", \"r\"): Opens the file poem.txt in read mode.\n2. .readline(): Reads the first line from the file, including the newline character. So, it reads \" WHY?\\n\".\n3. .split(): When split() is called without any arguments, it splits the string by any whitespace and removes empty strings from the result. It also handles leading/trailing whitespace. Thus, \" WHY?\\n\".split() results in ['WHY?']." },
+            { id: 11, question: "What is the output of following code?\nopen(\"e:\\\\poem.txt\", \"r\").readline()", solution: "Assuming poem.txt contains a line like: \"WHY?\\n\"\nThe output will be:\n'WHY?\\n'\n\n**Explanation:**\nopen(\"e:\\\\poem.txt\", \"r\").readline() reads the first line from the file, including the newline character (\\n), and returns it as a string." },
+            { id: 12, question: "What is the output of following code?\nfh = open(\"poem.txt\",\"r\")\nsize = len(fh.read())\nprint(fh.read(5))", solution: "No output (or blank output).\n\n**Explanation:**\n1. fh = open(\"poem.txt\",\"r\"): Opens poem.txt in read mode. The file pointer is at the beginning (position 0).\n2. size = len(fh.read()): fh.read() without an argument reads the entire content of the file from the current file pointer position. After this operation, the file pointer is moved to the end of the file (EOF). The len() calculates the length of the entire content, but this value is assigned to size and not printed.\n3. print(fh.read(5)): Now, fh.read(5) attempts to read 5 bytes from the current file pointer position. Since the file pointer is already at the EOF (due to the previous fh.read() call), there are no more bytes to be read. Therefore, fh.read(5) returns an empty string (''), and print() displays nothing." },
+            { id: 13, question: "Write a program to display all the records in a file along with line/record number.", solution: "```python\n# Assume Result.txt exists with some content, e.g.:\n# Line 1 content\n# Line 2 content\n# Line 3 content\nfh = open(\"Result.txt\", \"r\")\ncount = 0 # Initialize line/record number\nwhile True:\n    rec = fh.readline() # Read one line at a time\n    if rec == \"\": # If readline() returns an empty string, it means EOF is reached\n        break\n    count = count + 1 # Increment line/record number\n    print(count, rec, end = '') # Print line number and record. end='' suppresses extra newline.\nfh.close()\n```\n**Example Output (for a sample Result.txt):**\n1 Line 1 content\n2 Line 2 content\n3 Line 3 content\n\n**Explanation:**\nThe program opens Result.txt in read mode. It uses a while True loop to continuously read lines using readline(). An empty string returned by readline() indicates the end of the file, at which point the loop breaks. For each valid line, a counter is incremented, and the counter along with the line content is printed. end='' is used in print() because readline() includes the newline character from the file, and print() adds its own newline by default, which would result in double spacing." },
+            { id: 14, question: "What is the output produced by following code?\nobj = open(\"New.txt\",\"w\")\nobj.write(\"A poem by Paramhansa Yogananda\")\nobj.write(\"Better than Heaven or Arcadia\")\nobj.write(\"I love thee, O my India!\")\nobj.write(\"And thy love I shall give\")\nobj.write(\"To every brother nation that lives.\")\nobj.close()\nobj1 = open(\"New.txt\",\"r\")\ns1 = obj1.read(48)\nprint(s1)\nobj1.close()", solution: "The output produced by above code will be:\nA poem by Paramhansa YoganandaBetter than Heaven\n\n**Explanation:**\n1. The first block of code opens New.txt in write mode (\"w\"), which truncates the file if it exists. It then writes several strings consecutively without any newline characters (\\n). This means all text will be on a single very long line in the file.\nThe content of New.txt will be: \"A poem by Paramhansa YoganandaBetter than Heaven or ArcadiaI love thee, O my India!And thy love I shall giveTo every brother nation that lives.\"\n2. obj1 = open(\"New.txt\",\"r\"): Opens the New.txt file in read mode. The file pointer is at the beginning.\n3. s1 = obj1.read(48): Reads the first 48 characters from the file.\nCounting 48 characters from the beginning:\n\"A poem by Paramhansa YoganandaBetter than Heaven\"\n(48 characters)\n4. print(s1): Prints the extracted 48 characters." },
+            { id: 15, question: "The file \"New.txt\" contains the following:\nBetter than Heaven or Arcadia\nI love thee, O my India!\nAnd thy love I shall give\nTo every brother nation that lives.\n\nConsidering the given file, what output will be produced by the following code?\nobj1=open(\"New.txt\",\"r\")\ns1=obj1.readline()\ns2=obj1.readline()\ns3=obj1.readline()\ns4=obj1.read(15)\nprint(s4)\nobj1.close()", solution: "The output produced by above code is:\nTo every brothe\n\n**Explanation:**\n1. obj1=open(\"New.txt\",\"r\"): Opens New.txt in read mode. File pointer is at the beginning.\n2. s1=obj1.readline(): Reads the first line (\"Better than Heaven or Arcadia\\n\"). File pointer moves to the start of the second line.\n3. s2=obj1.readline(): Reads the second line (\"I love thee, O my India!\\n\"). File pointer moves to the start of the third line.\n4. s3=obj1.readline(): Reads the third line (\"And thy love I shall give\\n\"). File pointer moves to the start of the fourth line.\n5. s4=obj1.read(15): Reads the next 15 characters from the current file pointer position, which is the beginning of the fourth line. The fourth line is \"To every brother nation that lives.\". The first 15 characters are \"To every brothe\".\n6. print(s4): Prints \"To every brothe\"." },
+            { id: 16, question: "Two identical files (p1.txt and p2.txt) were created by following two codes (carefully go through the two codes given below).\n(a)\nobj = open(\"p1.txt\",\"w\")\nobj.write(\"Better than Heaven or Arcadia\")\nobj.write(\"I love thee, O my India!\")\nobj.write(\"And thy love I shall give\")\nobj.write(\"To every brother nation that lives.\")\nobj.close()\n\n(b)\nobj = open(\"p2.txt\",\"w\")\nobj.write(\"Better than Heaven or Arcadia\\n\")\nobj.write(\"I love thee, O my India!\\n\")\nobj.write(\"And thy love I shall give\\n\")\nobj.write(\"To every brother nation that lives.\\n\")\nobj.close()\n\nWhat would be the output produced if the files are read and printed with following code.", solution: "The output produced by code (a) will be:\nBetter than Heaven or Arcadialove thee, O my India!And thy love I shall giveTo every brother nation that lives.\n\n**Explanation for (a):**\np1.txt is created by writing strings consecutively without any explicit newline characters. Therefore, all the text is written as a single, very long line in the file. When read, print() will display this entire single line.\n\nThe output produced by code (b) will be:\nBetter than Heaven or Arcadia\nI love thee, O my India!\nAnd thy love I shall give\nTo every brother nation that lives.\n\n**Explanation for (b):**\np2.txt is created by explicitly adding \\n (newline character) at the end of each string. This ensures that each write() call starts a new line in the file. When read, print() will display each line on a separate output line, preserving the original line breaks." },
+            { id: 17, question: "Considering the two files p1.txt and p2.txt created in previous question, what output will be produced by following code fragments?\n(a)\nobj1=open(\"p1.txt\",\"r\")\ns1=obj1.readline()\ns2=obj1.read(15)\nprint(s2)\nobj1.close()\n\n(b)\nobj1=open(\"p2.txt\",\"r\")\ns1=obj1.readline()\ns2=obj1.read(15)\nprint(s2)\nobj1.close()", solution: "For code (a), the output produced will be:\nNo output or blank output will be produced by code (a).\n\n**Explanation for (a):**\n1. obj1=open(\"p1.txt\",\"r\"): Opens p1.txt (which contains all text on one line: \"Better than Heaven or Arcadialove thee, O my India!And thy love I shall giveTo every brother nation that lives.\") in read mode. File pointer is at the beginning.\n2. s1=obj1.readline(): Reads the entire content of p1.txt as a single line since there are no \\n characters. File pointer moves to the end of the file.\n3. s2=obj1.read(15): Attempts to read 15 characters from the current file pointer position. Since the file pointer is already at the EOF, read(15) returns an empty string.\n4. print(s2): Prints an empty string, resulting in no visible output.\n\nFor code (b), the output produced will be:\nI love thee, O \n\n**Explanation for (b):**\n1. obj1=open(\"p2.txt\",\"r\"): Opens p2.txt (which has lines separated by \\n) in read mode. File pointer is at the beginning.\n2. s1=obj1.readline(): Reads the first line: \"Better than Heaven or Arcadia\\n\". File pointer moves to the beginning of the second line.\n3. s2=obj1.read(15): Reads the next 15 characters from the current file pointer position (beginning of the second line). The second line is \"I love thee, O my India!\\n\". The first 15 characters are \"I love thee, O \".\n4. print(s2): Prints \"I love thee, O \"." },
+            { id: 18, question: "Consider the file p2.txt created above. Now predict the output of following code that works with p2.txt. Explain the reason behind this output.\nFp1=open(\"p2.txt\",\"r\")\nprint(fp1.readline(20))\ns1 = fp1.readline(30)\nprint(s1)\nprint(fp1.readline(25))", solution: "Assuming the file content for the solution is:\nLine 1: \"A poem by Paramhansa Yogananda\\n\"\nLine 2: \"Better than Heaven or Arcadia\\n\"\nLine 3: \"I love thee, O my India!\\n\"\n\nRevised Explanation based on Solution's implied file content:\n1. Fp1=open(\"p2.txt\",\"r\"): Opens p2.txt. File pointer at 0.\n2. print(fp1.readline(20)): Reads up to 20 chars or until \\n. From \"A poem by Paramhansa Yogananda\\n\", it reads \"A poem by Paramhansa\\n\". print() will display this and add another newline. File pointer moves to the start of \"Yogananda\" (after \"Paramhansa\" and its newline).\nOutput:\nA poem by Paramhansa\n\n3. s1 = fp1.readline(30): From the current position (start of \"Yogananda\"), it reads until \\n or 30 chars. It reads \"Yogananda\\n\".\nOutput:\nYogananda\n\n4. print(fp1.readline(25)): From the current position (start of \"Better than Heaven or Arcadia\\n\"), it reads up to 25 chars or until \\n. It reads \"Better than Heaven or Arc\".\nOutput:\nBetter than Heaven or Arc\n\nFinal output based on provided solution's implied file content:\nA poem by Paramhansa\n\nYogananda\n\nBetter than Heaven or Arc" },
+            { id: 19, question: "A text file contains alphanumeric text (say an.txt). Write a program that reads this text file and prints only the numbers or digits from the file.", solution: "```python\n# Assume an.txt contains:\n# \"This file has 123 numbers and 45 symbols.\"\n# \"Another line with 678 and 9.\"\nF = open(\"an.txt\", \"r\")\nfor line in F: # Iterate through each line in the file\n    for char in line: # Iterate through each character in the line\n        if char.isdigit(): # Check if the character is a digit\n            print(char, end='') # Print the digit without a newline\nprint() # Print a final newline after all digits\nF.close()\n```\n**Example Output (for sample an.txt):**\n123456789\n\n**Explanation:**\nThe program opens an.txt in read mode. It iterates through each line in the file, and then through each char in that line. It uses the isdigit() string method to check if a character is a digit. If it is, the character is printed without a newline (end='') to keep all digits on a single line. A final print() is added to ensure the next output starts on a new line." },
+            { id: 20, question: "fh = open(\"main.txt\", \"w\")\nfh.write(\"Bye\")\nfh.close()\nIf the file contains \"GOOD\" before execution, what will be the contents of the file after execution of this code?", solution: "The file would now contain \"Bye\" only.\n\n**Explanation:**\nWhen an existing file is opened in write mode (\"w\"), it truncates (empties) the existing data in the file before any new data is written. So, the original content \"GOOD\" is removed, and then \"Bye\" is written." },
+            { id: 21, question: "Write a function in Python to count the number of lines in a text file 'STORY.TXT' which is starting with an alphabet 'A'.", solution: "```python\ndef COUNTLINES():\n    file = open('STORY.TXT','r')\n    lines = file.readlines() # Read all lines into a list\n    count = 0 # Initialize counter\n    for w in lines: # Iterate through each line in the list\n        if w and (w[0] == 'A' or w[0] == 'a'): # Check if line starts with 'A' or 'a'\n            count = count + 1\n    print(\"Total lines started with 'A' or 'a'\", count)\n    file.close()\n\n# Example usage (assuming STORY.TXT exists)\n# COUNTLINES()\n```\n**Explanation:**\nThe function opens STORY.TXT and reads all its lines into a list called lines. It then iterates through this list. For each line w, it checks if the line is not empty (w) and if its first character (w[0]) is either 'A' or 'a'. If the condition is true, the count is incremented. Finally, the total count is printed, and the file is closed." },
+            { id: 22, question: "Write a function in Python that counts the number of \"Me\" or \"My\" words present in a text file \"STORY.TXT\".\nIf the \"STORY.TXT\" contents are as follows:\nMy first book was Me and My Family. It gave me chance to be Known to the world.\nThe output of the function should be:\nCount of Me/My in file : 2", solution: "```python\ndef displayMeMy():\n    num = 0 # Initialize counter for \"Me\" or \"My\"\n    f = open(\"story.txt\",\"rt\") # Open file in read text mode\n    N = f.read() # Read entire file content as a single string\n    M = N.split() # Split the string into a list of words (splits by whitespace)\n    for x in M: # Iterate through each word\n        # Check if the word is exactly \"Me\" or \"My\"\n        if x == \"Me\" or x == \"My\":\n            num = num + 1 # Increment counter if match found\n    f.close() # Close file\n    print(\"Count of Me/My in file:\", num)\n\n# Example usage (assuming STORY.TXT content as given in question)\n# displayMeMy()\n```\n**Explanation:**\nThe function opens story.txt and reads its entire content into string N. It then splits N into a list of words M using split(). It iterates through each word x in M and checks if x is exactly \"Me\" or \"My\". If a match is found, num is incremented. Finally, the total count is printed. Note that split() by default handles various whitespaces and newlines." },
+            { id: 23, question: "A given text file \"data.txt\" contains:\nLine 1\n\nLine 3\nLine 4\nLine 6\n\nWhat would be the output of following code?\nfh = open (\"data.txt\", \"r\")\nlst = fh.readlines()\nprint(lst[0], end = '')\nprint(lst[2], end = '')\nprint(lst[5], end = '')\nprint(lst[1], end = '')\nprint(lst[4], end = '')\nprint(lst[3])", solution: "The output produced by above code will be:\nLine 1\nLine 3\n\nLine 6\nLine 4\n\n**Explanation:**\n1. fh = open (\"data.txt\", \"r\"): Opens data.txt in read mode.\n2. lst = fh.readlines(): Reads all lines into a list. The lst will contain:\n['Line 1\\n', '\\n', 'Line 3\\n', 'Line 4\\n', 'Line 6\\n', '\\n']\n(Note: The empty line in the file is read as '\\n').\n3. print(lst[0], end = ''): Prints lst[0] ('Line 1\\n') without an extra newline. Output: Line 1\\n\n4. print(lst[2], end = ''): Prints lst[2] ('Line 3\\n') without an extra newline. Output: Line 3\\n\n5. print(lst[5], end = ''): Prints lst[5] ('\\n') without an extra newline. Output: \\n (this is the empty line)\n6. print(lst[1], end = ''): Prints lst[1] ('\\n') without an extra newline. Output: \\n (this is another empty line)\n7. print(lst[4], end = ''): Prints lst[4] ('Line 6\\n') without an extra newline. Output: Line 6\\n\n8. print(lst[3]): Prints lst[3] ('Line 4\\n') with an extra newline (default end='\\n'). Output: Line 4\\n\\n" },
+            { id: 24, question: "Write code to print just the last line of a text file \"data.txt\".", solution: "```python\n# Assume data.txt exists with multiple lines\nfin = open(\"data.txt\", \"r\")\nlineList = fin.readlines() # Read all lines into a list\nprint(\"Last line =\", lineList[-1], end='') # Access the last element using negative indexing\nfin.close()\n```\n**Explanation:**\nThe program opens data.txt and reads all its lines into lineList using readlines(). Since readlines() returns a list where each element is a line, the last line can be accessed using negative indexing (lineList[-1]). end='' is used to prevent an extra newline from print(), as the line itself already contains a newline character." },
+            { id: 25, question: "Write a program that copies a text file \"source.txt\" onto \"target.txt\" barring the lines starting with a \"@\" sign.", solution: "```python\ndef filter(oldfile, newfile):\n    fin = open(oldfile, \"r\") # Open source file for reading\n    fout = open(newfile, \"w\") # Open target file for writing (will create/overwrite)\n    while True:\n        text = fin.readline() # Read one line at a time\n        if len(text) == 0: # Check for End Of File (EOF)\n            break\n        if text[0] == '@': # Check if the line starts with '@'\n            continue # If it does, skip to the next iteration (don't write this line)\n        fout.write(text) # If not starting with '@', write the line to the output file\n    fin.close()\n    fout.close()\n\n# Example usage:\n# Create a dummy source.txt\n# with open(\"source.txt\", \"w\") as f:\n#     f.write(\"Line 1\\n\")\n#     f.write(\"@This line should be skipped\\n\")\n#     f.write(\"Line 3\\n\")\n#     f.write(\"@Another skipped line\\n\")\n#     f.write(\"Line 5\\n\")\n#     f.write(\"Final line.\\n\")\n# filter(\"source.txt\", \"target.txt\")\n\n# To verify target.txt:\n# with open(\"target.txt\", \"r\") as f:\n#     print(f.read())\n# Expected target.txt:\n# Line 1\n# Line 3\n# Line 5\n# Final line.\n```\n**Explanation:**\nThe filter function takes two filenames. It opens the oldfile for reading and newfile for writing. It reads lines one by one using readline(). If readline() returns an empty string, it signifies EOF, and the loop breaks. It checks if the first character of the text is '@'. If it is, continue skips the rest of the current loop iteration, effectively not writing that line. Otherwise, the line is written to fout. Finally, both files are closed." },
+            { id: 26, question: "Consider the following statement. In which file mode is the file opened? Justify your answer.\nwith open('poem.txt') as f:", solution: "The file is opened in read mode ('r').\n\n**Justification:**\nWhen the mode argument is not explicitly specified in the open() function, Python defaults to the read mode ('r'). This means the file is opened for reading existing content. If the file poem.txt does not exist, a FileNotFoundError would be raised." },
+            { id: 27, question: "What is pickling process? What is its need?", solution: "The pickling process (also known as serialization) is the method of converting a Python object hierarchy (which can be a single object or a complex structure like a nested list, dictionary, or custom class instance) into a byte stream. This byte stream is a flattened, machine-readable representation of the object.\n\n**Need for Pickling:**\nObjects in Python often have a specific structure, data types, and interrelationships (hierarchy). When storing these complex objects to a file, especially in binary files, it is crucial that their original structure and data integrity are maintained so that they can be perfectly reconstructed later. Pickling addresses this need by:\n- Preserving Object Structure: It ensures that the exact state and relationships of complex Python objects are saved, unlike simple text-based storage which might lose type information or nested structures.\n- Enabling Persistent Storage: It allows Python objects to be stored permanently in binary files on disk, so they can be retrieved and used in future program executions.\n- Facilitating Data Exchange: It enables the transfer of Python objects between different Python programs or even across a network.\nPython provides the pickle module specifically to handle this serialization and deserialization, ensuring that objects are converted into a byte stream that can be reliably de-serialized back into their original form." },
+            { id: 28, question: "What is unpickling?", solution: "Unpickling is the inverse operation of pickling (also known as deserialization). It is the process whereby a byte stream (which was previously created by pickling a Python object and is typically read from a binary file) is converted back into its original Python object hierarchy in memory. This process produces an exact replica of the object that was originally pickled, including its data, type, and internal structure." },
+            { id: 29, question: "What is the difference between a regular text file and a delimited text file?", solution: "Regular Text Files are files that store textual information in the same form as it is typed, using standard character encodings like ASCII or Unicode. Each line in a regular text file is typically terminated by a platform-specific newline character (EOL). These files often have extensions like .txt and are easily readable and editable with any basic text editor. Text translations (like EOL conversion) occur when reading/writing these files across different operating systems.\n\nDelimited Text Files are a specific type of text file where a particular character (the delimiter) is used to separate individual data values (fields) within each record (line). This format is primarily used for storing tabular data. Common delimiters include commas (for CSV files), tabs (for TSV files), semicolons, or pipes. While they are still human-readable (though less so than regular text files without a proper viewer), their primary purpose is to organize data into a structured, tabular format for easier parsing by programs. Text translations still occur, but the csv module in Python helps manage the delimiters effectively." },
+            { id: 30, question: "What are CSV files?", solution: "CSV (Comma Separated Values) files are a type of delimited text file where values within each data record (line) are primarily separated by a comma (,). Each line in a CSV file typically represents a single data record, and the values within that record correspond to different fields or columns. While the comma is the default and most common delimiter, CSV files can also use other characters as delimiters (e.g., tab, semicolon, pipe), though this is less common. CSV files typically have the .csv extension. They are widely used for exchanging tabular data between different applications, such as spreadsheets and databases, due to their simple and universal structure." },
+            { id: 31, question: "What is the significance of newline='' argument in file open() function?", solution: "The newline='' argument in the open() function is crucial for ensuring that no End-of-Line (EOL) translation takes place when reading from or writing to text files (including CSV files).\n\n**Significance:**\n- Prevents Extra Blank Lines: When writing to a text file without newline='', Python's open() function (in text mode) might add an additional newline character (\\n) on top of the newline character already added by the csv.writer (or if you explicitly include \\n in your write() calls). This results in double newlines, which appear as blank lines when the file is read. newline='' suppresses this automatic addition.\n- Cross-Platform Compatibility: Different operating systems use different EOL sequences (\\n for Unix, \\r\\n for Windows, \\r for old Mac). If a file is written on one OS and read on another without newline='', the EOL characters might be misinterpreted, leading to issues like extra blank lines or incorrect parsing. newline='' ensures that the file is treated as raw lines without any platform-specific EOL conversions, making it truly portable.\n- Correct CSV Parsing: For CSV files, the csv module expects to handle newlines itself. By setting newline='', you prevent Python's default text mode from interfering with the csv module's newline handling, thus avoiding blank rows and ensuring accurate parsing of records." },
+            { id: 32, question: "What does csv.writer object do?", solution: "The csv.writer object is a key component of Python's csv module used for writing data to CSV files. Its primary function is to add delimitation to the user data (which is typically provided as a Python sequence like a list or tuple) before storing that data in the CSV file on the storage disk.\n\nIn essence, it takes a Python sequence (e.g., ['School', 'Nickname', 'Sport']), converts it into a single delimited string (e.g., \"School,Nickname,Sport\" if the delimiter is a comma), and then writes this formatted string as a record (line) to the associated CSV file. It handles quoting rules and escaping special characters automatically, ensuring the data is correctly formatted for CSV standards." },
+            { id: 33, question: "What is the function of csv.reader object?", solution: "The csv.reader object, provided by Python's csv module, is used for reading data from CSV files. Its main function is to read data from a CSV file on the storage disk, parse it (i.e., remove the delimitation), and load the parsed data into a Python iterator.\n\nFrom this iterator, you can then fetch the data row by row, typically using a for loop. Each row fetched by the csv.reader object is returned as a list of strings, where each string represents a field from that row, with the delimiters automatically removed and quoting rules handled." },
+            { id: 34, question: "What will be stored in the file school.csv after the following code is executed?\ndata = [['DRS Delhi', 'Esha', 'Badminton'], ['BTS Patna', 'Abhi', 'Tennis']]\nimport csv\nwith open('school.csv', 'w', newline='') as csvfile: # Corrected filename from schoo;.csv to school.csv\n    writer = csv.writer(csvfile, delimiter = ',')\n    writer.writerow(['School', 'Nickname', 'Sport'])\n    writer.writerows(data)", solution: "The file school.csv will contain the following content:\nSchool,Nickname,Sport\nDRS Delhi,Esha,Badminton\nBTS Patna,Abhi,Tennis\n\n**Explanation:**\n1. open('school.csv', 'w', newline=''): Opens school.csv in write mode, truncating it if it exists, and ensures no EOL translation.\n2. writer = csv.writer(csvfile, delimiter = ','): Creates a CSV writer object with comma as the delimiter.\n3. writer.writerow(['School', 'Nickname', 'Sport']): Writes the header row to the file.\n4. writer.writerows(data): Writes the two records from the data list (which is a list of lists) to the file. Each inner list becomes a new row.\nThe with statement ensures the file is automatically closed." },
+            { id: 35, question: "A file Answer.txt contains the text as shown in Fig. 5.5 in the chapter. Write a program to remove all the lines that contain the character 'a' in this file and write other lines into another file.", solution: "```python\n# Assume Answer.txt contains some text.\n# For example:\n# \"This is a sample text file.\"\n# \"It has some lines with 'a'.\"\n# \"And some without.\"\n# \"Like this one.\"\n# \"Another line with 'a'.\"\nmytxtfile = open(\"Answer.txt\", \"r\") # Renamed myfile to mytxtfile to avoid conflict\nnewtxtfile = open(\"nswer.txt\", \"w\") # Renamed newfile to newtxtfile\nfor line in mytxtfile:\n    if 'a' not in line and 'A' not in line:\n        newtxtfile.write(line)\nmytxtfile.close()\nnewtxtfile.close()\n\nprint(\"Newly created file contains:\")\nprint(\"----------------------------\")\n# To display the content of the newly created file\nwith open(\"nswer.txt\", \"r\") as display_file:\n    print(display_file.read())\n```\n**Explanation:**\nThe program opens Answer.txt in read mode and nswer.txt in write mode. It iterates through each line in Answer.txt. For each line, it checks if neither 'a' nor 'A' is present in the line. If the line does not contain 'a' or 'A', it is written to nswer.txt. Finally, both files are closed. The second part of the solution opens nswer.txt again to display its contents." },
+            { id: 36, question: "Differentiate between the following:\n(i) f = open ('diary.txt', 'r')\n(ii) f = open ('diary.txt', 'w')", solution: "(i) The text file diary.txt is opened in read mode ('r'). This means the program can only read data from the file. If diary.txt does not exist, a FileNotFoundError will be raised. The file pointer is positioned at the beginning of the file.\n\n(ii) The text file diary.txt is opened in write mode ('w'). This means the program can write data to the file. If diary.txt exists, its contents will be truncated (emptied) before writing. If the file does not exist, a new empty file will be created. The file pointer is positioned at the beginning of the file." },
+            { id: 37, question: "What will be displayed by the following code?\nimport pickle\nNames = ['First', 'second', 'third', 'fourth', 'Fifth']\nlst = []\nfor i in range(-1, -5, -1):\n    lst.append(Names[i])\nwith open('test.dat', 'wb') as fout:\n    pickle.dump(lst, fout)\nwith open('test.dat', 'rb') as fin:\n    nlist = pickle.load(fin)\n    print(nlist)", solution: "The output will be:\n['Fifth', 'fourth', 'third', 'second']\n\n**Explanation:**\n1. Names = ['First', 'second', 'third', 'fourth', 'Fifth']: A list of strings.\n2. lst = []: An empty list.\n3. for i in range(-1, -5, -1): This loop iterates with i taking values -1, -2, -3, -4.\n   - i = -1: lst.append(Names[-1]) -> lst becomes ['Fifth']\n   - i = -2: lst.append(Names[-2]) -> lst becomes ['Fifth', 'fourth']\n   - i = -3: lst.append(Names[-3]) -> lst becomes ['Fifth', 'fourth', 'third']\n   - i = -4: lst.append(Names[-4]) -> lst becomes ['Fifth', 'fourth', 'third', 'second']\n4. with open('test.dat', 'wb') as fout: pickle.dump(lst, fout): The list lst (which is ['Fifth', 'fourth', 'third', 'second']) is pickled and written to test.dat.\n5. with open('test.dat', 'rb') as fin: nlist = pickle.load(fin): The pickled list is read back from test.dat into nlist.\n6. print(nlist): The content of nlist is printed." },
+            { id: 38, question: "Following code is written to update a record in a file opened with following code:\nimport pickle\nfin = open('Stu.dat','rb+')\ntry:\n    while True:\n        # Line 1: store file-pointer position before reading the record\n        stu = pickle.load(fin)\n        if stu['Marks'] in [92, 93, 94]:\n            stu['Marks'] += 3 # changes made in the record\n            # Line 2: place the file-pointer at the exact location of the record\n            pickle.dump(stu, fin) # now write the updated record on the exact location\nexcept:\n    # ... (rest of the exception handling)\nFill in the blanks in Lines 1 and 2 to complete the code.", solution: "Line 1: `position = fin.tell()`\nLine 2: `fin.seek(position)`\n\n**Explanation:**\n- Line 1 (fin.tell()): Before reading a record with pickle.load(), fin.tell() is used to get the current byte position of the file pointer. This position marks the beginning of the record that is about to be read. Storing this position (position) is crucial because pickle.load() advances the file pointer past the read record.\n- Line 2 (fin.seek(position)): After modifying the record in memory, fin.seek(position) is used to move the file pointer back to the exact beginning of that record. This ensures that the subsequent pickle.dump(stu, fin) operation overwrites the original record's data in the file rather than writing it at a new location or corrupting subsequent records." },
+            { id: 39, question: "Identify the error in the following code:\n1. import pickle\n2. data = ['one', 2, [3, 4, 5]]\n3. with open('data2.dat', 'rb') as f:\n4.     pickle.dump(data, f)", solution: "The error is in Line 3.\n\n**Explanation:**\nThe file data2.dat is opened in read binary mode ('rb'). However, in Line 4, the pickle.dump() function is used, which attempts to write data to the file. A file opened in 'rb' mode does not allow writing. To write data, the file must be opened in a write-compatible binary mode, such as 'wb' (write binary) or 'ab' (append binary).\n\n**Corrected Line 3:**\n`with open('data2.dat', 'wb') as f:`" },
+            { id: 40, question: "Identify the error in the following code.\n1. f = open(\"/tmp/workfile\",\"r+\")\n2. f.write('0123456789abcdef')\n3. f.write('xyz8466')\n4. f.close()\n5. f.seek(0)\n6. f.read()", solution: "The error is in Lines 5 and 6.\n\n**Explanation:**\nIn Line 4, f.close() is called, which closes the file. Once a file is closed, no further operations (like seek() or read()) can be performed on its file handle f. Attempting to do so will raise a ValueError (I/O operation on closed file).\n\n**Corrected Code (by moving f.close() to the end):**\n```python\n1. f = open(\"/tmp/workfile\",\"r+\")\n2. f.write('0123456789abcdef')\n3. f.write('xyz8466')\n4. f.seek(0) # Move file pointer to beginning to read\n5. print(f.read()) # Add print to see output\n6. f.close() # Close file at the very end\n```" },
+            { id: 41, question: "Identify the error in the following code?\n1. import csv\n2. line = [[1,2,3],[4,5,6]] # Variable name 'line' is misleading here, it's a nested list\n3. with open(path, \"w\", newline ='') as csv_file:\n4.     writer = csv.writer(csv_file, delimiter ='|')\n5.     for line_item in data: # Assuming 'data' is intended to be the nested list, and renamed loop variable\n6.         writer.writerow (line_item)", solution: "The primary error, if `data` in line 5 is meant to be `line` from line 2, is conceptual: `writerow` expects a single list for one row. If `line` (the nested list `[[1,2,3],[4,5,6]]`) is iterated, `line_item` would be `[1,2,3]` then `[4,5,6]`, which is correct for `writerow`.\nHowever, the original solution in the document pointed to an error with `writerow` vs `writerows` if the intent was to write the *entire* nested list `line` at once.\n\n**If the intent is to write the nested list `line` (from line 2) as multiple rows using a loop (as the code suggests):**\nThe code snippet `for line_item in data:` assumes `data` is the nested list. If `data` is actually the variable `line` from line 2, then `line_item` would correctly be `[1,2,3]` and then `[4,5,6]`, and `writer.writerow(line_item)` would be appropriate for each.\n\n**If the intent was to write the entire nested list `line` (from line 2) in one go without an explicit loop:**\nThen Line 5 and 6 should be replaced.\n**Corrected for writing all rows at once:**\n```python\nimport csv\ndata_to_write = [[1,2,3],[4,5,6]] # Renamed for clarity\n# Assuming 'path' variable is defined elsewhere, e.g., path = \"output.csv\"\nwith open(\"output.csv\", \"w\", newline ='') as csv_file:\n    writer = csv.writer(csv_file, delimiter ='|')\n    writer.writerows(data_to_write) # Use writerows for nested list\n```\nGiven the original document's solution, it implies the error was using `writerow` where `writerows` was expected if `line` (the nested list) was passed directly to it without a loop. The provided snippet has a loop, which makes `writerow` suitable for each sub-list." },
+            { id: 42, question: "Write a program to read a text file and display the count of lowercase and uppercase letters in the file.\n(Note: use text file Answer.txt given in Fig. 5.5 in the chapter)", solution: "```python\n# Assume Answer.txt exists with some text\nmytxtfile = open(\"Answer.txt\", \"r\") # Renamed to avoid conflict\nl_count = 0 # variable to store count of lowercase letters\nucount = 0 # variable to store count of uppercase letters\n# Read the entire content of the file\ncontent = mytxtfile.read()\nfor ch in content: # Iterate through each character in the content\n    if ch.islower(): # Check if character is lowercase\n        l_count = l_count + 1\n    elif ch.isupper(): # Check if character is uppercase\n        ucount = ucount + 1\nprint(\"Uppercase letters in the file:\", ucount)\nprint(\"Lowercase letters in the file:\", l_count)\n# close the file\nmytxtfile.close()\n```\n**Explanation:**\nThe program opens Answer.txt in read mode. It reads the entire content of the file into the content string. It then iterates through each character (ch) in this string. ch.islower() checks if a character is a lowercase letter, and ch.isupper() checks for an uppercase letter. The respective counters are incremented. Finally, the counts are printed, and the file is closed." },
+            { id: 43, question: "Your recipe uses some ingredients. Write a program to store the list of ingredients in a binary file.", solution: "```python\nimport pickle\ningredients = ['cucumber', 'pumpkin', 'carrot', 'peas']\n# Open the binary file 'recipe.dat' in write binary mode ('wb') using with statement\nwith open('recipe.dat', 'wb') as fout:\n    pickle.dump(ingredients, fout) # Pickle (serialize) the list and write it to the file\nprint(\"Ingredients list successfully stored in recipe.dat\")\n```\n**Explanation:**\nThe program imports the pickle module. It defines a list ingredients. It then opens recipe.dat in write binary mode (wb) using the with statement, which ensures the file is automatically closed. pickle.dump() is used to serialize the ingredients list into a byte stream and write it to the file." },
+            { id: 44, question: "Write a method in python to read the content from a text file story.txt line by line and display the same on screen.", solution: "```python\ndef read_file():\n    inFile = open('story.txt','r')\n    for line in inFile: # Iterate directly over the file object to read line by line\n        print(line, end='') # Print each line. Use end='' to avoid double spacing.\n    inFile.close()\n\n# Example usage (assuming story.txt exists)\n# read_file()\n```\n**Explanation:**\nThe function read_file() opens story.txt in read mode. It then uses a for loop to iterate directly over the inFile object. This is a Pythonic way to read a file line by line efficiently. For each line, print(line, end='') displays it. end='' is crucial because line already includes the newline character from the file, and print() adds its own newline by default. Finally, the file is closed." },
+            { id: 45, question: "Write a method in python to read lines from a text file INDIA.TXT, to find and display the occurrence of the word \"India\".\nINDIA.TXT\nIndia is the fastest growing economy.\nIndia is looking for more investments around the globe.\nThe whole world is looking at India as a great market.\nMost of the Indians can foresee the heights that India is capable of reaching.\nThe output should be 4", solution: "```python\ndef display1():\n    count = 0 # Initialize word counter\n    file_handle = open('INDIA.TXT','r') # Renamed variable\n    for LINE in file_handle: # Iterate through each line\n        Words = LINE.split() # Split the line into a list of words\n        for W in Words: # Iterate through each word in the line\n            if W == \"India\": # Check if the word is exactly \"India\"\n                count = count + 1 # Increment count if match found\n    print(count) # Print the final count\n    file_handle.close() # Close the file\n\n# Example usage (assuming INDIA.TXT content as given)\n# display1()\n```\n**Explanation:**\nThe function display1() opens INDIA.TXT. It iterates through each LINE in the file. For each line, it splits it into a list of Words. It then iterates through each W (word) in Words and checks if it is exactly \"India\". If it matches, the count is incremented. Finally, the total count is printed." },
+            { id: 46, question: "Write a method in python to read lines from a text file MYNOTES.TXT, and display those lines, which are starting with an alphabet 'K'.", solution: "```python\ndef display():\n    file_handle = open('MYNOTES.TXT','r') # Renamed variable\n    \n    # Read line by line using a while loop and readline()\n    line = file_handle.readline() # Read the first line\n    while line: # Loop continues as long as line is not an empty string (EOF)\n        if line and line[0] == 'K': # Check if line is not empty and starts with 'K'\n            print(line, end='') # Print the line. Use end='' as readline() includes '\\n'.\n        line = file_handle.readline() # Read the next line\n    \n    file_handle.close()\n\n# Example usage (assuming MYNOTES.TXT exists)\n# display()\n```\n**Explanation:**\nThe function display() opens MYNOTES.TXT. It reads lines one by one using readline() within a while loop. The loop continues as long as line is not an empty string (which signals EOF). Inside the loop, it checks if the line is not empty and if its first character (line[0]) is 'K'. If true, the line is printed. end='' is used to prevent extra newlines. The file is closed after the loop." },
+            { id: 47, question: "Considering the following definition of dictionary MULTIPLEX, write a method in python to search and display all the content in a pickled file CINEMA.DAT, where MTYPE key of the dictionary is matching with the value 'Comedy'.\nMULTIPLEX = {'MNO':_, 'MNAME':_, 'MTYPE':_}", solution: "```python\nimport pickle\ndef Search():\n    file_handle = open('CINEMA.DAT','rb') # Renamed variable\n    try:\n        while True: # Loop indefinitely until EOFError\n            MULTIPLEX = pickle.load(file_handle) # Unpickle (read) the next dictionary object\n            if MULTIPLEX['MTYPE'] == \"Comedy\": # Check if 'MTYPE' value is 'Comedy'\n                print(MULTIPLEX) # Print the entire dictionary if it matches\n    except EOFError:\n        file_handle.close() # Close the file when end of file is reached\n\n# Example usage:\n# First, create a dummy CINEMA.DAT for testing\n# dummy_data = [\n#     {'MNO': 1, 'MNAME': 'Movie A', 'MTYPE': 'Comedy'},\n#     {'MNO': 2, 'MNAME': 'Movie B', 'MTYPE': 'Action'},\n#     {'MNO': 3, 'MNAME': 'Movie C', 'MTYPE': 'Comedy'},\n#     {'MNO': 4, 'MNAME': 'Movie D', 'MTYPE': 'Drama'}\n# ]\n# with open('CINEMA.DAT', 'wb') as f:\n#     for movie in dummy_data:\n#         pickle.dump(movie, f)\n# Search()\n```\n**Explanation:**\nThe Search() function opens CINEMA.DAT in read binary mode ('rb'). It uses a try...except EOFError block with a while True loop to read records one by one using pickle.load(). For each MULTIPLEX dictionary read, it checks if the value associated with the 'MTYPE' key is \"Comedy\". If it matches, the entire MULTIPLEX dictionary is printed. The EOFError is caught to gracefully close the file when all records have been read." },
+            { id: 48, question: "A binary file \"STUDENT.DAT\" has structure (admission_number, Name, Percentage). Write a function countrec() in Python that would read contents of the file \"STUDENT.DAT\" and display the details of those students whose percentage is above 75. Also display number of students scoring above 75%.", solution: "```python\nimport pickle\ndef CountRec():\n    fobj = open(\"STUDENT.DAT\", \"rb\") # Open binary file in read binary mode\n    num = 0 # Initialize counter for students above 75%\n    try:\n        while True: # Loop indefinitely until EOFError\n            rec = pickle.load(fobj) # Read a student record (tuple)\n            # Assuming record is a tuple like (admission_number, Name, Percentage)\n            if rec[2] > 75: # Check if Percentage (at index 2) is above 75\n                print(rec[0], rec[1], rec[2], sep=\"\\t\") # Print details separated by tab\n                num = num + 1 # Increment count\n    except EOFError:\n        fobj.close() # Close file when EOF is reached\n        return num # Return the total count\n\n# Example usage:\n# First, create a dummy STUDENT.DAT for testing\n# dummy_students = [\n#     (101, 'Alice', 80.5),\n#     (102, 'Bob', 72.0),\n#     (103, 'Charlie', 90.0),\n#     (104, 'David', 75.0),\n#     (105, 'Eve', 88.0)\n# ]\n# with open(\"STUDENT.DAT\", \"wb\") as f:\n#     for student_rec in dummy_students:\n#         pickle.dump(student_rec, f)\n# students_above_75 = CountRec()\n# print(f\"Number of students scoring above 75%: {students_above_75}\")\n```\n**Explanation:**\nThe CountRec() function opens STUDENT.DAT in read binary mode. It initializes num to 0. It reads records (assumed to be tuples) one by one using pickle.load() within a try...except EOFError block. It checks if the percentage (the third element, rec[2]) is greater than 75. If true, it prints the student's details separated by tabs and increments num. Once EOFError is caught, the file is closed, and the total num is returned." },
+            { id: 49, question: "Write a function Show_words() in python to read the content of a text file 'NOTES.TXT' and display the entire content in capital letters.\nExample, if the file contains:\nThis is a test file\nThen the function should display the output as:\nTHIS IS A TEST FILE", solution: "```python\ndef Show_words():\n    file_handle = open('NOTES.TXT', 'r') # Renamed variable\n    Lines = file_handle.readlines() # Read all lines into a list\n    for L in Lines: # Iterate through each line in the list\n        print(L.upper(), end='') # Convert line to uppercase and print. Use end='' to avoid double newlines.\n    file_handle.close()\n\n# Example usage (assuming NOTES.TXT exists)\n# Show_words()\n```\n**Explanation:**\nThe Show_words() function opens NOTES.TXT in read mode. It reads all lines into a list called Lines. It then iterates through each L (line) in Lines. For each line, L.upper() converts the entire line to uppercase, and print(..., end='') displays it. end='' is used because each line read by readlines() already includes its newline character, and print() would add another by default. The file is closed after processing." },
+            { id: 50, question: "Write a program to increase the salary by Rs. 2000/- of the employee having empno as 1251 in the file empl.dat.", solution: "```python\nimport pickle\nemp = {} # Initialize an empty dictionary to hold read records\nfound = False # Flag to track if the target employee was found and updated\n# Open binary file 'empl.dat' in read and write binary mode ('rb+')\nfin = open('empl.dat', 'rb+')\nfin.seek(0) # Ensure file pointer is at the beginning of the file\nprint(\"Updating employee salary in empl.dat...\")\ntry:\n    while True:\n        rpos = fin.tell() # Store current file-pointer position before reading\n        emp = pickle.load(fin) # Read an employee record (dictionary)\n        if emp['Empno'] == 1251: # Check if this is the target employee\n            emp['Salary'] = emp['Salary'] + 2000 # Increase salary in memory\n            fin.seek(rpos) # Move file-pointer back to the start of this record\n            pickle.dump(emp, fin) # Overwrite the old record with the updated one\n            print(f\"Updated record: {emp}\") # Print the updated record\n            found = True\nexcept EOFError:\n    if not found:\n        print(\"Sorry, no matching employee with Empno 1251 found.\")\n    else:\n        print(\"Employee record(s) successfully updated.\")\n    fin.close() # Close the file\n\n# Example usage:\n# First, create a dummy empl.dat for testing\n# dummy_employees = [\n#     {'Empno': 1201, 'Name': 'Anushree', 'Salary': 47000},\n#     {'Empno': 1251, 'Name': 'Simarjeet', 'Salary': 49000}, # This one will be updated\n#     {'Empno': 1266, 'Name': 'Alex', 'Salary': 50000}\n# ]\n# with open(\"empl.dat\", \"wb\") as f:\n#     for employee_rec in dummy_employees:\n#         pickle.dump(employee_rec, f)\n# # Run the update program\n# # (After running, you can read empl.dat to verify the change)\n```\n**Explanation:**\nThe program opens empl.dat in rb+ mode (read and write binary). It uses fin.seek(0) to ensure the file pointer starts at the beginning. It then loops, reading each employee record (dictionary) using pickle.load(). Before each read, fin.tell() saves the current position (rpos). If the Empno matches 1251, the Salary is updated in the emp dictionary. Then, fin.seek(rpos) moves the file pointer back to the start of that record, and pickle.dump(emp, fin) overwrites the old record with the modified one. The EOFError is handled to close the file and report success or failure." },
+            { id: 51, question: "Take a sample text file and find the most commonly occurring word. Also, list the frequencies of words in the text file.", solution: "```python\n# Assume 'nanthem.txt' contains:\n# Jan gan man adhinayaka jaya he\n# Bharat bhagya vidhata\n# Panjab Sindh Gujarat Maratha\n# Dravid Utkal Banga\n# Vindhye Himachal Yamuna Ganga\n# Uchchal jaladhi tarang\n# Tava shubh name jage,\n# Tava shubh ashish mange,\n# Gahe tava jaya gatha.\n# Jan gan mangal dayak jaya he\n\nwith open(\"nanthem.txt\", \"r\") as fh:\n    contents = fh.read() # Read entire file content\n\n# Convert to lowercase and split into words\nwordlist = contents.lower().split()\n\nwordfreq = {} # Use a dictionary for efficient frequency counting\nhigh = 0\nmost_common_word = \"\"\n\nfor w in wordlist:\n    wordfreq[w] = wordfreq.get(w, 0) + 1 # Increment count for word w\n\n# Find the most common word and its frequency\nfor word, count in wordfreq.items():\n    if count > high:\n        high = count\n        most_common_word = word\n\nprint(f\"The word '{most_common_word}' occurs maximum number of times, {high} times.\")\nprint(\"\\nWords and their frequencies:\")\nfor word, count in sorted(wordfreq.items()): # Print sorted by word\n    print(f\"'{word}': {count}\")\n```\n**Example Output (for nanthem.txt as given in the document):**\nThe word 'jaya' occurs maximum number of times, 7 times.\n\nWords and their frequencies:\n'adhinayaka': 1\n'ashish': 1\n'banga': 1\n'bharat': 1\n'bhagya': 1\n'dayak': 1\n'dravid': 1\n'gahe': 1\n'gan': 2\n'ganga': 1\n'gatha.': 1\n'gujarat': 1\n'he': 2\n'himachal': 1\n'jage,': 1\n'jaladhi': 1\n'jan': 2\n'jaya': 7\n'man': 1\n'mangal': 1\n'mange,': 1\n'maratha': 1\n'name': 1\n'panjab': 1\n'shubh': 2\n'sindh': 1\n'tarang': 1\n'tava': 2\n'uchchal': 1\n'utkal': 1\n'vidhata': 1\n'vindhye': 1\n'yamuna': 1\n\n**Explanation:**\nThe program opens nanthem.txt and reads its content. It converts the content to lowercase and splits it into a wordlist. It then uses a dictionary `wordfreq` to store the frequency of each word. It iterates through the wordlist, updating the counts in the dictionary. After counting, it iterates through the dictionary to find the word with the highest frequency. Finally, it prints the most common word and its count, followed by a list of all words and their frequencies, sorted alphabetically.\nThis approach using a dictionary is more efficient for counting word frequencies than using `list.count()` repeatedly in a loop, especially for larger files." },
+            { id: 52, question: "Write a program to read following details of sports' performance (sport, competitions, prizes-won) of your school and store into a csv file delimited with tab character.", solution: "```python\nimport csv\n\n# Open the CSV file 'Sport.csv' in write mode, specifying tab as delimiter and no EOL translation\nwith open(\"Sport.csv\", \"w\", newline='') as fh:\n    swriter = csv.writer(fh, delimiter='\\t') # Create writer object with tab delimiter\n    \n    # Write the header row\n    swriter.writerow(['Sport', 'Competitions', 'Prizes won'])\n    \n    ans = 'y' # Control variable for loop\n    i = 1 # Record counter\n    while ans.lower() == 'y':\n        print(f\"Record {i}\")\n        sport = input(\"Sport name: \")\n        while True:\n            try:\n                comp = int(input(\"No. of competitions participated: \"))\n                break\n            except ValueError:\n                print(\"Invalid input. Please enter a number for competitions.\")\n        while True:\n            try:\n                prizes = int(input(\"Prizes won: \"))\n                break\n            except ValueError:\n                print(\"Invalid input. Please enter a number for prizes.\")\n        \n        srec = [sport, comp, prizes] # Create a list for the current record\n        swriter.writerow(srec) # Write the record to the CSV file\n        \n        i = i + 1\n        ans = input(\"Want to enter more records? (y/n)... \")\n\nprint(\"Data written to Sport.csv successfully.\")\n```\n**Sample Run Output:**\nRecord 1\nSport name: Tennis\nNo. of competitions participated: 14\nPrizes won: 9\nWant to enter more records? (y/n)... y\nRecord 2\nSport name: Football\nNo. of competitions participated: 22\nPrizes won: 16\nWant to enter more records? (y/n)... y\nRecord 3\nSport name: Chess\nNo. of competitions participated: 25\nPrizes won: 15\nWant to enter more records? (y/n)... n\nData written to Sport.csv successfully.\n\n**Content of Sport.csv (if opened in Notepad or a spreadsheet program that recognizes tabs):**\nSport   Competitions    Prizes won\nTennis  14      9\nFootball        22      16\nChess   25      15\n\n**Explanation:**\nThe program opens Sport.csv in write mode, with `newline=''` to handle newlines correctly across platforms and `delimiter='\\t'` for tab separation. It writes a header row. Then, in a loop, it prompts the user for sport details. Input validation is added for numeric fields (competitions and prizes). Each record is created as a list and written to the file. The loop continues until the user enters 'n'." },
+            { id: 53, question: "Write a program to get item details (code, description and price) for multiple items from the user and create a csv file by writing all the item details in one go.", solution: "```python\nimport csv\n\n# Initialize a nested list to store all item records, starting with the header row\nitemrec = [['Item_Name', 'Description', 'Price']]\n\nprint(\"Enter item details\")\nans = 'y' # Control variable for loop\nwhile ans.lower() == 'y':\n    iname = input(\"Enter Item code: \")\n    desc = input(\"Enter description : \")\n    while True:\n        try:\n            price = float(input(\"Enter price: \"))\n            break\n        except ValueError:\n            print(\"Invalid input. Please enter a numeric value for price.\")\n    \n    itemrec.append([iname, desc, price]) # Append the current item's data list to itemrec\n    ans = input(\"Want to enter more items? (y/n)... \")\n\n# Open the CSV file 'Items.csv' in write mode\n# It's good practice to include newline=''\nwith open(\"Items.csv\", \"w\", newline='') as fh: \n    iwriter = csv.writer(fh) # Create a writer object (default delimiter is comma)\n    iwriter.writerows(itemrec) # Write all collected item details in one go\n\nprint(\"Records written to Items.csv successfully.\")\n```\n**Sample Run Output:**\nEnter item details\nEnter Item code: E01\nEnter description: Eraser\nEnter price: 10\nWant to enter more items? (y/n)... y\nEnter Item code: P11\nEnter description: Pencil\nEnter price: 15\nWant to enter more items? (y/n)... y\nEnter Item code: R05\nEnter description : Ruler\nEnter price: 20\nWant to enter more items? (y/n)... n\nRecords written to Items.csv successfully.\n\n**Content of Items.csv (if opened in Notepad or a spreadsheet program):**\nItem_Name,Description,Price\nE01,Eraser,10.0\nP11,Pencil,15.0\nR05,Ruler,20.0\n\n**Explanation:**\nThe program initializes `itemrec` as a list containing the header row. In a `while` loop, it prompts the user for item details and appends each new record to `itemrec`. Input validation for the price is included. After the loop, it opens `Items.csv` in write mode (with `newline=''` for correct newline handling) and uses `iwriter.writerows(itemrec)` to write all collected records to the file at once." }
+        ];
+
+        const sidebarNav = document.getElementById('sidebar-nav');
+        const mainContent = document.getElementById('main-content');
+        const contentPlaceholder = document.getElementById('content-placeholder');
+        let activeSidebarItem = null;
+
+        function displayQA(qaItem) {
+            contentPlaceholder.style.display = 'none';
+            mainContent.innerHTML = '';
+
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'question-container mb-6';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-2xl font-semibold text-purple-400 mb-3 content-title';
+            questionTitle.textContent = `Problem ${qaItem.id}:`;
+            questionContainer.appendChild(questionTitle);
+
+            const questionText = document.createElement('p');
+            questionText.className = 'text-gray-300 leading-relaxed question-text';
+            questionText.textContent = qaItem.question;
+            questionContainer.appendChild(questionText);
+            mainContent.appendChild(questionContainer);
+
+            const solutionContainer = document.createElement('div');
+            solutionContainer.className = 'solution-container';
+
+            const toggleButton = document.createElement('button');
+            toggleButton.className = 'btn-solution mb-3 text-white py-2 px-4 rounded-md';
+            toggleButton.textContent = 'Show Solution';
+            solutionContainer.appendChild(toggleButton);
+
+            const solutionContent = document.createElement('div');
+            solutionContent.className = 'solution-content text-gray-300 leading-relaxed';
+            
+            const parts = qaItem.solution.split(/(```python\n[\s\S]*?```|`[^`]*?`)/);
+
+            parts.forEach(part => {
+                if (part.startsWith('```python')) {
+                    const pre = document.createElement('pre');
+                    pre.className = 'code-block';
+                    const code = document.createElement('code');
+                    code.textContent = part.replace(/```python\n|```/g, '').trim();
+                    pre.appendChild(code);
+                    solutionContent.appendChild(pre);
+                } else if(part.startsWith('`')) {
+                    const code = document.createElement('code');
+                    code.textContent = part.replace(/`/g, '');
+                    solutionContent.appendChild(code);
+                }
+                else {
+                    const p = document.createElement('p');
+                    p.className = 'solution-text-intro';
+                    p.textContent = part.trim();
+                    if(part.trim()) solutionContent.appendChild(p);
+                }
+            });
+
+            solutionContainer.appendChild(solutionContent);
+            mainContent.appendChild(solutionContainer);
+
+            toggleButton.addEventListener('click', () => {
+                const isVisible = solutionContent.style.display === 'block';
+                if (isVisible) {
+                    solutionContent.style.display = 'none';
+                    toggleButton.textContent = 'Show Solution';
+                } else {
+                    solutionContent.style.display = 'block';
+                    toggleButton.textContent = 'Hide Solution';
+                }
+            });
+        }
+
+        qaData.forEach(item => {
+            const listItem = document.createElement('a');
+            listItem.href = '#'; 
+            listItem.className = 'block sidebar-item text-gray-300 hover:text-purple-300';
+            listItem.textContent = `Problem ${item.id}`;
+            listItem.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                displayQA(item);
+                if (activeSidebarItem) {
+                    activeSidebarItem.classList.remove('active');
+                }
+                listItem.classList.add('active');
+                activeSidebarItem = listItem;
+            });
+            sidebarNav.appendChild(listItem);
+        });
+
+    </script>
+</body>
+</html>
