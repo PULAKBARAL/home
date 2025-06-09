@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBSE Class 12 CS: File Handling Exercises</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .solution {
+            display: none;
+            background-color: #374151; /* bg-gray-700 */
+            border-left: 4px solid #4ade80; /* A bright green border for contrast */
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 0.5rem;
+        }
+        code {
+            background-color: #374151; /* bg-gray-700 */
+            color: #c4b5fd; /* A light purple for code text */
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 p-4">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl mt-8 mb-8 bg-gray-800 rounded-2xl shadow-xl">
+        <!-- Home Button -->
+        <div class="mb-6">
+            <a href="python.html" class="inline-block bg-purple-600 text-white font-bold py-2 px-5 rounded-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                &larr; Python Home
+            </a>
+        </div>
+
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-slate-50">CBSE Class 12 Computer Science</h1>
+            <p class="text-lg text-gray-400 mt-2">File Handling Exercises and Solutions</p>
+        </header>
+
+        <main id="questions" class="space-y-8">
+            
+            <!-- Multiple Choice Questions Section -->
+            <section id="mcqs">
+                <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-2 mb-4 text-slate-200">Multiple Choice Questions (MCQs)</h2>
+                <ol class="list-decimal list-inside space-y-6 text-gray-300">
+                    <li>Information stored on a storage device with a specific name is called a...
+                        <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) array</li><li>(b) dictionary</li><li>(c) file</li><li>(d) tuple</li></ul>
+                    </li>
+                    <li>Which of the following formats of files can be created programmatically through Python to store some data?
+                        <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) Data files</li><li>(b) Text files</li><li>(c) Video files</li><li>(d) Binary files</li></ul>
+                    </li>
+                    <li>To open a file <code>c:\ss.txt</code> for appending data, we use...
+                        <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) <code>file=open("c:\\ss.txt","a")</code></li><li>(b) <code>file=open("c:\\ss.txt","rw")</code></li><li>(c) <code>file=open(r"c:\ss.txt","a")</code></li><li>(d) <code>file=open(file="c:\ss.txt","w")</code></li></ul>
+                    </li>
+                    <li>To read the next line of the file from a file object <code>infi</code>, we use...
+                         <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) <code>infi.read(all)</code></li><li>(b) <code>infi.read()</code></li><li>(c) <code>infi.readline()</code></li><li>(d) <code>infi.readlines()</code></li></ul>
+                    </li>
+                    <li>To read the remaining lines of the file from a file object <code>infi</code>, we use...
+                        <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) <code>infi.read(all)</code></li><li>(b) <code>infi.read()</code></li><li>(c) <code>infi.readline()</code></li><li>(d) <code>infi.readlines()</code></li></ul>
+                    </li>
+                    <li>The <code>readlines()</code> method returns...
+                        <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) str</li><li>(b) a list of lines</li><li>(c) a list of single characters</li><li>(d) a list of integers</li></ul>
+                    </li>
+                     <li>Which of the following mode will refer to binary data?
+                        <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) r</li><li>(b) w</li><li>(c) +</li><li>(d) b</li></ul>
+                    </li>
+                    <li>In file handling, what does this term means "r, a"?
+                        <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) read, append</li><li>(b) append, read</li><li>(c) all of the mentioned</li><li>(d) none of these</li></ul>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- Fill in the Blanks Section -->
+            <section id="fill-in-the-blanks">
+                <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-2 mb-4 text-slate-200">Fill in the Blanks</h2>
+                <ol class="list-decimal list-inside space-y-4 text-gray-300">
+                    <li>The default file-open mode is _______________ mode.</li>
+                    <li>A _______________ governs the type of operations (e.g., read/write/append) possible in the opened file.</li>
+                    <li>The two types of data files can be _______________ files and _______________ files.</li>
+                    <li>The other name for file object is _______________.</li>
+                    <li>The _______________ file mode will open a file for read and write purpose.</li>
+                    <li>To close an open file, _______________ method is used.</li>
+                    <li>To read all the file contents in the form of a list, _______________ method is used.</li>
+                    <li>To write a list in a file, _______________ method may be used.</li>
+                    <li>The conversion of an object hierarchy in byte stream is called _______________.</li>
+                    <li>The character that separates the values in csv files is called the _______________.</li>
+                </ol>
+            </section>
+
+            <!-- True/False Section -->
+            <section id="true-false">
+                <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-2 mb-4 text-slate-200">True/False Questions</h2>
+                <ol class="list-decimal list-inside space-y-4 text-gray-300">
+                    <li>When you open a file for reading, if the file does not exist, an error occurs.</li>
+                    <li>When you open a file for writing, if the file does not exist, an error occurs.</li>
+                    <li>When you open a file for writing, if the file exists, the existing file is overwritten with the new file.</li>
+                    <li>The absolute paths are from the topmost level of the directory structure.</li>
+                    <li>The relative paths are relative to the current working directory.</li>
+                    <li>Functions <code>readline()</code> and <code>readlines()</code> are essentially the same.</li>
+                    <li>Python automatically flushes the file buffers before closing a file with <code>close()</code> function.</li>
+                    <li>Conversion of an object hierarchy in byte stream is called Serialisation.</li>
+                    <li>The csv files are text files.</li>
+                </ol>
+            </section>
+
+            <!-- Show/Hide Solutions Button -->
+            <div class="text-center mt-12">
+                <button id="toggle-solution-btn" class="bg-purple-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    Show Solutions
+                </button>
+            </div>
+            
+            <!-- Solutions Section (Initially Hidden) -->
+            <section id="solutions-section" class="solution space-y-8">
+                <h2 class="text-2xl font-semibold border-b-2 border-gray-600 pb-2 mb-4 text-slate-50">Solutions</h2>
+                
+                <!-- MCQs Solutions -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-slate-200">Multiple Choice Questions (MCQs)</h3>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                        <li>(c) file</li>
+                        <li>(b) Text files, (d) Binary files (Both are correct)</li>
+                        <li>(a) <code>file=open("c:\\ss.txt","a")</code> and (c) <code>file=open(r"c:\ss.txt","a")</code> are correct.</li>
+                        <li>(c) <code>infi.readline()</code></li>
+                        <li>(d) <code>infi.readlines()</code></li>
+                        <li>(b) a list of lines</li>
+                        <li>(d) b</li>
+                        <li>(a) read, append</li>
+                    </ol>
+                </div>
+
+                <!-- Fill in the Blanks Solutions -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-slate-200">Fill in the Blanks</h3>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                        <li><b>read (r)</b></li>
+                        <li><b>file mode</b></li>
+                        <li><b>text</b> files and <b>binary</b> files</li>
+                        <li><b>file handle</b></li>
+                        <li><b>r+</b></li>
+                        <li><b>close()</b></li>
+                        <li><b>readlines()</b></li>
+                        <li><b>writelines()</b></li>
+                        <li><b>Serialization</b> (or <b>Pickling</b>)</li>
+                        <li><b>delimiter</b></li>
+                    </ol>
+                </div>
+                
+                <!-- True/False Solutions -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-slate-200">True/False Questions</h3>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                        <li><b>True</b></li>
+                        <li><b>False</b> (A new file is created.)</li>
+                        <li><b>True</b> (for w and w+ modes)</li>
+                        <li><b>True</b></li>
+                        <li><b>True</b></li>
+                        <li><b>False</b> (<code>readline()</code> reads one line, <code>readlines()</code> reads all lines into a list.)</li>
+                        <li><b>True</b></li>
+                        <li><b>True</b></li>
+                        <li><b>True</b></li>
+                    </ol>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-10 text-sm text-gray-500">
+            <p>Good luck with your studies!</p>
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript to handle the toggle functionality for solutions
+        const toggleBtn = document.getElementById('toggle-solution-btn');
+        const solutionsSection = document.getElementById('solutions-section');
+
+        toggleBtn.addEventListener('click', () => {
+            // Check if the solutions are currently visible
+            const isVisible = solutionsSection.style.display === 'block';
+
+            if (isVisible) {
+                // If visible, hide it and change button text
+                solutionsSection.style.display = 'none';
+                toggleBtn.textContent = 'Show Solutions';
+            } else {
+                // If hidden, show it and change button text
+                solutionsSection.style.display = 'block';
+                toggleBtn.textContent = 'Hide Solutions';
+                // Optional: Scroll to the solutions section
+                solutionsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    </script>
+
+</body>
+</html>
