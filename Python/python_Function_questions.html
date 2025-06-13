@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Function Exercises</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .solution {
+            display: none;
+            background-color: #2d3748;
+            border-left: 4px solid #63b3ed;
+            padding: 0.75rem 1rem;
+            margin-top: 0.75rem;
+            border-radius: 0.375rem;
+            color: #e2e8f0;
+        }
+        .solution strong {
+            color: #63b3ed;
+        }
+        code {
+            background-color: #4a5568;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        pre > code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+        }
+        .toggle-solution-btn {
+            display: inline-block;
+            margin-top: 0.75rem;
+            background-color: #3b82f6;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s;
+        }
+        .toggle-solution-btn:hover {
+            background-color: #2563eb;
+        }
+        .tab-link {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+        .tab-link:hover {
+            background-color: #4a5568;
+        }
+        .tab-link.active {
+            background-color: #3b82f6;
+            color: white;
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .sidebar-sticky {
+            position: -webkit-sticky; /* For Safari */
+            position: sticky;
+            top: 2rem; /* Adjust this value as needed */
+        }
+        #progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background-color: #3b82f6;
+            width: 0%;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+            transition: width 0.1s linear;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-7xl">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-white">Python Function Exercises</h1>
+            <p class="text-lg text-gray-400 mt-2">Test your knowledge on Python functions.</p>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Sidebar Navigation -->
+            <aside class="w-full md:w-1/4 self-start sidebar-sticky">
+                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl relative">
+                     <div id="progress-bar"></div>
+                     <h2 class="text-xl font-bold mb-4 text-white pt-2">Question Types</h2>
+                     <nav id="sidebar-nav">
+                        <a class="tab-link active" data-target="mcqs">Multiple Choice Questions</a>
+                        <a class="tab-link" data-target="fill-in-the-blanks">Fill in the Blanks</a>
+                        <a class="tab-link" data-target="true-false">True/False</a>
+                        <a class="tab-link" data-target="assertions-reasons">Assertion and Reasoning</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="w-full md:w-3/4">
+                <!-- MCQ Section -->
+                <section id="mcqs" class="content-section active bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl space-y-12">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Multiple Choice Questions</h2>
+                     <ol class="list-decimal list-inside space-y-6">
+                        <!-- All 18 MCQs -->
+                        <li>What is the default return value for a function that does not return any value explicitly? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) None</li><li>(b) int</li><li>(c) double</li><li>(d) null</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) None</div> </li>
+                        <li>Which of the following items are present in the function header? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) function name only</li><li>(b) both function name and parameter list</li><li>(c) parameter list only</li><li>(d) return value</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) both function name and parameter list</div> </li>
+                        <li>Which of the following keywords marks the beginning of the function block? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) func</li><li>(b) define</li><li>(c) def</li><li>(d) function</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) def</div> </li>
+                        <li>What is the name given to that area of memory, where the system stores the parameters and local variables of a function call? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) a heap</li><li>(b) storage area</li><li>(c) a stack</li><li>(d) an array</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) a stack</div> </li>
+                        <li>Pick one of the following statements to correctly complete the function body in the given code snippet. <pre class="bg-gray-900 p-4 rounded-md my-2 text-sm leading-relaxed"><code>#Missing function body
+def f(number):
+
+print(f(5))</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) return "number"</li><li>(b) print(number)</li><li>(c) print("number")</li><li>(d) return number</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (d) return number</div> </li>
+                        <li>Which of the following function headers is correct? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) def f(a=1,b):</li><li>(b) def f(a=1,b,c=2):</li><li>(c) def f(a=1, b=1, c=2):</li><li>(d) def f(a=1, b=1, c=2,d);</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) def f(a=1, b=1, c=2):</div> </li>
+                        <li>Which of the following statements is not true for parameter passing to functions? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) You can pass positional arguments in any order.</li><li>(b) You can pass keyword arguments in any order.</li><li>(c) You can call a function with positional and keyword arguments.</li><li>(d) Positional arguments must be before keyword arguments in a function call.</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) You can pass positional arguments in any order.</div> </li>
+                        <li>Which of the following is not correct in the context of Positional and Default parameters in Python functions? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) Default parameters must occur to the right of Positional parameters.</li><li>(b) Positional parameters must occur to the right of Default parameters.</li><li>(c) Positional parameters must occur to the left of Default parameters.</li><li>(d) All parameters to the right of a Default parameter must also have Default values.</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) Positional parameters must occur to the right of Default parameters.</div> </li>
+                        <li>Which of the following is not correct in the context of the scope of variables? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) Global keyword is used to change the value of a global variable in a local scope.</li><li>(b) Local keyword is used to change the value of a local variable in a global scope.</li><li>(c) Global variables can be accessed without using the global keyword in a local scope.</li><li>(d) Local variables cannot be used outside its scope.</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) Local keyword is used to change the value of a local variable in a global scope.</div> </li>
+                        <li>Which of the following function calls can be used to invoke the below function definition? <code>def test(a,b,c,d)</code> <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) test(1,2,3,4)</li><li>(b) test(a=1,2,3,4)</li><li>(c) test(a = 1, b = 2, c=3, 4)</li><li>(d) test(a = 1, b = 2, c = 3, d = 4)</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) test(1,2,3,4) and (d) test(a = 1, b = 2, c = 3, d = 4)</div> </li>
+                        <li>Which of the following function calls will cause an Error while invoking the below function definition? <code>def test(a,b,c,d)</code> <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) test(1,2,3,4)</li><li>(b) test(a=1,2,3,4)</li><li>(c) test(a = 1, b = 2, c=3, 4)</li><li>(d) test(a=1,b=2, c=3, d=4)</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) test(a=1,2,3,4) and (c) test(a = 1, b = 2, c=3, 4) (Positional argument cannot follow keyword argument)</div> </li>
+                        <li>For a function header as follows: <code>def calc(X, Y=20):</code> Which of the following function calls will give an error? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) Calc(15,25)</li><li>(b) Calc(X=15,Y=25)</li><li>(c) Calc(Y=25)</li><li>(d) Calc(X=25)</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) Calc(Y=25) (Missing required positional argument 'X')</div> </li>
+                        <li>What is a variable defined outside all the functions referred to as? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) A static variable</li><li>(b) A global variable</li><li>(c) A local variable</li><li>(d) An automatic variable</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) A global variable</div> </li>
+                        <li>What is a variable defined inside a function referred to as? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) A static variable</li><li>(b) A global variable</li><li>(c) A local variable</li><li>(d) An automatic variable</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) A local variable</div> </li>
+                        <li>Carefully observe the code and give the answer. <pre class="bg-gray-900 p-4 rounded-md my-2 text-sm leading-relaxed"><code>def function1(a):
+    a=a+'1'
+    a=a*2
+
+function1("hello")</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) indentation Error</li><li>(b) cannot perform mathematical operation on strings</li><li>(c) hello2</li><li>(d) hello2hello2</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) indentation Error. Removing the indentation error will result in no output, as neither a return statement within the function nor a print function in the main body of the code has been utilized. However, incorporating both a return statement and a print statement would lead to the output "hello1hello1".</div> </li>
+                        <li>What is the result of this code? <pre class="bg-gray-900 p-4 rounded-md my-2 text-sm leading-relaxed"><code>def print_double(x):
+    print(2**x)
+
+print_double(3)</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) 8</li><li>(b) 6</li><li>(c) 4</li><li>(d) 10</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) 8</div> </li>
+                        <li>What is the order of resolving the scope of a name in a Python program? (L: Local namespace, E: Enclosing namespace, B: Built-In Namespace, G: Global namespace) <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) BGEL</li><li>(b) LEGB</li><li>(c) GEBL</li><li>(d) LBEG</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) LEGB</div> </li>
+                        <li>Which of the given argument types can be skipped from a function call? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) positional arguments</li><li>(b) keyword arguments</li><li>(c) named arguments</li><li>(d) default arguments</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (d) default arguments</div> </li>
+                     </ol>
+                </section>
+                
+                <!-- Fill in the Blanks Section -->
+                <section id="fill-in-the-blanks" class="content-section bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl space-y-12">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Fill in the Blanks</h2>
+                     <ol class="list-decimal list-inside space-y-4">
+                        <!-- All 12 Fill in the blanks -->
+                        <li>A _______________ is a subprogram that acts on data and often returns a value. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> function</div> </li>
+                        <li>Python names the top-level segment (main program) as _______________ segment. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> __main__</div> </li>
+                        <li>In Python, program execution begins with the first statement of the _______________ segment. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> __main__</div> </li>
+                        <li>The values being passed through a function-call statement are called _______________. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> arguments</div> </li>
+                        <li>The values received in the function definition/header are called _______________. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> parameters</div> </li>
+                        <li>A parameter having a default value in the function header is known as a _______________. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> default parameter</div> </li>
+                        <li>A _______________ argument can be skipped in the function call statement. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> default</div> </li>
+                        <li>_______________ arguments are the named arguments with assigned values being passed in the function call statement. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> Keyword</div> </li>
+                        <li>A void function also returns a _______________ value to its caller. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> None</div> </li>
+                        <li>By default, Python names the segment with top-level statements (main program) as _______________. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> __main__</div> </li>
+                        <li>The _______________ refers to the order in which statements are executed during a program run. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> flow of execution</div> </li>
+                        <li>The default value for a parameter is defined in the function _______________. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> header</div> </li>
+                     </ol>
+                </section>
+
+                <!-- True/False Section -->
+                <section id="true-false" class="content-section bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl space-y-12">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">True/False Questions</h2>
+                     <ol class="list-decimal list-inside space-y-4">
+                        <!-- All 12 True/False -->
+                        <li>Non-default arguments can be placed before or after a default argument in a function definition. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> False</div> </li>
+                        <li>A parameter having a default value in the function header is known as a default parameter. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> True</div> </li>
+                        <li>While defining a function in Python, the positional parameters in the function header must always be written after the default parameters. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> False</div> </li>
+                        <li>The first line of a function definition that begins with the keyword def and ends with a colon (:), is also known as the function header. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> True</div> </li>
+                        <li>Variables that are listed within the parentheses of a function header are called function variables. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> False (They are called parameters or formal arguments)</div> </li>
+                        <li>In Python, program execution begins with the first statement of the __main__ segment. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> True</div> </li>
+                        <li>Default parameters cannot be skipped in a function call. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> False</div> </li>
+                        <li>The default values for parameters are considered only if no value is provided for that parameter in the function call statement. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> True</div> </li>
+                        <li>A python function may return multiple values. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> True</div> </li>
+                        <li>A void function also returns a value, i.e., None, to its caller. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> True</div> </li>
+                        <li>Variables defined inside functions can have a global scope. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> True, if the global keyword is used</div> </li>
+                        <li>A local variable having the same name as that of a global variable hides the global variable in its function. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> True</div> </li>
+                     </ol>
+                </section>
+
+                <!-- Assertion and Reasoning Section -->
+                <section id="assertions-reasons" class="content-section bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl space-y-12">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Assertion and Reasoning</h2>
+                     <ol class="list-decimal list-inside space-y-6">
+                        <!-- All 10 Assertion/Reasoning -->
+                        <li><strong>Assertion:</strong> A function is a subprogram. <br> <strong>Reason:</strong> A function exists within a program and works within it when called. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) Both A and R are true and R is the correct explanation of A.</div> </li>
+                        <li><strong>Assertion:</strong> Non-default arguments cannot follow default arguments in a function call. <br> <strong>Reason:</strong> A function call can have different types of arguments. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) Both A and R are true but R is not the correct explanation of A. (The reason is a true statement but doesn't explain the assertion. The correct explanation is that positional arguments must come before keyword arguments.)</div> </li>
+                        <li><strong>Assertion:</strong> A parameter having a default in the function header becomes optional in the function call. <br> <strong>Reason:</strong> A function call may or may not have values for default arguments. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) Both A and R are true and R is the correct explanation of A.</div> </li>
+                        <li><strong>Assertion (A):</strong> Positional arguments in Python functions must be passed in the exact order in which they are defined in the function signature. <br> <strong>Reasoning (R):</strong> This is because Python functions automatically assign default values to positional arguments. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) A is true but R is false. (Python does not automatically assign default values to positional arguments; they are required.)</div> </li>
+                        <li><strong>Assertion:</strong> A variable declared inside a function cannot be used outside it. <br> <strong>Reason:</strong> A variable created inside a function has a function scope. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) Both A and R are true and R is the correct explanation of A.</div> </li>
+                        <li><strong>Assertion:</strong> A variable not declared inside a function can still be used inside the function if it is declared at a higher scope level. <br> <strong>Reason:</strong> Python resolves a name using the LEGB rule where it checks in Local, Enclosing, Global, and Built-in scopes, in the given order. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) Both A and R are true and R is the correct explanation of A.</div> </li>
+                        <li><strong>Assertion:</strong> A parameter having a default value in the function header is known as a default parameter. <br> <strong>Reason:</strong> The default values for parameters are considered only if no value is provided for that parameter in the function call statement. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) Both A and R are true and R is the correct explanation of A.</div> </li>
+                        <li><strong>Assertion:</strong> A function declaring a variable having the same name as a global variable cannot use that global variable. <br> <strong>Reason:</strong> A local variable having the same name as a global variable hides the global variable in its function. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) Both A and R are true and R is the correct explanation of A.</div> </li>
+                        <li><strong>Assertion:</strong> If the arguments in a function call statement match the number and order of arguments as defined in the function definition, such arguments are called positional arguments. <br> <strong>Reasoning:</strong> During a function call, the argument list first contains default argument(s) followed by positional argument(s). <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) A is true but R is false. (The reasoning is incorrect; positional arguments must come before any keyword/default arguments in a function call).</div> </li>
+                        <li><strong>Assertion (A):</strong> To use a function from a particular module, we need to import the module. <br> <strong>Reason (R):</strong> An import statement can be written anywhere in the program before using a function from that module. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) Both A and R are true but R is not the correct explanation of A. (While both statements are true, the reason doesn't fully explain the assertion. The assertion is true because importing brings the module's definitions into the current namespace.)</div> </li>
+                     </ol>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const progressBar = document.getElementById('progress-bar');
+
+            // Tab switching logic
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    const targetId = tab.dataset.target;
+
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+                     window.scrollTo(0, 0); // Scroll to top when tab changes
+                });
+            });
+
+            // Solution toggle logic
+            const toggleButtons = document.querySelectorAll('.toggle-solution-btn');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const clickedButton = event.currentTarget;
+                    const solutionDiv = clickedButton.nextElementSibling;
+                    
+                    if (solutionDiv && solutionDiv.classList.contains('solution')) {
+                        const isVisible = solutionDiv.style.display === 'block';
+                        
+                        if (isVisible) {
+                            solutionDiv.style.display = 'none';
+                            clickedButton.textContent = 'Show Solution';
+                        } else {
+                            solutionDiv.style.display = 'block';
+                            clickedButton.textContent = 'Hide Solution';
+                        }
+                    }
+                });
+            });
+
+            // Scroll progress bar logic
+            const updateProgressBar = () => {
+                const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+                const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
+                progressBar.style.width = `${scrollPercent}%`;
+            };
+
+            window.addEventListener('scroll', updateProgressBar);
+        });
+    </script>
+</body>
+</html>
