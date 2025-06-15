@@ -26,6 +26,14 @@
             background-color: #4a5568;
             padding: 2px 4px;
             border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        pre {
+             background-color: #1f2937;
+             padding: 1rem;
+             border-radius: 0.5rem;
+             overflow-x: auto;
+             line-height: 1.5;
         }
         pre > code {
             background-color: transparent;
@@ -89,8 +97,8 @@
 <body class="bg-gray-900 text-gray-300">
 
     <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-7xl">
-        <a href="python.html" class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-lg bg-gray-700 hover:bg-blue-600 text-white font-semibold shadow transition-colors duration-200">
-            Python Home
+         <a href="python.html" class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-lg bg-gray-700 hover:bg-blue-600 text-white font-semibold shadow transition-colors duration-200">
+            &larr; Python Home
         </a>
         <header class="text-center mb-10">
             <h1 class="text-3xl sm:text-4xl font-bold text-white">Python Function Exercises</h1>
@@ -108,6 +116,9 @@
                         <a class="tab-link" data-target="fill-in-the-blanks">Fill in the Blanks</a>
                         <a class="tab-link" data-target="true-false">True/False</a>
                         <a class="tab-link" data-target="assertions-reasons">Assertion and Reasoning</a>
+                        <a class="tab-link" data-target="output-based">Output-Based Questions</a>
+                        <a class="tab-link" data-target="programming">Programming Questions</a>
+                        <a class="tab-link" data-target="syntactical">Syntactical & Conceptual</a>
                     </nav>
                 </div>
             </aside>
@@ -118,12 +129,11 @@
                 <section id="mcqs" class="content-section active bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl space-y-12">
                      <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Multiple Choice Questions</h2>
                      <ol class="list-decimal list-inside space-y-6">
-                        <!-- All 18 MCQs -->
                         <li>What is the default return value for a function that does not return any value explicitly? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) None</li><li>(b) int</li><li>(c) double</li><li>(d) null</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) None</div> </li>
                         <li>Which of the following items are present in the function header? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) function name only</li><li>(b) both function name and parameter list</li><li>(c) parameter list only</li><li>(d) return value</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) both function name and parameter list</div> </li>
                         <li>Which of the following keywords marks the beginning of the function block? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) func</li><li>(b) define</li><li>(c) def</li><li>(d) function</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) def</div> </li>
                         <li>What is the name given to that area of memory, where the system stores the parameters and local variables of a function call? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) a heap</li><li>(b) storage area</li><li>(c) a stack</li><li>(d) an array</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) a stack</div> </li>
-                        <li>Pick one of the following statements to correctly complete the function body in the given code snippet. <pre class="bg-gray-900 p-4 rounded-md my-2 text-sm leading-relaxed"><code>#Missing function body
+                        <li>Pick one of the following statements to correctly complete the function body in the given code snippet. <pre><code>#Missing function body
 def f(number):
 
 print(f(5))</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) return "number"</li><li>(b) print(number)</li><li>(c) print("number")</li><li>(d) return number</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (d) return number</div> </li>
@@ -136,12 +146,12 @@ print(f(5))</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gray-40
                         <li>For a function header as follows: <code>def calc(X, Y=20):</code> Which of the following function calls will give an error? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) Calc(15,25)</li><li>(b) Calc(X=15,Y=25)</li><li>(c) Calc(Y=25)</li><li>(d) Calc(X=25)</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) Calc(Y=25) (Missing required positional argument 'X')</div> </li>
                         <li>What is a variable defined outside all the functions referred to as? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) A static variable</li><li>(b) A global variable</li><li>(c) A local variable</li><li>(d) An automatic variable</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) A global variable</div> </li>
                         <li>What is a variable defined inside a function referred to as? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) A static variable</li><li>(b) A global variable</li><li>(c) A local variable</li><li>(d) An automatic variable</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) A local variable</div> </li>
-                        <li>Carefully observe the code and give the answer. <pre class="bg-gray-900 p-4 rounded-md my-2 text-sm leading-relaxed"><code>def function1(a):
+                        <li>Carefully observe the code and give the answer. <pre><code>def function1(a):
     a=a+'1'
     a=a*2
 
 function1("hello")</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) indentation Error</li><li>(b) cannot perform mathematical operation on strings</li><li>(c) hello2</li><li>(d) hello2hello2</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) indentation Error. Removing the indentation error will result in no output, as neither a return statement within the function nor a print function in the main body of the code has been utilized. However, incorporating both a return statement and a print statement would lead to the output "hello1hello1".</div> </li>
-                        <li>What is the result of this code? <pre class="bg-gray-900 p-4 rounded-md my-2 text-sm leading-relaxed"><code>def print_double(x):
+                        <li>What is the result of this code? <pre><code>def print_double(x):
     print(2**x)
 
 print_double(3)</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) 8</li><li>(b) 6</li><li>(c) 4</li><li>(d) 10</li></ul> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) 8</div> </li>
@@ -150,11 +160,9 @@ print_double(3)</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gra
                      </ol>
                 </section>
                 
-                <!-- Fill in the Blanks Section -->
                 <section id="fill-in-the-blanks" class="content-section bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl space-y-12">
                      <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Fill in the Blanks</h2>
                      <ol class="list-decimal list-inside space-y-4">
-                        <!-- All 12 Fill in the blanks -->
                         <li>A _______________ is a subprogram that acts on data and often returns a value. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> function</div> </li>
                         <li>Python names the top-level segment (main program) as _______________ segment. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> __main__</div> </li>
                         <li>In Python, program execution begins with the first statement of the _______________ segment. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> __main__</div> </li>
@@ -170,11 +178,9 @@ print_double(3)</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gra
                      </ol>
                 </section>
 
-                <!-- True/False Section -->
                 <section id="true-false" class="content-section bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl space-y-12">
                      <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">True/False Questions</h2>
                      <ol class="list-decimal list-inside space-y-4">
-                        <!-- All 12 True/False -->
                         <li>Non-default arguments can be placed before or after a default argument in a function definition. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> False</div> </li>
                         <li>A parameter having a default value in the function header is known as a default parameter. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> True</div> </li>
                         <li>While defining a function in Python, the positional parameters in the function header must always be written after the default parameters. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Answer:</strong> False</div> </li>
@@ -190,11 +196,9 @@ print_double(3)</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gra
                      </ol>
                 </section>
 
-                <!-- Assertion and Reasoning Section -->
                 <section id="assertions-reasons" class="content-section bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl space-y-12">
                      <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Assertion and Reasoning</h2>
                      <ol class="list-decimal list-inside space-y-6">
-                        <!-- All 10 Assertion/Reasoning -->
                         <li><strong>Assertion:</strong> A function is a subprogram. <br> <strong>Reason:</strong> A function exists within a program and works within it when called. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) Both A and R are true and R is the correct explanation of A.</div> </li>
                         <li><strong>Assertion:</strong> Non-default arguments cannot follow default arguments in a function call. <br> <strong>Reason:</strong> A function call can have different types of arguments. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) Both A and R are true but R is not the correct explanation of A. (The reason is a true statement but doesn't explain the assertion. The correct explanation is that positional arguments must come before keyword arguments.)</div> </li>
                         <li><strong>Assertion:</strong> A parameter having a default in the function header becomes optional in the function call. <br> <strong>Reason:</strong> A function call may or may not have values for default arguments. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) Both A and R are true and R is the correct explanation of A.</div> </li>
@@ -205,6 +209,180 @@ print_double(3)</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gra
                         <li><strong>Assertion:</strong> A function declaring a variable having the same name as a global variable cannot use that global variable. <br> <strong>Reason:</strong> A local variable having the same name as a global variable hides the global variable in its function. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (a) Both A and R are true and R is the correct explanation of A.</div> </li>
                         <li><strong>Assertion:</strong> If the arguments in a function call statement match the number and order of arguments as defined in the function definition, such arguments are called positional arguments. <br> <strong>Reasoning:</strong> During a function call, the argument list first contains default argument(s) followed by positional argument(s). <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (c) A is true but R is false. (The reasoning is incorrect; positional arguments must come before any keyword/default arguments in a function call).</div> </li>
                         <li><strong>Assertion (A):</strong> To use a function from a particular module, we need to import the module. <br> <strong>Reason (R):</strong> An import statement can be written anywhere in the program before using a function from that module. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Solution:</strong> (b) Both A and R are true but R is not the correct explanation of A. (While both statements are true, the reason doesn't fully explain the assertion. The assertion is true because importing brings the module's definitions into the current namespace.)</div> </li>
+                     </ol>
+                </section>
+                
+                <section id="output-based" class="content-section bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl space-y-12">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Output-Based Questions</h2>
+                     <ol class="list-decimal list-inside space-y-6">
+                        <li>Find the output of the following function: <pre><code>def f1(a,b):
+    c=min(a,b)
+    d=a>c
+    return d
+#main
+x=f1(5,2.)
+y=f1(4,7)
+print(x+y)</code></pre> <button class="toggle-solution-btn">Show Solution</button> <div class="solution">x = f1(5, 2.): c becomes 2.0. d becomes True. x is True.<br>y = f1(4, 7): c becomes 4. d becomes False. y is False.<br>print(x + y) is True + False or 1 + 0.<br><strong>Output:</strong> 1</div> </li>
+                        <li>Find the output of the following function: <pre><code>def f2(a,b):
+    if a==b:
+       return a+b
+    else:
+       return a-b
+    return 2*(a+b)
+#main
+x=f2(2*2,3+1)
+y=f2(4+2,5*2)
+print(x-y)</code></pre> <button class="toggle-solution-btn">Show Solution</button> <div class="solution">x = f2(4, 4): a==b is true, returns 4+4=8.<br>y = f2(6, 10): a==b is false, returns 6-10=-4.<br>print(x-y) is 8 - (-4).<br><strong>Output:</strong> 12</div> </li>
+                        <li>Find the output of the following function: <pre><code>def f3(a,b):
+    k=1
+    p=2
+    return k>a, p>b
+#main
+t1=f3(2,-2)
+t2=f3(3,-3)
+print(t1[1]+t2[0])</code></pre> <button class="toggle-solution-btn">Show Solution</button> <div class="solution">t1 = f3(2, -2) returns (False, True).<br>t2 = f3(3, -3) returns (False, True).<br>print(t1[1] + t2[0]) is True + False or 1 + 0.<br><strong>Output:</strong> 1</div></li>
+                        <li>Find the output of the function calls: <pre><code>def f(w, x=2, y=10, z=5):
+    v = w * (x + y) * z // 3
+    return v
+print(f(2, 4))
+print(f(y=2, z=1, w=2, x=1))
+print(f(1, y=1, x=3))</code></pre> <button class="toggle-solution-btn">Show Solution</button> <div class="solution">print(f(2, 4)): v = 2 * (4 + 10) * 5 // 3 -> 140 // 3. <strong>Output: 46</strong><br>print(f(y=2, z=1, w=2, x=1)): v = 2 * (1 + 2) * 1 // 3 -> 6 // 3. <strong>Output: 2</strong><br>print(f(1, y=1, x=3)): v = 1 * (3 + 1) * 5 // 3 -> 20 // 3. <strong>Output: 6</strong></div> </li>
+                        <li>Find the output of the following code: <pre><code>def fx1():
+    global a
+    b=8
+    a=2*a+b
+    b=a+b
+    print(a,b)
+#main
+a=4
+b=3
+fx1()
+print(a,b)</code></pre> <button class="toggle-solution-btn">Show Solution</button> <div class="solution">The first print (inside fx1) is 16 24.<br>The second print (in main) is 16 3.<br><strong>Output:</strong> 16 24 16 3</div></li>
+                        <li>Find the output of the following code: <pre><code>def fx2(T):
+    T[1]=3
+    T.extend([2,1])
+    T.remove(1)
+    Z=T.pop()
+#main
+X=[1,4]
+fx2(X)
+print(X)</code></pre> <button class="toggle-solution-btn">Show Solution</button> <div class="solution">X starts as [1,4]. After fx2(X) is called, X is modified to [3, 2].<br><strong>Output:</strong> [3, 2]</div></li>
+                        <li>Find the output of the following: <pre><code>print('cataclysmic'.split('c'))
+print([2, 7, 4, 9, 3, 2, 8, 5][1:6:2])</code></pre> <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><strong>Output:</strong> ['', 'ata', 'lysmi', '']<br>[7, 9, 2]</div></li>
+                     </ol>
+                </section>
+
+                <section id="programming" class="content-section bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl space-y-12">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Programming Questions</h2>
+                     <ol class="list-decimal list-inside space-y-6">
+                        <li>Write a program to input n numbers in a list. Remove the duplicate values and print a fresh list. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><pre><code>def remove_duplicate(lst):
+    freq = {}  # Dictionary to count occurrences
+    update_lst = []
+
+    # Count occurrences of each element
+    for i in lst:
+        if i in freq:
+            freq[i] += 1
+        else:
+            freq[i] = 1
+
+    # Add elements that appear only once
+    for i in lst:
+        if freq[i] == 1:
+            update_lst.append(i)
+
+    return update_lst
+
+lst = [1, 2, 2, 3, 4, 5, 6, 4, 1]
+print(f"Updated list = {remove_duplicate(lst)}")</code></pre></div> </li>
+                        <li>Write a Python function to count the number of strings from a given list of strings. The string length is 2 or more and the first and last characters are the same. <br>Sample List: ['abc', 'xyz', 'aba', '1221'] -> Expected Result: 2 <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><pre><code>def count_matching_strings(string_list):
+    count = 0
+    for s in string_list:
+        if len(s) >= 2 and s[0] == s[-1]:
+            count += 1
+    return count
+
+sample_list = ['abc', 'xyz', 'aba', '1221']
+result = count_matching_strings(sample_list)
+print(f"Sample List: {sample_list}")
+print(f"Expected Result: {result}")</code></pre></div> </li>
+                        <li>Write a Python function to get a list, sorted in increasing order by the last element in each tuple from a given list of non-empty tuples. <br>Sample List: [(2, 5), (1, 2), (4, 4), (2, 3), (2, 1)] -> Expected Result: [(2, 1), (1, 2), (2, 3), (4, 4), (2, 5)] <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><pre><code>def sorted_lst(lst):
+    for i in range(len(lst)-1):
+        for j in range(len(lst)-1):
+            if lst[j][1] > lst[j+1][1]:
+                lst[j], lst[j+1] = lst[j+1], lst[j]
+
+lst = [(2, 5), (1, 2), (4, 4), (2, 3), (2, 1)]
+sorted_lst(lst)
+print(lst)</code></pre></div></li>
+                        <li>Write a Python program to find the list of words that are longer than n from a given list of words. <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><pre><code>def find_long_words(word_list, n):
+    long_words = []
+    for word in word_list:
+        if len(word) > n:
+            long_words.append(word)
+    return long_words
+
+words = ["apple", "banana", "kiwi", "strawberry", "orange"]
+n = 5
+result = find_long_words(words, n)
+print(f"Words longer than {n}: {result}")</code></pre></div></li>
+                        <li>Write a Python program to print a specified list after removing the 0th, 4th, and 5th elements. <br>Sample List: ['Red', 'Green', 'White', 'Black', 'Pink', 'Yellow'] -> Expected Output: ['Green', 'White', 'Black'] <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><pre><code>my_list = ['Red', 'Green', 'White', 'Black', 'Pink', 'Yellow']
+filtered_list = []
+for i in range(len(my_list)):
+    if i != 0 and i != 4 and i != 5:
+        filtered_list.append(my_list[i])
+print("Updated list:", filtered_list)</code></pre></div></li>
+                        <li>Write a Python program to check if each number is prime in a given list of numbers. Return True if all numbers are prime otherwise False. <br>Sample Data: ([0, 3, 4, 7, 9]) -> False, ([3, 5, 7, 13]) -> True, ([1, 5, 3]) -> False <button class="toggle-solution-btn">Show Solution</button> <div class="solution"><pre><code>def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def all_are_prime(num_list):
+    for i in num_list:
+        if not is_prime(i):
+            return False
+    return True
+
+print(f"([0, 3, 4, 7, 9]) -> {all_are_prime([0, 3, 4, 7, 9])}")
+print(f"([3, 5, 7, 13]) -> {all_are_prime([3, 5, 7, 13])}")
+print(f"([1, 5, 3]) -> {all_are_prime([1, 5, 3])}")</code></pre></div></li>
+                     </ol>
+                </section>
+
+                <section id="syntactical" class="content-section bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl space-y-12">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Syntactical & Conceptual Questions</h2>
+                     <ol class="list-decimal list-inside space-y-6">
+                        <li>State with proper reasoning which of the following are syntactically correct and which are syntactically incorrect function headers:
+                            <ul class="list-disc list-inside ml-6 mt-4 space-y-2">
+                                <li><code>def ELSE(s=2, 7):</code></li>
+                                <li><code>def else(a=2, b=3):</code></li>
+                                <li><code>def Else(j=2, k):</code></li>
+                            </ul>
+                            <button class="toggle-solution-btn">Show Solution</button>
+                            <div class="solution">
+                                <p><strong>def ELSE(s=2, 7):</strong><br><strong>Verdict:</strong> Syntactically Incorrect.<br><strong>Reasoning:</strong> A positional parameter (7) cannot follow a default argument (s=2).</p>
+                                <p class="mt-2"><strong>def else(a=2, b=3):</strong><br><strong>Verdict:</strong> Syntactically Incorrect.<br><strong>Reasoning:</strong> else is a reserved keyword in Python.</p>
+                                <p class="mt-2"><strong>def Else(j=2, k):</strong><br><strong>Verdict:</strong> Syntactically Incorrect.<br><strong>Reasoning:</strong> A positional parameter (k) cannot follow a default argument (j=2).</p>
+                            </div>
+                        </li>
+                        <li>State with proper reasoning which of the following function calls for the function fnc are correct and which are incorrect:
+                            <pre><code>def fnc(bat, hat, vat=2, mat=4):
+    return bat-vat+hat*mat</code></pre>
+                             <ul class="list-disc list-inside ml-6 mt-4 space-y-2">
+                                <li><code>print(fnc(2, 5))</code></li>
+                                <li><code>print(fnc(2, 4, 1, bat=4, mat=1))</code></li>
+                                <li><code>print(fnc(vat=1, 3, 7))</code></li>
+                            </ul>
+                            <button class="toggle-solution-btn">Show Solution</button>
+                            <div class="solution">
+                                <p><strong>print(fnc(2, 5)):</strong><br><strong>Verdict:</strong> Correct.<br><strong>Reasoning:</strong> Positional arguments are passed correctly, and vat, mat use default values.</p>
+                                <p class="mt-2"><strong>print(fnc(2, 4, 1, bat=4, mat=1)):</strong><br><strong>Verdict:</strong> Incorrect.<br><strong>Reasoning:</strong> bat gets a value twice, which causes a TypeError.</p>
+                                <p class="mt-2"><strong>print(fnc(vat=1, 3, 7)):</strong><br><strong>Verdict:</strong> Incorrect.<br><strong>Reasoning:</strong> Positional arguments (3, 7) cannot follow a keyword argument (vat=1).</p>
+                            </div>
+                        </li>
                      </ol>
                 </section>
             </main>
@@ -262,11 +440,17 @@ print_double(3)</code></pre> <ul class="list-disc list-inside ml-6 mt-2 text-gra
             // Scroll progress bar logic
             const updateProgressBar = () => {
                 const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+                if (scrollHeight - clientHeight <= 0) {
+                     progressBar.style.width = '0%';
+                     return;
+                }
                 const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
                 progressBar.style.width = `${scrollPercent}%`;
             };
 
             window.addEventListener('scroll', updateProgressBar);
+            // Also update on tab click in case new content is shorter than viewport
+            tabs.forEach(tab => tab.addEventListener('click', () => setTimeout(updateProgressBar, 0)));
         });
     </script>
 </body>
