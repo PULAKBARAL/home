@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Questions: Stacks and Queues</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .solution {
+            display: none;
+            background-color: #1f2937; /* bg-gray-800 */
+            border-left: 4px solid #3b82f6; /* border-blue-500 */
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            color: #e5e7eb; /* text-gray-200 */
+        }
+        .solution strong {
+            color: #60a5fa; /* text-blue-400 */
+        }
+        code {
+            background-color: #374151; /* bg-gray-700 */
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        pre {
+             background-color: #111827;
+             padding: 1rem;
+             border-radius: 0.5rem;
+             overflow-x: auto;
+             line-height: 1.5;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        .toggle-solution-btn {
+            display: inline-block;
+            margin-top: 0.75rem;
+            background-color: #3b82f6;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .toggle-solution-btn:hover {
+            background-color: #2563eb;
+        }
+        .sidebar-sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 2rem;
+        }
+        .tab-link {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+        .tab-link:hover {
+            background-color: #374151;
+        }
+        .tab-link.active {
+            background-color: #3b82f6;
+            color: white;
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .question-block {
+            background-color: #1f2937;
+            padding: 1.5rem 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8">
+
+    <div class="container mx-auto max-w-7xl">
+         <a href="python.html" class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-lg bg-gray-700 hover:bg-blue-600 text-white font-semibold shadow transition-colors duration-200">
+            &larr; Python Home
+        </a>
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-white">Programming Questions: Stacks and Queues</h1>
+            <p class="text-lg text-gray-400 mt-2">Practice your data structure implementation skills.</p>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <aside class="w-full md:w-1/4 self-start sidebar-sticky">
+                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl">
+                     <h2 class="text-xl font-bold mb-4 text-white">Categories</h2>
+                     <nav id="sidebar-nav">
+                        <a class="tab-link active" data-target="programming-questions">Programming Questions</a>
+                    </nav>
+                </div>
+            </aside>
+            <main id="questions" class="w-full md:w-3/4">
+                 <section id="programming-questions" class="content-section active question-block">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Programming Questions</h2>
+                    <ol class="list-decimal list-inside space-y-8">
+                        <li>
+                            <h3 class="text-lg font-semibold text-white">Push Perfect Squares to a Stack</h3>
+                            <p class="mt-1">You have stored a list containing ten integers. Thereafter, create a program with separate user-defined functions to perform the following operations based on this list:
+                                <ul class="list-disc list-inside ml-6 mt-2 text-gray-400">
+                                    <li>Traverse the content of the list and push all the perfect square numbers into a stack.</li>
+                                    <li>Pop and display the content of the stack.</li>
+                                </ul>
+                               For example: If <code>MyList = [16, 44, 55, 64, 80, 81, 49, 66, 99, 75]</code>
+                            </p>
+                            <button class="toggle-solution-btn">Show Solution</button>
+                            <div class="solution">
+                                <pre><code>import math
+
+def is_perfect_square(n):
+    """Checks if a number is a perfect square."""
+    if n < 0:
+        return False
+    sqrt_n = int(math.sqrt(n))
+    return sqrt_n * sqrt_n == n
+
+def push_perfect_squares(stack, number_list):
+    """Pushes perfect squares from a list onto a stack."""
+    print("Pushing perfect squares...")
+    for num in number_list:
+        if is_perfect_square(num):
+            stack.append(num)
+            print(f"Pushed {num}")
+    return stack
+
+def display_stack(stack):
+    """Pops and displays the content of the stack."""
+    print("\nPopping and displaying stack content:")
+    while stack:
+        print(stack.pop())
+
+# Main Program
+MyList = [16, 44, 55, 64, 80, 81, 49, 66, 99, 75]
+square_stack = []
+
+push_perfect_squares(square_stack, MyList)
+display_stack(square_stack)</code></pre>
+                            </div>
+                        </li>
+                        <li>
+                            <h3 class="text-lg font-semibold text-white">Find Largest and Smallest in a Stack</h3>
+                            <p class="mt-1">Write a user-defined function <code>Large_Small()</code> to create a stack for storing some numbers till the user wants. Display the content of the stack along with the largest and the smallest numbers in the stack.</p>
+                            <button class="toggle-solution-btn">Show Solution</button>
+                            <div class="solution">
+                                <pre><code>def Large_Small():
+    """Creates a stack, finds, and displays the largest and smallest numbers."""
+    stack = []
+    while True:
+        choice = input("Enter a number to push or 'done' to finish: ")
+        if choice.lower() == 'done':
+            break
+        try:
+            stack.append(int(choice))
+        except ValueError:
+            print("Invalid input. Please enter a number or 'done'.")
+    
+    if not stack:
+        print("\nStack is empty.")
+        return
+
+    print("\nContent of the stack:", stack)
+    
+    largest = max(stack)
+    smallest = min(stack)
+    
+    print("Largest number in the stack:", largest)
+    print("Smallest number in the stack:", smallest)
+
+# Run the function
+Large_Small()</code></pre>
+                            </div>
+                        </li>
+                         <li>
+                            <h3 class="text-lg font-semibold text-white">Display Vowels from a String using Stack</h3>
+                            <p class="mt-1">Write a user-defined function <code>def Vowels()</code> to input a string using a stack. Keep popping out each element from the stack and if it is a vowel then display, otherwise ignore. <br>
+                            <strong>Sample Input:</strong> Information -> <strong>Sample Output:</strong> o, i, a, o, I</p>
+                            <button class="toggle-solution-btn">Show Solution</button>
+                            <div class="solution">
+                                <pre><code>def Vowels():
+    """Inputs a string, pushes to a stack, and pops to display only vowels."""
+    input_string = input("Enter a string: ")
+    stack = list(input_string) # Push all characters onto the stack
+    vowels = "aeiouAEIOU"
+    
+    print("\nVowels from the string (in reverse order):")
+    output = []
+    while stack:
+        char = stack.pop()
+        if char in vowels:
+            output.append(char)
+    
+    print(", ".join(output))
+
+# Run the function
+Vowels()</code></pre>
+                            </div>
+                        </li>
+                        <li>
+                            <h3 class="text-lg font-semibold text-white">Reverse a String and Check for Palindrome</h3>
+                            <p class="mt-1">Write a user-defined function <code>def Reverse()</code> to accept a string. Now, create a stack using the characters (beginning to the end) from the given string. Pop out the characters from the stack to form the reverse string. Finally, check and display whether the given string is a Palindrome or not.</p>
+                            <button class="toggle-solution-btn">Show Solution</button>
+                            <div class="solution">
+                                <pre><code>def Reverse():
+    """Reverses a string using a stack and checks if it's a palindrome."""
+    original_string = input("Enter a string: ")
+    stack = list(original_string)
+    
+    reversed_string = ""
+    while stack:
+        reversed_string += stack.pop()
+        
+    print("\nOriginal String:", original_string)
+    print("Reversed String:", reversed_string)
+    
+    if original_string.lower() == reversed_string.lower():
+        print("The string is a Palindrome.")
+    else:
+        print("The string is not a Palindrome.")
+
+# Run the function
+Reverse()</code></pre>
+                            </div>
+                        </li>
+                        <li>
+                            <h3 class="text-lg font-semibold text-white">Display Names with Same First and Last Character</h3>
+                            <p class="mt-1">Write a user-defined function <code>def First_Last()</code> to push any five names in a stack. Pop out each name from the stack but display only those names whose first and last characters are the same.</p>
+                            <button class="toggle-solution-btn">Show Solution</button>
+                            <div class="solution">
+                                <pre><code>def First_Last():
+    """Pushes 5 names to a stack, then pops and displays names
+    where the first and last characters are the same."""
+    stack = []
+    print("Enter 5 names:")
+    for i in range(5):
+        name = input(f"Enter name {i+1}: ")
+        stack.append(name)
+        
+    print("\nNames with the same first and last character:")
+    while stack:
+        name = stack.pop()
+        if len(name) > 0 and name[0].lower() == name[-1].lower():
+            print(name)
+
+# Run the function
+First_Last()</code></pre>
+                            </div>
+                        </li>
+                        <li>
+                            <h3 class="text-lg font-semibold text-white">Push Car Names Based on Price</h3>
+                            <p class="mt-1">Pranay has created a dictionary containing five different car names and their prices as key-value pairs. Write a program, with separate user-defined functions to perform the following operations:
+                                <ul class="list-disc list-inside ml-6 mt-2 text-gray-400">
+                                    <li>Push the keys (car names) of the dictionary into a stack, where the corresponding value (price) is greater than or equal to 900000.</li>
+                                    <li>Pop and display the content of the stack.</li>
+                                </ul>
+                            </p>
+                            <button class="toggle-solution-btn">Show Solution</button>
+                            <div class="solution">
+                                 <pre><code>def push_expensive_cars(stack, car_dict):
+    """Pushes car names with price >= 900000 to the stack."""
+    print("Checking cars and pushing to stack if price >= 900000...")
+    for car, price in car_dict.items():
+        if price >= 900000:
+            stack.append(car)
+            print(f"Pushed '{car}'")
+    return stack
+
+def display_car_stack(stack):
+    """Pops and displays the content of the car stack."""
+    print("\nPopping and displaying expensive cars from the stack:")
+    if not stack:
+        print("No cars met the price criteria.")
+        return
+    while stack:
+        print(stack.pop())
+
+# Main Program
+car_prices = {
+    "Swift": 750000,
+    "Fortuner": 3500000,
+    "Creta": 1200000,
+    "i20": 850000,
+    "Thar": 1500000
+}
+expensive_car_stack = []
+
+push_expensive_cars(expensive_car_stack, car_prices)
+display_car_stack(expensive_car_stack)</code></pre>
+                            </div>
+                        </li>
+                        <li>
+                            <h3 class="text-lg font-semibold text-white">Stack Operations for Temperatures</h3>
+                            <p class="mt-1">Write a Python code to implement a stack to store temperatures in degree Celsius. Perform the following operations using user's choice:
+                                <ul class="list-disc list-inside ml-6 mt-2 text-gray-400">
+                                    <li><code>Push(MyStack, tmp)</code>: To push the temperature (tmp) into the stack.</li>
+                                    <li><code>Peek(MyStack)</code>: Displays the topmost temperature of the stack.</li>
+                                    <li><code>Display(MyStack)</code>: Displays the stack elements.</li>
+                                </ul>
+                            </p>
+                            <button class="toggle-solution-btn">Show Solution</button>
+                            <div class="solution">
+                                <pre><code>def Push(MyStack, tmp):
+    """Pushes a temperature onto the stack."""
+    MyStack.append(tmp)
+    print(f"Pushed {tmp}°C to the stack.")
+
+def Peek(MyStack):
+    """Displays the topmost temperature without removing it."""
+    if not MyStack:
+        print("Stack is empty. Cannot peek.")
+    else:
+        print("Topmost temperature:", MyStack[-1], "°C")
+
+def Display(MyStack):
+    """Displays all temperatures in the stack."""
+    if not MyStack:
+        print("Stack is empty.")
+    else:
+        print("Temperatures in stack (top to bottom):")
+        for temp in reversed(MyStack):
+            print(temp, "°C")
+
+# Main Program Loop
+temp_stack = []
+while True:
+    print("\n--- Temperature Stack Menu ---")
+    print("1. Push a temperature")
+    print("2. Peek at the top temperature")
+    print("3. Display all temperatures")
+    print("4. Exit")
+    
+    choice = input("Enter your choice (1-4): ")
+    
+    if choice == '1':
+        try:
+            temp = float(input("Enter temperature in Celsius: "))
+            Push(temp_stack, temp)
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+    elif choice == '2':
+        Peek(temp_stack)
+    elif choice == '3':
+        Display(temp_stack)
+    elif choice == '4':
+        print("Exiting program.")
+        break
+    else:
+        print("Invalid choice. Please select from 1-4.")</code></pre>
+                            </div>
+                        </li>
+                        <li>
+                            <h3 class="text-lg font-semibold text-white">Stack Operations for City Names</h3>
+                            <p class="mt-1">Implement a stack to manage different city names with the following functions based on user's choice:
+                                <ul class="list-disc list-inside ml-6 mt-2 text-gray-400">
+                                    <li><code>MakePush(MyStack)</code>: To push a city name at the top of the stack and display the index of the top, the top city name, and all city names in the stack.</li>
+                                    <li><code>MakePop(MyStack)</code>: To remove a city name from the top of the stack. If the stack is empty, display "Underflow", otherwise display the popped item.</li>
+                                </ul>
+                                Under what principle does the above entity work?
+                            </p>
+                            <button class="toggle-solution-btn">Show Solution</button>
+                            <div class="solution">
+                                 <pre><code>def MakePush(MyStack):
+    """Pushes a city name and displays stack status."""
+    city = input("Enter city name to push: ")
+    MyStack.append(city)
+    top_index = len(MyStack) - 1
+    top_city = MyStack[-1]
+    print(f"Top index: {top_index}")
+    print(f"Top city: {top_city}")
+    print("Current Stack:", MyStack)
+
+def MakePop(MyStack):
+    """Pops a city name and displays it, or shows underflow."""
+    if not MyStack:
+        print("Underflow: Stack is empty.")
+    else:
+        popped_city = MyStack.pop()
+        print("Popped item:", popped_city)
+
+# Main Program Loop
+city_stack = []
+while True:
+    print("\n--- City Stack Menu ---")
+    print("1. Push a city")
+    print("2. Pop a city")
+    print("3. Exit")
+
+    choice = input("Enter your choice (1-3): ")
+
+    if choice == '1':
+        MakePush(city_stack)
+    elif choice == '2':
+        MakePop(city_stack)
+    elif choice == '3':
+        print("Exiting program.")
+        break
+    else:
+        print("Invalid choice. Please select from 1-3.")
+
+print("\nThe stack works on the LIFO (Last-In, First-Out) principle.")
+</code></pre>
+                            </div>
+                        </li>
+                    </ol>
+                 </section>
+            </main>
+        </div>
+        <footer class="text-center mt-12 text-sm text-gray-500">
+            <p>Happy Learning!</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const targetId = tab.dataset.target;
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+                    window.scrollTo(0, 0);
+                });
+            });
+
+            const toggleButtons = document.querySelectorAll('.toggle-solution-btn');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const clickedButton = event.currentTarget;
+                    const solutionDiv = clickedButton.nextElementSibling;
+                    if (solutionDiv && solutionDiv.classList.contains('solution')) {
+                        const isVisible = solutionDiv.style.display === 'block';
+                        solutionDiv.style.display = isVisible ? 'none' : 'block';
+                        clickedButton.textContent = isVisible ? 'Show Solution' : 'Hide Solution';
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
