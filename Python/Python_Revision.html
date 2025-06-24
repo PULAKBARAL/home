@@ -459,14 +459,13 @@ print(fib_series)</code></pre></div></li>
 
 month_days_operations()</code></pre></div>
                         </li>
-                        <li>Write a function called addDict(dict1, dict2) which computes the union of two dictionaries. It should return a new dictionary that contains all the items in both its arguments (assumed to be dictionaries). If the same key appears in both arguments, feel free to pick a value from either.<button class="toggle-solution-btn">Show Solution</button><div class="solution"><pre><code>def addDict(dict1, dict2):
-    new_dict = {**dict1, **dict2}
-    return new_dict
-
-d1 = {'a': 1, 'b': 2}
+                        <li>Write a function called addDict(dict1, dict2) which computes the union of two dictionaries. It should return a new dictionary that contains all the items in both its arguments (assumed to be dictionaries). If the same key appears in both arguments, feel free to pick a value from either.<button class="toggle-solution-btn">Show Solution</button><div class="solution"><pre><code>d1 = {'a': 1, 'b': 2}
 d2 = {'b': 3, 'c': 4}
-union_dict = addDict(d1, d2)
-print(union_dict)</code></pre></div></li>
+
+d1.update(d2)
+print(d1)  # Output: {'a': 1, 'b': 3, 'c': 4}
+
+</code></pre></div></li>
                         <li>Write a program to sort a dictionary's keys using Bubble sort and produce the sorted keys as a list.<button class="toggle-solution-btn">Show Solution</button><div class="solution"><pre><code>def bubble_sort_dict_keys(input_dict):
     keys = list(input_dict.keys())
     n = len(keys)
