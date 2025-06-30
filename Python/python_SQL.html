@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Management and SQL Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .solution {
+            display: none;
+            background-color: #1f2937; /* bg-gray-800 */
+            border-left: 4px solid #3b82f6; /* border-blue-500 */
+            padding: 0.75rem 1rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            color: #e5e7eb; /* text-gray-200 */
+        }
+        .solution strong {
+            color: #60a5fa; /* text-blue-400 */
+        }
+        code {
+            background-color: #374151; /* bg-gray-700 */
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        pre {
+             background-color: #0c121e;
+             padding: 1rem;
+             border-radius: 0.5rem;
+             overflow-x: auto;
+             line-height: 1.5;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        .toggle-solution-btn {
+            display: inline-block;
+            margin-top: 0.75rem;
+            background-color: #3b82f6;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .toggle-solution-btn:hover {
+            background-color: #2563eb;
+        }
+        .sidebar-sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 2rem;
+        }
+         .tab-link {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+        .tab-link:hover {
+            background-color: #374151;
+        }
+        .tab-link.active {
+            background-color: #3b82f6;
+            color: white;
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .question-block {
+            background-color: #1f2937;
+            padding: 1.5rem 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        th, td {
+            border: 1px solid #4b5563; /* border-gray-600 */
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #374151; /* bg-gray-700 */
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8">
+
+    <div class="container mx-auto max-w-7xl">
+        <a href="python.html" class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-lg bg-gray-700 hover:bg-blue-600 text-white font-semibold shadow transition-colors duration-200">
+            &larr; Python Home
+        </a>
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-white">An Expert's Guide to Database Management and SQL</h1>
+            <p class="text-lg text-gray-400 mt-2">CBSE Class 12 (2025 Exam Edition)</p>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-8">
+             <!-- Sidebar Navigation -->
+            <aside class="w-full md:w-1/4 self-start sidebar-sticky">
+                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl">
+                     <h2 class="text-xl font-bold mb-4 text-white">Sections</h2>
+                     <nav id="sidebar-nav">
+                        <a class="tab-link active" data-target="sec1">1. Database Systems</a>
+                        <a class="tab-link" data-target="sec2">2. Relational Anatomy</a>
+                        <a class="tab-link" data-target="sec3">3. Intro to SQL</a>
+                        <a class="tab-link" data-target="sec4">4. DDL</a>
+                        <a class="tab-link" data-target="sec5">5. DML</a>
+                        <a class="tab-link" data-target="sec6">6. The SELECT Statement</a>
+                        <a class="tab-link" data-target="sec7">7. Grouping Data</a>
+                        <a class="tab-link" data-target="sec8">8. Joins</a>
+                        <a class="tab-link" data-target="sec9">9. Python-SQL Interface</a>
+                        <a class="tab-link" data-target="sec10">10. Question Bank</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main id="main-content" class="w-full md:w-3/4">
+                
+                <section id="sec1" class="content-section active question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Section 1: Understanding Database Systems</h2>
+                    <div class="space-y-4">
+                        <p>The ability to store, manage, and retrieve data efficiently and reliably is a cornerstone of modern computing. This section explores the evolution from simple file-based storage to sophisticated Database Management Systems (DBMS), laying the groundwork for understanding the relational model that forms the core of the CBSE Class 12 syllabus.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">1.1 From File Systems to Databases: The 'Why'</h3>
+                        <p>Before the advent of databases, data was commonly stored in individual files managed directly by the operating system. This approach, known as the file processing system, was adequate for simple applications but proved deeply problematic as data volumes and user requirements grew. This system was plagued by several critical limitations that necessitated a more structured solution.</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Data Redundancy:</strong> This refers to the unnecessary duplication of data. In a file system, different applications or departments within an organization often maintained their own separate data files. This duplication wastes storage space and leads to other problems.</li>
+                            <li><strong>Data Inconsistency:</strong> This is a direct consequence of data redundancy. If a student's address changes, it might be updated in one file but not another. The system now holds conflicting information, creating a state of data inconsistency.</li>
+                            <li><strong>Complex Data Access:</strong> Retrieving data from a file system required writing a custom program for every new type of query. This was inflexible and slow.</li>
+                            <li><strong>Lack of Security:</strong> File systems typically offer password protection at the file level but lack granular control. It was difficult to enforce security policies where different users have different access rights to the same data.</li>
+                            <li><strong>No Concurrent Access Control:</strong> When multiple users need to access and modify the same data simultaneously, a file system offers no mechanism to prevent conflicts, which can lead to data corruption.</li>
+                        </ul>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">1.2 Introduction to Database Management Systems (DBMS)</h3>
+                        <p>A Database Management System (DBMS) is the software solution designed to overcome the limitations of file systems. It is a software package that allows users to create, define, maintain, and control access to a database. A database itself is a systematic and organized collection of logically related data. By centralizing data storage and management, a DBMS provides numerous advantages like minimizing redundancy, ensuring consistency, improving security, and providing data independence.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">1.3 The Relational Model (RDBMS): A Structured Approach</h3>
+                        <p>An RDBMS is a DBMS based on the relational model. The fundamental principle of this model is that all data is stored in a simple, intuitive, and structured format: two-dimensional tables, formally known as <strong>relations</strong>.</p>
+                        <table>
+                            <thead>
+                                <tr><th>Feature</th><th>General DBMS</th><th>Relational DBMS (RDBMS)</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Data Storage</td><td>Data is often stored in a navigational (hierarchical) or file format.</td><td>Data is exclusively stored in a tabular format (tables).</td></tr>
+                                <tr><td>User Access</td><td>Often supports only a single user.</td><td>Inherently designed to support multiple concurrent users.</td></tr>
+                                <tr><td>Data Relationship</td><td>Relationships are not explicitly defined.</td><td>Explicitly maintains relationships using keys.</td></tr>
+                                <tr><td>Normalization</td><td>Not supported.</td><td>Supported to reduce redundancy.</td></tr>
+                                <tr><td>ACID Model</td><td>Does not necessarily adhere to ACID properties.</td><td>Adheres to ACID properties for reliability.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <section id="sec2" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Section 2: Anatomy of a Relational Database</h2>
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">2.1 Core Terminology</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                             <li><strong>Relation:</strong> The formal, mathematical term for a <strong>table</strong>.</li>
+                             <li><strong>Tuple:</strong> The formal term for a <strong>row</strong> or a <strong>record</strong> in a relation.</li>
+                             <li><strong>Attribute:</strong> The formal term for a <strong>column</strong> or a <strong>field</strong> in a relation.</li>
+                             <li><strong>Domain:</strong> The set or pool of all permissible, atomic values for a given attribute.</li>
+                        </ul>
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">2.2 Structural Properties</h3>
+                         <ul class="list-disc list-inside ml-4 space-y-2">
+                             <li><strong>Degree:</strong> The total number of <strong>attributes (columns)</strong> in a relation.</li>
+                             <li><strong>Cardinality:</strong> The total number of <strong>tuples (rows)</strong> in a relation. The SQL command <code>SELECT COUNT(*) FROM table_name;</code> calculates the cardinality.</li>
+                        </ul>
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">2.3 The Role of Keys</h3>
+                         <p>Keys are attributes that uniquely identify each tuple and establish links between relations.</p>
+                        <table>
+                            <thead>
+                                <tr><th>Key Type</th><th>Purpose</th><th>Can be NULL?</th><th>Uniqueness</th><th>How many per table?</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Primary Key</td><td>The main unique identifier for each row.</td><td>No</td><td>Must be unique</td><td>Exactly one</td></tr>
+                                <tr><td>Candidate Key</td><td>Any attribute that could be a primary key.</td><td>No</td><td>Must be unique</td><td>One or more</td></tr>
+                                <tr><td>Alternate Key</td><td>A candidate key not chosen as primary.</td><td>No</td><td>Must be unique</td><td>Zero or more</td></tr>
+                                <tr><td>Foreign Key</td><td>Links a row to another table's primary key.</td><td>Yes</td><td>Does not need to be unique</td><td>Zero or more</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <section id="sec3" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Section 3: Introduction to SQL</h2>
+                    <div class="space-y-4">
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">3.1 The Language of Databases</h3>
+                         <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>DDL (Data Definition Language):</strong> Defines and manages the database structure. Commands: <code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>.</li>
+                            <li><strong>DML (Data Manipulation Language):</strong> Manages the data within tables. Commands: <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>.</li>
+                         </ul>
+                          <h3 class="text-xl font-semibold text-blue-300 pt-4">3.2 Essential SQL Data Types</h3>
+                         <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>CHAR(n):</strong> Fixed-length character string. Padded with spaces if shorter than n.</li>
+                            <li><strong>VARCHAR(n):</strong> Variable-length character string. More space-efficient.</li>
+                            <li><strong>INT / INTEGER:</strong> Whole numbers.</li>
+                            <li><strong>FLOAT / DECIMAL(p, s):</strong> Numbers with decimal points.</li>
+                            <li><strong>DATE:</strong> Stores date values, typically in 'YYYY-MM-DD' format.</li>
+                         </ul>
+                    </div>
+                </section>
+                
+                <section id="sec4" class="content-section question-block">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Section 4: Data Definition Language (DDL)</h2>
+                     <div class="space-y-4">
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">4.1 CREATE Command</h3>
+                         <p>Used to build new database objects.</p>
+                         <pre><code>-- Creating a Database
+CREATE DATABASE School;
+
+-- Creating a Table
+CREATE TABLE Student (
+    RollNo INT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL,
+    City VARCHAR(30),
+    DOB DATE
+);</code></pre>
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">4.2 ALTER Command</h3>
+                         <p>Modifies the structure of an existing table.</p>
+                         <pre><code>-- Adding a Column
+ALTER TABLE Student ADD Grade CHAR(1);
+
+-- Modifying a Column
+ALTER TABLE Student MODIFY COLUMN City VARCHAR(50);
+
+-- Dropping a Column
+ALTER TABLE Student DROP COLUMN Grade;</code></pre>
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">4.3 DROP Command</h3>
+                         <p>Permanently deletes database objects.</p>
+                         <pre><code>-- Dropping a Table
+DROP TABLE Student;
+
+-- Dropping a Database
+DROP DATABASE School;</code></pre>
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">4.4 SQL Constraints</h3>
+                         <p>Rules enforced on data columns.</p>
+                         <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>NOT NULL:</strong> Column cannot have a NULL value.</li>
+                            <li><strong>UNIQUE:</strong> All values in a column must be different.</li>
+                            <li><strong>PRIMARY KEY:</strong> Uniquely identifies each record.</li>
+                            <li><strong>FOREIGN KEY:</strong> Links to a primary key in another table.</li>
+                            <li><strong>CHECK:</strong> Ensures values satisfy a specific condition (e.g., <code>Age INT CHECK (Age >= 18)</code>).</li>
+                            <li><strong>DEFAULT:</strong> Provides a default value for a column.</li>
+                         </ul>
+                    </div>
+                </section>
+
+                <section id="sec5" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Section 5: Data Manipulation Language (DML)</h2>
+                    <div class="space-y-4">
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">5.1 INSERT INTO Command</h3>
+                         <pre><code>-- Syntax 1 (Recommended)
+INSERT INTO Student (RollNo, Name, City)
+VALUES (101, 'Arun Sharma', 'Delhi');
+
+-- Syntax 2 (Requires values for all columns in order)
+INSERT INTO Student
+VALUES (102, 'Bhavna Singh', 'Mumbai', '2005-08-15');</code></pre>
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">5.2 UPDATE Command</h3>
+                         <p><strong>Crucially, always use a <code>WHERE</code> clause to avoid updating all rows.</strong></p>
+                         <pre><code>UPDATE Student
+SET City = 'Chennai'
+WHERE RollNo = 101;</code></pre>
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">5.3 DELETE Command</h3>
+                         <p><strong>Crucially, always use a <code>WHERE</code> clause to avoid deleting all rows.</strong></p>
+                         <pre><code>DELETE FROM Student
+WHERE RollNo = 102;</code></pre>
+                    </div>
+                </section>
+                
+                <section id="sec6" class="content-section question-block">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Section 6: The SELECT Statement</h2>
+                     <div class="space-y-4">
+                        <p>The <code>SELECT</code> statement is used to query data from tables.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">6.1 Basic Retrieval</h3>
+                        <pre><code>-- Select specific columns
+SELECT Name, City FROM Student;
+
+-- Select all columns
+SELECT * FROM Student;</code></pre>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">6.2 Filtering with WHERE</h3>
+                        <p>Clauses for filtering: <code>=</code>, <code>!=</code>, <code>></code>, <code><</code>, <code>AND</code>, <code>OR</code>, <code>BETWEEN</code>, <code>IN</code>, <code>IS NULL</code>, <code>LIKE</code>.</p>
+                        <pre><code>SELECT Name FROM Student WHERE City = 'Delhi';
+SELECT Name FROM Student WHERE Name LIKE 'A%';</code></pre>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">6.3 Sorting with ORDER BY</h3>
+                        <p>Sorts results. <code>ASC</code> (default) for ascending, <code>DESC</code> for descending.</p>
+                        <pre><code>SELECT Name, Marks FROM Student ORDER BY Marks DESC;</code></pre>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">6.4 Single-Row Functions</h3>
+                        <table>
+                            <thead><tr><th>Category</th><th>Function</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td>Text</td><td>UPPER(str)</td><td>Converts a string to uppercase.</td></tr>
+                                <tr><td>Text</td><td>LOWER(str)</td><td>Converts a string to lowercase.</td></tr>
+                                <tr><td>Text</td><td>SUBSTR(str, start, len)</td><td>Extracts a substring.</td></tr>
+                                <tr><td>Text</td><td>LENGTH(str)</td><td>Returns the number of characters.</td></tr>
+                                <tr><td>Numeric</td><td>ROUND(num, places)</td><td>Rounds a number.</td></tr>
+                                <tr><td>Numeric</td><td>MOD(n, m)</td><td>Returns the remainder of division.</td></tr>
+                                <tr><td>Date</td><td>NOW()</td><td>Returns the current date and time.</td></tr>
+                                <tr><td>Date</td><td>MONTH(date)</td><td>Extracts the month number.</td></tr>
+                            </tbody>
+                        </table>
+                     </div>
+                </section>
+                
+                <section id="sec7" class="content-section question-block">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Section 7: Summarizing and Grouping Data</h2>
+                     <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">7.1 Aggregate Functions</h3>
+                        <p>Perform calculations across a set of rows. Includes <code>COUNT()</code>, <code>SUM()</code>, <code>AVG()</code>, <code>MAX()</code>, <code>MIN()</code>.</p>
+                        <pre><code>SELECT COUNT(DISTINCT City) FROM Student;</code></pre>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">7.2 Organizing Data with GROUP BY</h3>
+                        <p>Groups rows that have the same values into summary rows.</p>
+                        <pre><code>SELECT City, COUNT(*) FROM Student GROUP BY City;</code></pre>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">7.3 Filtering Groups with HAVING</h3>
+                        <p>Filters groups created by <code>GROUP BY</code>. <code>WHERE</code> filters rows before grouping; <code>HAVING</code> filters groups after.</p>
+                        <pre><code>SELECT City, COUNT(*)
+FROM Student
+GROUP BY City
+HAVING COUNT(*) > 10;</code></pre>
+                    </div>
+                </section>
+                
+                <section id="sec8" class="content-section question-block">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Section 8: Joining Tables</h2>
+                     <div class="space-y-4">
+                        <p>Joins combine rows from two or more tables based on a related column.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">8.2 Equi Join</h3>
+                        <p>Uses an equality operator in the join condition.</p>
+                        <pre><code>SELECT Student.Name, Course.CourseName
+FROM Student
+INNER JOIN Course ON Student.RollNo = Course.RollNo;</code></pre>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">8.3 Natural Join</h3>
+                        <p>Automatically joins tables based on all columns with the same name. Use with caution.</p>
+                        <pre><code>SELECT Name, CourseName
+FROM Student
+NATURAL JOIN Course;</code></pre>
+                    </div>
+                </section>
+                
+                <section id="sec9" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Section 9: The Python-SQL Interface</h2>
+                    <div class="space-y-4">
+                        <p>Connect a Python program to a SQL database to perform database operations programmatically.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Workflow Steps:</h3>
+                        <ol class="list-decimal list-inside ml-4 space-y-2">
+                            <li>Import the connector library (e.g., <code>mysql.connector</code>).</li>
+                            <li>Establish a connection using <code>connect()</code>.</li>
+                            <li>Create a cursor object from the connection.</li>
+                            <li>Execute SQL queries using <code>cursor.execute()</code>.</li>
+                            <li>Fetch results with <code>fetchone()</code>, <code>fetchall()</code>, or <code>fetchmany()</code>.</li>
+                            <li>Commit transactions for DML commands using <code>connection.commit()</code>.</li>
+                            <li>Close the cursor and connection.</li>
+                        </ol>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Example Program:</h3>
+                        <pre><code>import mysql.connector
+
+try:
+    db_connection = mysql.connector.connect(
+        host="localhost",
+        user="your_username",
+        password="your_password",
+        database="School"
+    )
+    db_cursor = db_connection.cursor()
+    query = "SELECT RollNo, Name FROM Student WHERE Grade = 'A';"
+    db_cursor.execute(query)
+    student_records = db_cursor.fetchall()
+    for row in student_records:
+        print(f"Roll No: {row[0]}, Name: {row[1]}")
+except mysql.connector.Error as e:
+    print(f"Error: {e}")
+finally:
+    if db_cursor:
+        db_cursor.close()
+    if db_connection and db_connection.is_connected():
+        db_connection.close()
+        print("MySQL connection is closed")</code></pre>
+                    </div>
+                </section>
+
+                <section id="sec10" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">Section 10: CBSE Board Exam Question Bank</h2>
+                     <div class="space-y-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-blue-300">Category 1: Very Short Answer Questions (1 Mark)</h3>
+                            <ol class="list-decimal list-inside space-y-6">
+                                <li>The number of tuples in a relation is called its __________. <button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> Cardinality</div></li>
+                                <li>Which of the following is a DDL command? <ul class="list-disc list-inside ml-6 mt-2 text-gray-400"><li>(a) SELECT</li><li>(b) UPDATE</li><li>(c) ALTER</li><li>(d) INSERT</li></ul> <button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> (c) ALTER</div></li>
+                                <li>State True or False: A primary key can have a NULL value. <button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> False</div></li>
+                            </ol>
+                        </div>
+                        <div class="pt-8">
+                             <h3 class="text-xl font-semibold mb-4 text-blue-300">Category 2: Short Answer Questions (2-3 Marks)</h3>
+                            <ol class="list-decimal list-inside space-y-6">
+                                <li>Differentiate between the CHAR and VARCHAR data types in SQL. <button class="toggle-solution-btn">Show Answer</button><div class="solution">The CHAR data type is used to store fixed-length character strings. If the input string is shorter than the defined length, it is padded with spaces. The VARCHAR data type stores variable-length strings, which is more space-efficient for data of varying lengths.</div></li>
+                                <li>What is the difference between the DELETE and DROP TABLE commands in SQL? <button class="toggle-solution-btn">Show Answer</button><div class="solution">The DELETE command is a DML command used to remove rows from a table, but it leaves the table structure intact. The DROP TABLE command is a DDL command that permanently removes the entire table, including its structure and data.</div></li>
+                            </ol>
+                        </div>
+                         <div class="pt-8">
+                             <h3 class="text-xl font-semibold mb-4 text-blue-300">Category 3: Long Answer & Case-Study Questions (4-5 Marks)</h3>
+                            <ol class="list-decimal list-inside space-y-6">
+                                <li><strong>Case Study 1:</strong> Consider tables DOCTOR(DID, DName, Dept, Experience) and SALARY(DID, Basic, Allowance, Gender). Write SQL queries for the following:
+                                <ul class="list-disc list-inside ml-6 mt-4 space-y-2">
+                                    <li>(i) Display the names of all doctors who are in the 'Medicine' department and have more than 10 years of experience.</li>
+                                    <li>(ii) Display the name of each department and the number of doctors in it.</li>
+                                    <li>(iii) Display the department names that have more than one doctor.</li>
+                                </ul>
+                                <button class="toggle-solution-btn">Show Answer</button>
+                                <div class="solution">
+                                    <p>(i) <code>SELECT DName FROM DOCTOR WHERE Dept = 'Medicine' AND Experience > 10;</code></p>
+                                    <p>(ii) <code>SELECT Dept, COUNT(*) FROM DOCTOR GROUP BY Dept;</code></p>
+                                    <p>(iii) <code>SELECT Dept FROM DOCTOR GROUP BY Dept HAVING COUNT(*) > 1;</code></p>
+                                </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <footer class="text-center mt-12 text-sm text-gray-500">
+            <p>Happy Learning!</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const targetId = tab.dataset.target;
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+                    window.scrollTo(0, 0);
+                });
+            });
+
+            const toggleButtons = document.querySelectorAll('.toggle-solution-btn');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const clickedButton = event.currentTarget;
+                    const solutionDiv = clickedButton.nextElementSibling;
+                    if (solutionDiv && solutionDiv.classList.contains('solution')) {
+                        const isVisible = solutionDiv.style.display === 'block';
+                        solutionDiv.style.display = isVisible ? 'none' : 'block';
+                        clickedButton.textContent = isVisible ? 'Show Solution' : 'Hide Solution';
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
