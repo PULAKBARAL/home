@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication and Network Concepts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .solution {
+            display: none;
+            background-color: #1f2937; /* bg-gray-800 */
+            border-left: 4px solid #3b82f6; /* border-blue-500 */
+            padding: 0.75rem 1rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            color: #e5e7eb; /* text-gray-200 */
+        }
+        .solution strong {
+            color: #60a5fa; /* text-blue-400 */
+        }
+        code {
+            background-color: #374151; /* bg-gray-700 */
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        pre {
+             background-color: #0c121e;
+             padding: 1rem;
+             border-radius: 0.5rem;
+             overflow-x: auto;
+             line-height: 1.5;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        .toggle-solution-btn {
+            display: inline-block;
+            margin-top: 0.75rem;
+            background-color: #3b82f6;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .toggle-solution-btn:hover {
+            background-color: #2563eb;
+        }
+        .sidebar-sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 2rem;
+        }
+         .tab-link {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+        .tab-link:hover {
+            background-color: #374151;
+        }
+        .tab-link.active {
+            background-color: #3b82f6;
+            color: white;
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .question-block {
+            background-color: #1f2937;
+            padding: 1.5rem 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        th, td {
+            border: 1px solid #4b5563; /* border-gray-600 */
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #374151; /* bg-gray-700 */
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8">
+
+    <div class="container mx-auto max-w-7xl">
+        <a href="python.html" class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-lg bg-gray-700 hover:bg-blue-600 text-white font-semibold shadow transition-colors duration-200">
+            &larr; Python Home
+        </a>
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-white">Chapter 10: Communication and Network Concepts</h1>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-8">
+             <!-- Sidebar Navigation -->
+            <aside class="w-full md:w-1/4 self-start sidebar-sticky">
+                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl">
+                     <h2 class="text-xl font-bold mb-4 text-white">Sections</h2>
+                     <nav id="sidebar-nav">
+                        <a class="tab-link active" data-target="sec1">1. Introduction</a>
+                        <a class="tab-link" data-target="sec2">2. Network Types</a>
+                        <a class="tab-link" data-target="sec3">3. Evolution of Networking</a>
+                        <a class="tab-link" data-target="sec4">4. Switching & Communication</a>
+                        <a class="tab-link" data-target="sec5">5. Transmission Media</a>
+                        <a class="tab-link" data-target="sec6">6. Network Topologies</a>
+                        <a class="tab-link" data-target="sec7">7. Network Devices</a>
+                        <a class="tab-link" data-target="sec8">8. Protocols</a>
+                        <a class="tab-link" data-target="sec9">9. Wireless & Mobile</a>
+                        <a class="tab-link" data-target="sec10">10. Security & Concepts</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main id="main-content" class="w-full md:w-3/4">
+                
+                <section id="sec1" class="content-section active question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">1. Introduction to Computer Networks</h2>
+                    <div class="space-y-4">
+                        <p>In the history of mankind, networking in any form has always yielded better results, outcomes, and utilization of resources. Connections among humans make a human network, and similarly, connections among computers make a computer network.</p>
+                        <p><strong>COMPUTER NETWORK:</strong> A computer network is a collection of interconnected autonomous computing devices designed to exchange information or share resources. An autonomous device is one that cannot be started, stopped, or controlled by another device on the network.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Advantages of Networks</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Share Resources:</strong> Devices like printers and scanners can be shared, which is cheaper than buying equipment for each computer.</li>
+                            <li><strong>Share Storage:</strong> Files can be accessed from any machine on the network, allowing for shared data.</li>
+                            <li><strong>Share Software:</strong> Software can be installed centrally rather than on each machine.</li>
+                            <li><strong>Improve Communications:</strong> Messages, such as internal email, can be sent easily between users.</li>
+                        </ul>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Disadvantages of Networks</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Complexity and Cost:</strong> Systems are more complex to run, which can add to costs and may require specialist staff.</li>
+                            <li><strong>Management Issues:</strong> If networks are badly managed, services can become unusable, and productivity falls.</li>
+                            <li><strong>Central Server Reliance:</strong> If software and files are held centrally, it may be impossible to carry out any work if the central server fails.</li>
+                             <li><strong>Security:</strong> File security is more important, especially if connected to WANs, requiring protection from viruses.</li>
+                        </ul>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">10.2.1 Components of a Computer Network</h3>
+                        <p>A network is formed by several components working together. The major components are:</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>(a) Hosts/Nodes:</strong> These are the computers (PCs, laptops, smartphones) attached to a network to share resources. They are also called workstations.</li>
+                            <li><strong>(b) Servers:</strong> A server is a powerful computer that facilitates networking tasks like sharing data, resources, and communication among hosts. <strong>SERVER:</strong> A computer that facilitates the sharing of data, software, and hardware resources on the network. On large networks, there can be dedicated servers for specific tasks (e.g., file server, printer server).</li>
+                            <li><strong>(c) Clients:</strong> A client is a host computer that requests services from a server.</li>
+                            <li><strong>(d) Network Hardware:</strong> Specialized hardware is required to establish connections and control network traffic. Examples include:
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>NIC (Network Interface Card):</strong> A card attached to a host to establish network connections. Each NIC has a unique 6-byte (48-bit) physical address called the MAC address.</li>
+                                    <li><strong>Hub, Switch, Router:</strong> These are connectivity devices.</li>
+                                </ul>
+                            </li>
+                            <li><strong>(e) Communication Channel:</strong> This is the medium through which hosts and servers interact.
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Wired Channels:</strong> Guided media like network cables (twisted-pair, coaxial, fiber-optic).</li>
+                                    <li><strong>Wireless Channels:</strong> Unguided media like radio waves, microwaves, and satellites.</li>
+                                </ul>
+                            </li>
+                            <li><strong>(f) Software:</strong> This includes protocols (pre-decided rules for connection and interaction) and network operating systems.</li>
+                            <li><strong>(g) Network Services:</strong> Applications that provide functionalities like DNS (Domain Name System), file sharing, and VoIP (Voice over IP).</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section id="sec2" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">2. Types of Networks</h2>
+                    <div class="space-y-4">
+                        <p>Computer networks vary in size, complexity, and geographical spread. They can be classified based on these parameters.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">2.1 Based on Geographical Spread</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                             <li><strong>PAN (Personal Area Network):</strong> Interconnection of IT devices within the range of an individual, typically within 10 meters. It's used for transferring files between personal devices like laptops, smartphones, and printers, often using wireless technology like WiFi or Bluetooth.</li>
+                             <li><strong>LAN (Local Area Network):</strong> Confined to a localized area like an office, building, or factory (traditionally up to 1 km). The main purpose is resource sharing (data, printers, software). In a typical LAN, a file server stores shared software, and connected computers are called workstations.</li>
+                             <li><strong>MAN (Metropolitan Area Network):</strong> Spans an area as large as a city. This term is becoming less common.</li>
+                             <li><strong>WAN (Wide Area Network):</strong> Spreads across countries or a very large geographical area. A WAN can be a group of LANs connected. Computers in a WAN are often connected through public networks (like the telephone system), leased lines, or satellites. The Internet is the largest WAN.</li>
+                        </ul>
+                        <div class="overflow-x-auto">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Personal Area Network (PAN)</th>
+                                        <th>Local Area Network (LAN)</th>
+                                        <th>Metropolitan Area Network (MAN)</th>
+                                        <th>Wide Area Network (WAN)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Geographical Scope</td><td>Very small (a few meters/feet)</td><td>Small (single room, building, or campus)</td><td>Moderate (a city or a large campus)</td><td>Large (countries, continents, global)</td></tr>
+                                    <tr><td>Ownership</td><td>Individual</td><td>Private (single organization)</td><td>Private or Public (e.g., city council, large ISP)</td><td>Private or Public (e.g., telecom companies, large corporations)</td></tr>
+                                    <tr><td>Data Transfer Speed</td><td>Low to Medium (Mbps)</td><td>High (100 Mbps to 10 Gbps+)</td><td>Medium to High (100 Mbps to several Gbps)</td><td>Low to High (Kbps to Gbps, depending on infrastructure)</td></tr>
+                                    <tr><td>Primary Technologies</td><td>Bluetooth, Wi-Fi Direct, NFC, USB, Infrared</td><td>Ethernet (wired), Wi-Fi (wireless)</td><td>Fiber Optics, Ethernet, WiMAX, ATM, FDDI</td><td>Fiber Optics, Satellite, MPLS, Leased Lines, Cellular (4G/5G)</td></tr>
+                                    <tr><td>Connectivity</td><td>Connects personal devices around an individual</td><td>Connects devices within a limited physical area</td><td>Interconnects multiple LANs within a city</td><td>Interconnects multiple LANs/MANs over large distances</td></tr>
+                                    <tr><td>Primary Purpose</td><td>Personal device synchronization, short-range data transfer</td><td>Resource sharing (files, printers), local communication</td><td>High-speed connectivity across a city, shared services</td><td>Global communication, remote access, distributed applications</td></tr>
+                                    <tr><td>Examples of Devices</td><td>Smartphone, Smartwatch, Headphones, Laptop, Tablet, Wireless Mouse, Fitness Tracker</td><td>PCs, Laptops, Servers, Printers, Routers, Switches, Access Points</td><td>Routers, Switches (high-capacity), Fiber Optic Converters, Wireless Bridges</td><td>Routers (high-end), Switches (core), Modems, Satellite Dishes, Cellular Towers</td></tr>
+                                    <tr><td>Management</td><td>Simple, often self-managed</td><td>Managed by local IT staff</td><td>Managed by city IT, large corporations, or ISPs</td><td>Managed by ISPs, telecommunication companies, or large enterprise IT departments</td></tr>
+                                    <tr><td>Cost of Setup/Maint.</td><td>Very Low</td><td>Moderate</td><td>High</td><td>Very High</td></tr>
+                                    <tr><td>Latency</td><td>Very Low</td><td>Low</td><td>Moderate</td><td>High</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">2.2 Based on Component Roles</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                             <li><strong>Peer-to-Peer (P2P) Networks:</strong> Each computer on the network is equal and can act as both a client and a server. There is no central computer in charge. These are popular for home networks and small companies because they are inexpensive and easy to install, but they are limited in scope and difficult to secure. They typically have up to ten computers.</li>
+                             <li><strong>Client-Server Networks:</strong> Larger networks prefer centralized control with clearly designated servers and clients. A dedicated server's only job is to help workstations access resources. <strong>CLIENT/SERVER:</strong> A client is a device that requests and uses network resources. A server is a computer dedicated to processing client requests.</li>
+                        </ul>
+                         <div class="overflow-x-auto">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Client-Server</th>
+                                        <th>Peer-to-Peer (P2P)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Security</td><td>The server controls security.</td><td>No central control over security.</td></tr>
+                                    <tr><td>Management</td><td>The server manages the network; it needs a dedicated team.</td><td>No central control; anyone can set it up.</td></tr>
+                                    <tr><td>Dependency</td><td>Clients are dependent on the server.</td><td>Clients are not dependent on a central server.</td></tr>
+                                    <tr><td>Performance</td><td>The server can be upgraded to handle high demand.</td><td>Slow machines can slow down the network.</td></tr>
+                                    <tr><td>Backups</td><td>Data is backed up on the main server.</td><td>Each computer must be backed up individually.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="sec3" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">3. Evolution of Networking</h2>
+                    <div class="space-y-4">
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">3.1 ARPANET</h3>
+                         <p>The foundation of the Internet was laid in 1969 with a U.S. Department of Defense project called ARPANET (Advanced Research Projects Agency NETwork). Its goal was to connect computers at universities and U.S. defense facilities. In the mid-80s, the National Science Foundation (NSF) created a more capable network, NSFnet, for academic research. Private companies also built their own networks. The internetworking of ARPANET, NSFnet, and these private networks formed what we now call the Internet. ARPANET was shut down in 1990.</p>
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">3.2 The Internet</h3>
+                         <p>The Internet is a worldwide network of computer networks. It connects many smaller networks, allowing all connected computers to exchange information using a common set of communication rules called protocols, specifically TCP/IP (Transmission Control Protocol/Internet Protocol).</p>
+                         <h4 class="text-lg font-semibold text-blue-400 pt-2">How Does the Internet Work?</h4>
+                         <p>Most computers connect to smaller networks, which in turn connect through gateways to the Internet backbone.</p>
+                         <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>GATEWAY:</strong> A device that connects dissimilar networks.</li>
+                            <li><strong>BACKBONE:</strong> A central interconnecting structure that connects one or more networks.</li>
+                         </ul>
+                         <p class="pt-2">The process of sending a message involves:</p>
+                         <ol class="list-decimal list-inside ml-4 space-y-1">
+                            <li>The source computer divides the message into small parts called <strong>packets</strong>.</li>
+                            <li>Each packet is numbered serially.</li>
+                            <li>Packets are sent to the destination address.</li>
+                            <li>The destination computer receives the packets (which may arrive out of order) and requests re-transmission for any lost or garbled packets.</li>
+                            <li>The packets are reassembled in the correct order to form the original message.</li>
+                         </ol>
+                         <h4 class="text-lg font-semibold text-blue-400 pt-2">TCP/IP Roles:</h4>
+                         <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>TCP (Transmission Control Protocol):</strong> Divides the message into packets at the source and reassembles them at the destination.</li>
+                            <li><strong>IP (Internet Protocol):</strong> Handles the destination address to ensure each packet is routed correctly.</li>
+                         </ul>
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">3.3 The Interspace</h3>
+                         <p>InterSpace is a vision for the future of the Internet. It is a client/server software program that allows multiple users to communicate online with real-time audio, video, and text chat in dynamic 3D environments. It represents an application environment for interconnecting spaces to manipulate information.</p>
+                    </div>
+                </section>
+                
+                <section id="sec4" class="content-section question-block">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">4. Switching Techniques & Communication Terminologies</h2>
+                     <div class="space-y-4">
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">4.1 Switching Techniques</h3>
+                         <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Circuit Switching:</strong> A dedicated physical connection is established before data transfer (e.g., telephone call).</li>
+                            <li><strong>Message Switching:</strong> The entire message is sent from one node to the next, stored, and then forwarded ("store and forward").</li>
+                            <li><strong>Packet Switching:</strong> The message is broken down into fixed-size packets. Each packet is routed independently and reassembled at the destination. This is the method used by the Internet.</li>
+                         </ul>
+                         <h3 class="text-xl font-semibold text-blue-300 pt-4">4.2 Data Communication Terminologies</h3>
+                         <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Data Channel:</strong> The medium used to carry information from one point to another.</li>
+                            <li><strong>Baud:</strong> A unit of measurement for the information-carrying capacity of a communication channel. It is often synonymous with bps.</li>
+                            <li><strong>Bits Per Second (bps):</strong> The speed at which data is transferred.
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li>kbps: kilobits per second (thousands of bits)</li>
+                                    <li>mbps: megabits per second (millions of bits)</li>
+                                    <li>Kbps: KiloBytes per second (notice the capital K and B)</li>
+                                    <li>Mbps: MegaBytes per second</li>
+                                </ul>
+                            </li>
+                            <li><strong>Bandwidth:</strong> The difference between the highest and lowest frequencies of a transmission channel. In digital systems, it refers to the data speed in bps. High bandwidth channels are called broadband, and low bandwidth channels are called narrowband.</li>
+                            <li><strong>Data Transfer Rate:</strong> The amount of data transferred per second, measured in bps, Bps, or baud.</li>
+                         </ul>
+                    </div>
+                </section>
+
+                <section id="sec5" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">5. Transmission Media</h2>
+                    <div class="space-y-4">
+                        <p>Transmission media are the physical paths that connect computers in a network. They can be categorized as guided (cables) or unguided (waves).</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Guided Media (Cables)</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-4">
+                            <li>
+                                <strong>Twisted Pair Cable:</strong> Consists of two insulated copper wires twisted together in a double helix to reduce crosstalk (signal interference).
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Advantages:</strong> Simple, inexpensive, easy to install, flexible.</li>
+                                    <li><strong>Disadvantages:</strong> High attenuation (signal loss over distance), low bandwidth, unsuitable for broadband.</li>
+                                    <li><strong>Types:</strong>
+                                        <ul class="list-disc list-inside ml-8 mt-2">
+                                            <li><strong>Unshielded Twisted Pair (UTP):</strong> Common for electronic communications. Comes in various categories (CAT1 to CAT8) with different data rates. The maximum segment length is 100 meters.</li>
+                                            <li><strong>Shielded Twisted Pair (STP):</strong> Has shielding around the wires for better protection against interference. It's heavier and costlier than UTP. The maximum segment length is 100 meters.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Coaxial Cable:</strong> Consists of a solid wire core surrounded by insulation and a wire mesh shield. It has better electrical properties and higher bandwidth than twisted pairs.
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Advantages:</strong> Better data transmission than twisted pair, can be used for shared cable networks and broadband, higher bandwidth (up to 400 Mbps).</li>
+                                    <li><strong>Disadvantages:</strong> More expensive and less compatible with twisted pair.</li>
+                                    <li><strong>Types:</strong>
+                                        <ul class="list-disc list-inside ml-8 mt-2">
+                                            <li><strong>Thicknet:</strong> Can have segments up to 500 meters.</li>
+                                            <li><strong>Thinnet:</strong> Can have segments up to 185 meters.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Optical Fiber:</strong> Consists of thin strands of glass that carry light signals. Data is modulated onto a light beam from an LED or laser.
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Advantages:</strong> Immune to electrical interference, secure, very high transmission capacity, suitable for broadband.</li>
+                                    <li><strong>Disadvantages:</strong> Fragile, difficult to install and connect, expensive.</li>
+                                    <li><strong>Types:</strong>
+                                        <ul class="list-disc list-inside ml-8 mt-2">
+                                            <li><strong>Single-mode:</strong> Supports segment lengths up to 2 km and bandwidth up to 100 Mbps.</li>
+                                            <li><strong>Multi-mode:</strong> Supports segment lengths up to 100 km and bandwidth up to 2 Gbps.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Unguided Media (Wireless)</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Microwave (Terrestrial Microwave):</strong> Uses high-frequency radio waves for long-distance, line-of-sight communication between parabolic antennas mounted on towers.</li>
+                            <li><strong>Radio Wave:</strong> Uses radio frequencies for communication. Offers mobility and is cheaper than laying cables.</li>
+                            <li><strong>Satellite (Satellite Microwave):</strong> Uses satellites in orbit as relay stations to transmit signals over very large areas.</li>
+                            <li><strong>Infrared:</strong> Uses infrared light to send data over short distances. It cannot penetrate walls, making it secure. Used in TV remotes and PDAs.</li>
+                            <li><strong>Laser:</strong> Requires a direct line-of-sight and is unidirectional. Offers higher speed than microwaves but can be affected by weather. Used for point-to-point transmission between buildings.</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section id="sec6" class="content-section question-block">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">6. Network Topologies</h2>
+                     <p>The pattern of interconnection of nodes in a network is called the <strong>topology</strong>. Factors to consider when choosing a topology include cost, flexibility, and reliability.</p>
+                     <div class="space-y-4">
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li><strong>Star Topology:</strong> All nodes are connected to a central node (hub or switch).
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Advantages:</strong> Easy to service and diagnose problems, failure of one connection doesn't affect the rest of the network, simple access protocols.</li>
+                                    <li><strong>Disadvantages:</strong> Requires long cable lengths, difficult to expand, entire network fails if the central node fails.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Bus (or Linear) Topology:</strong> All nodes are attached to a single length of cable (the bus). Transmissions travel the length of the bus and can be received by all other stations. Terminators at each end absorb the signal.
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Advantages:</strong> Requires short cable length, simple and reliable architecture, easy to extend.</li>
+                                    <li><strong>Disadvantages:</strong> Fault diagnosis and isolation are difficult, nodes must be intelligent to manage access.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Ring (or Circular) Topology:</strong> Each node is connected to two neighboring nodes, forming a loop. Data travels in one direction from node to node.
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Advantages:</strong> Short cable length, no need for wiring closets, suitable for optical fibers.</li>
+                                    <li><strong>Disadvantages:</strong> Failure of one node causes the entire network to fail, difficult to diagnose faults and reconfigure.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tree Topology:</strong> A variation of the bus topology, shaped like an inverted tree with a central root branching out. It is a hybrid topology suited for hierarchical data flow.
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Advantages:</strong> Point-to-point wiring for individual segments, supported by many vendors.</li>
+                                    <li><strong>Disadvantages:</strong> If the backbone breaks, the entire segment fails; more difficult to configure than other topologies.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Mesh Topology:</strong> Each node is connected to more than one other node, providing alternative routes. Excellent for long-distance networking due to its backup and rerouting capabilities.
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Advantages:</strong> Robust, secure, easy fault diagnosis.</li>
+                                    <li><strong>Disadvantages:</strong> Difficult installation, high cabling cost.</li>
+                                    <li><strong>Fully Connected Mesh:</strong> Every node is directly connected to every other node. This is the most reliable but also the most expensive.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Check Point 10.2</h3>
+                        <ol class="list-decimal list-inside space-y-4">
+                            <li>What is meant by topology? Name some popular topologies.<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> Topology refers to the pattern of interconnection of nodes in a network. Popular topologies include Star, Bus, Ring, Tree, and Mesh.</div></li>
+                            <li>What are the factors that must be considered before making a choice for the topology?<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> Cost, flexibility, and reliability.</div></li>
+                            <li>What are the similarities and differences between bus and tree topologies?<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> Both rely on a central backbone cable. A tree topology is essentially a series of interconnected bus networks. A key difference is that a tree topology allows for more devices and greater distances than a single bus network.</div></li>
+                            <li>What are the limitations of star topology?<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> The main limitations are its dependency on the central node (if it fails, the network fails) and the potentially long cable lengths required to connect every node to the center.</div></li>
+                            <li>When do you think ring topology becomes the best choice for a network?<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> Ring topology can be a good choice in networks that require high performance over long distances using optical fibers, where data flows in a predictable, orderly fashion.</div></li>
+                            <li>Write two advantages and two disadvantages of Bus Topology in network.<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Advantages:</strong> Requires short cable length, simple architecture. <br><strong>Disadvantages:</strong> Fault diagnosis is difficult, a break in the main cable can disable the network.</div></li>
+                            <li>Give two advantages and two disadvantages of following network topologies: (i) Star (ii) Tree (iii) Bus.<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>(i) Star:</strong> Adv: Easy to manage, failure of one node doesn't affect others. Disadv: Central point of failure, requires more cable.<br><strong>(ii) Tree:</strong> Adv: Point-to-point wiring, supported by many vendors. Disadv: Backbone failure affects segments, complex configuration.<br><strong>(iii) Bus:</strong> Adv: Short cable length, simple architecture. Disadv: Difficult fault diagnosis, main cable break downs the network.</div></li>
+                        </ol>
+                     </div>
+                </section>
+                
+                <section id="sec7" class="content-section question-block">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">7. Network Devices</h2>
+                     <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Modem</h3>
+                            <p>A modem, short for modulator/demodulator, is a crucial networking device that facilitates communication between digital devices (like computers) and analog transmission lines (like telephone lines, cable lines, or fiber optic lines). Its primary function is to convert digital data signals into analog signals suitable for transmission over these lines (modulation) and to convert received analog signals back into digital data for the computer to understand (demodulation).</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300">RJ-45 Connector</h3>
+                            <p>The RJ-45 connector (Registered Jack-45) is a ubiquitous eight-wire, eight-position (8P8C) modular connector, primarily used for connecting computers and other network devices within Local Area Networks (LANs), particularly Ethernet networks.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Network Interface Card (NIC) / Ethernet Card</h3>
+                            <p>A Network Interface Card (NIC), often referred to simply as an Ethernet card in the context of wired networks, is a crucial hardware component that enables a computer to connect to a network. It acts as an intermediary, translating data from the computer into a format that can be transmitted over the network medium.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Hubs</h3>
+                            <p>A hub is a fundamental networking device designed to connect multiple computers or other network devices within a Local Area Network (LAN). It acts like a multi-port repeater, broadcasting any incoming signal to all of its other connected ports.</p>
+                        </div>
+                         <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Switch</h3>
+                            <p>A network switch is a "smart" device that efficiently connects multiple computers into subnets. It learns the MAC addresses of devices on its ports and forwards data only to the intended destination port, reducing traffic and improving performance.</p>
+                        </div>
+                         <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Repeater</h3>
+                            <p>A repeater's primary function is to amplify or regenerate a signal that has weakened due to attenuation as it travels over a network cable, thus extending the network's reach.</p>
+                        </div>
+                         <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Bridge</h3>
+                            <p>A network bridge operates at the data link layer (Layer 2) and connects two separate network segments that use identical protocols. It intelligently filters traffic by blocking or forwarding packets based on their MAC address.</p>
+                        </div>
+                         <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Router</h3>
+                            <p>A router operates at the Network Layer (Layer 3) and forwards data packets between different computer networks using logical (IP) addresses. It uses a routing table to determine the most efficient path for data.</p>
+                        </div>
+                         <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Gateway</h3>
+                            <p>A gateway is a device that connects dissimilar networks, acting as an entrance point from one network to another. Modern routers often include gateway and firewall functionalities.</p>
+                        </div>
+                         <div>
+                            <h3 class="text-xl font-semibold text-blue-300">WiFi Card</h3>
+                            <p>A wireless network adapter (Wi-Fi card or WLAN card) enables a computer to connect to a wireless network. It integrates a radio and an antenna to transmit and receive radio signals.</p>
+                        </div>
+                        <div class="pt-4">
+                            <h3 class="text-xl font-semibold text-blue-300 pt-4">Check Point 10.3</h3>
+                            <ol class="list-decimal list-inside space-y-4">
+                                <li>What is a modem? Name two categories of modems.<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> A modem modulates digital signals to analog for transmission and demodulates them back. Two categories are internal and external modems.</div></li>
+                                <li>Define the following: (i) RJ-45 (ii) Ethernet (iii) Ethernet card (iv) hub (v) switch.<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>(i) RJ-45:</strong> An 8-wire connector for Ethernet cables. <br><strong>(ii) Ethernet:</strong> A standard for wired LANs. <br><strong>(iii) Ethernet card:</strong> A NIC for Ethernet networks. <br><strong>(iv) Hub:</strong> A device that broadcasts data to all ports. <br><strong>(v) Switch:</strong> A device that forwards data only to the destination port.</div></li>
+                                <li>Define the following: (i) Protocol (ii) Host (iii) Repeater (iv) Bridge (v) Router (vi) Gateway.<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>(i) Protocol:</strong> Rules for communication. <br><strong>(ii) Host:</strong> A computer on a network. <br><strong>(iii) Repeater:</strong> Regenerates signals. <br><strong>(iv) Bridge:</strong> Connects similar networks. <br><strong>(v) Router:</strong> Connects different networks. <br><strong>(vi) Gateway:</strong> Connects dissimilar networks.</div></li>
+                                <li>Briefly explain file transfer protocol.<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> FTP (File Transfer Protocol) is a standard set of rules for transferring files between computers over the Internet.</div></li>
+                                <li>What is protocol? Name some commonly used protocols.<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> A protocol is a set of rules for communication. Common protocols include HTTP, FTP, TCP/IP, and SMTP.</div></li>
+                                <li>What is TCP/IP? What is HTTP?<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>TCP/IP:</strong> The foundational protocol suite of the Internet. <br><strong>HTTP:</strong> The protocol for transferring web pages.</div></li>
+                                <li>What is the purpose of using a gateway in the context of networking?<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> To connect dissimilar networks.</div></li>
+                                <li>What is the purpose of using a repeater in the context of networking?<button class="toggle-solution-btn">Show Answer</button><div class="solution"><strong>Answer:</strong> To regenerate a weak signal to extend the network's range.</div></li>
+                            </ol>
+                        </div>
+                     </div>
+                </section>
+                
+                <section id="sec8" class="content-section question-block">
+                     <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">8. Communication Protocols</h2>
+                     <div class="space-y-4">
+                        <p>A protocol is a formal description of message formats and the rules machines must follow to exchange messages.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">HTTP (Hypertext Transfer Protocol)</h3>
+                        <p>Hypertext Transfer Protocol (HTTP) is the foundational set of rules governing how information is exchanged and displayed on the World Wide Web. It operates as an application-level protocol, meaning it primarily dictates how applications, such as web browsers and servers, communicate with each other to transfer data.</p>
+                        <p>At its core, HTTP enables the seamless transfer of various types of files, including:</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Text:</strong> This encompasses plain text documents, HTML (Hypertext Markup Language) files that structure web pages, and CSS (Cascading Style Sheets) files that define their visual presentation.</li>
+                            <li><strong>Graphics:</strong> Images in formats like JPEG, PNG, and GIF are integral to web content, and HTTP facilitates their delivery.</li>
+                            <li><strong>Sound:</strong> Audio files, often in formats such as MP3 or WAV, can be streamed or downloaded via HTTP to enrich the user experience.</li>
+                            <li><strong>Video:</strong> Video content, whether streaming live broadcasts or on-demand clips in formats like MP4 or WebM, is also transmitted efficiently using HTTP.</li>
+                        </ul>
+                        <p>When you type a URL into your browser or click a link, your browser sends an HTTP request to a web server. The server then processes this request and sends back an HTTP response containing the requested data, which your browser then renders for you to view. This client-server model, orchestrated by HTTP, is fundamental to how the entire World Wide Web functions, making it possible for users to access and interact with a vast array of digital content from anywhere in the world.</p>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">FTP (File Transfer Protocol)</h3>
+                        <p>File Transfer Protocol (FTP) is a venerable and widely used standard network protocol for transferring computer files from a server to a client or vice versa on a computer network. Operating on a client-server model, FTP facilitates the exchange of files between different computers connected over the Internet or a local area network (LAN). It is an application layer protocol that utilizes separate control and data connections between the client and the server.</p>
+                        <p>The control connection is established on port 21 (default) and is used for sending commands and receiving replies, such as authentication requests, file listing commands, or instructions to upload/download a file. Once a data transfer command is initiated, a data connection is established on a dynamic port (or port 20 in active mode) for the actual transmission of the file data. This separation of control and data channels allows for greater flexibility and efficiency in file transfers.</p>
+                        <p>FTP supports two primary modes for data transfer:</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Active Mode:</strong> In active mode, the client initiates the control connection to the server's port 21. When a data transfer is requested, the server then initiates the data connection back to a specified port on the client. This mode can sometimes be problematic when the client is behind a firewall that blocks incoming connections.</li>
+                            <li><strong>Passive Mode:</strong> To overcome firewall issues, passive mode was introduced. In passive mode, the client still initiates the control connection to the server's port 21. However, when a data transfer is requested, the server opens a specific port (a high-numbered, ephemeral port) and informs the client to connect to that port for the data transfer. This means the client initiates both the control and data connections, making it more firewall-friendly.</li>
+                        </ul>
+                        <p>While highly functional, the original FTP protocol transmits data, including usernames and passwords, in plaintext, which makes it vulnerable to eavesdropping and security breaches. To address these security concerns, several secure variants of FTP have emerged:</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>FTPS (FTP Secure):</strong> This is FTP with an added layer of security using SSL/TLS (Secure Sockets Layer/Transport Layer Security) encryption. FTPS can operate in two modes:
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Explicit FTPS (FTPES):</strong> The client explicitly requests an SSL/TLS session after establishing the control connection.</li>
+                                    <li><strong>Implicit FTPS:</strong> The client automatically assumes an SSL/TLS session from the start, typically using a dedicated port (e.g., port 990 for implicit FTPS control connection).</li>
+                                </ul>
+                            </li>
+                            <li><strong>SFTP (SSH File Transfer Protocol):</strong> Although it shares a similar name, SFTP is a completely different protocol that runs over the Secure Shell (SSH) protocol. SSH provides a secure channel over an unsecured network by encrypting the entire communication. SFTP is more secure and is often preferred for sensitive data transfers as it encrypts both commands and data. It typically uses port 22, the same as SSH.</li>
+                        </ul>
+                        <p>Common uses of FTP include:</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Website publishing:</strong> Web developers often use FTP to upload website files (HTML, CSS, images, etc.) from their local development environment to a web server.</li>
+                            <li><strong>Software distribution:</strong> Many software companies use FTP servers to distribute their software applications and updates to users.</li>
+                            <li><strong>Backup and archiving:</strong> Users and organizations can use FTP to transfer large files for backup purposes to remote servers.</li>
+                            <li><strong>Sharing large files:</strong> While not as common for casual sharing as cloud storage services, FTP can still be used to share very large files between individuals or organizations with direct access to an FTP server.</li>
+                        </ul>
+                        <p>Despite the rise of cloud storage solutions and more modern file transfer protocols, FTP (and its secure variants) remains a fundamental and widely deployed method for file transfer in many professional and technical environments due to its simplicity, robust nature, and widespread support across various operating systems and network devices.</p>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">TCP/IP (Transmission Control Protocol/Internet Protocol)</h3>
+                        <p>The foundational protocol suite of the Internet, TCP/IP is a layered set of communication protocols that define how data is transmitted across networks. It's not a single protocol but a collection of protocols working together, each responsible for different aspects of communication. This layered approach allows for flexibility and scalability, as individual layers can be updated or replaced without affecting the entire system.</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>TCP (Transmission Control Protocol):</strong> Operating at the transport layer, TCP is responsible for providing reliable, ordered, and error-checked delivery of a stream of data between applications. Key features of TCP include:
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Connection-oriented:</strong> TCP establishes a connection between two applications before data transfer begins, ensuring a dedicated communication path.</li>
+                                    <li><strong>Sequencing and Acknowledgement:</strong> It assigns a sequence number to each segment of data and requires acknowledgments from the receiver to ensure all data arrives in the correct order and without loss.</li>
+                                    <li><strong>Flow Control:</strong> TCP manages the rate of data transmission to prevent a fast sender from overwhelming a slow receiver.</li>
+                                    <li><strong>Congestion Control:</strong> It employs mechanisms to reduce network congestion by adjusting the data transmission rate when the network becomes overloaded.</li>
+                                    <li><strong>Error Detection and Correction:</strong> TCP uses checksums to detect corrupted data and retransmits lost or corrupted segments.</li>
+                                </ul>
+                            </li>
+                            <li><strong>IP (Internet Protocol):</strong> Residing at the network layer, IP provides the basic service of getting datagrams (packets) to their destination. IP is the protocol that enables internetworking, allowing data to traverse multiple interconnected networks. Its core functions include:
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Addressing:</strong> IP uses logical addresses (IP addresses) to identify devices on a network, enabling packets to be routed to the correct destination.</li>
+                                    <li><strong>Packet Fragmentation:</strong> IP can break down large packets into smaller fragments if necessary to accommodate the maximum transmission unit (MTU) of a network link.</li>
+                                    <li><strong>Routing:</strong> IP determines the best path for a packet to travel from its source to its destination across various interconnected networks, using routing tables and algorithms.</li>
+                                    <li><strong>Connectionless:</strong> Unlike TCP, IP is connectionless, meaning it does not establish a dedicated connection before sending data. Each packet is treated independently.</li>
+                                    <li><strong>Unreliable:</strong> IP does not guarantee delivery, order, or error-checking. These responsibilities are handled by higher-layer protocols like TCP. IP simply strives to deliver packets on a best-effort basis.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">SLIP (Serial Line Internet Protocol) / PPP (Point-to-Point Protocol)</h3>
+                        <p>Protocols for relaying IP packets over serial lines (like dial-up telephone lines). PPP has largely replaced SLIP as it is more robust, supporting dynamic address assignment and link testing.</p>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Email Protocols</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>SMTP (Simple Mail Transfer Protocol):</strong> SMTP is a fundamental application layer protocol within the TCP/IP suite, specifically designed for the efficient and reliable transmission of email across networks. Its primary function is to facilitate the sending of email from a client (such as an email application like Outlook or Gmail's web interface) to an email server. When a user composes and sends an email, their email client establishes a connection with an SMTP server. This server then takes responsibility for relaying the email to the recipient's mail server. SMTP defines the rules and commands for this communication, ensuring that the email is correctly addressed, authenticated (if required), and delivered to the intended destination. While SMTP is primarily used for sending, other protocols like POP3 (Post Office Protocol 3) or IMAP (Internet Message Access Protocol) are employed for retrieving emails from a server by a client.</li>
+                            <li><strong>POP3 (Post Office Protocol 3):</strong> POP3 (Post Office Protocol version 3) is a standard protocol used by email clients to retrieve email from a mail server. It's designed for simple, "store-and-forward" email retrieval. When an email client connects to a POP3 server, it typically downloads all new messages from the server to the local device. A key characteristic of POP3 is that, by default, messages are deleted from the server once they have been successfully downloaded to the client. This means that if you check your email on one device (e.g., your desktop computer) using POP3, those messages might not be available if you try to access your email from another device (e.g., your smartphone) later, as they've been removed from the server. This can be beneficial for freeing up server space, but it can also lead to issues if you need to access your emails from multiple locations or devices. While some POP3 clients offer an option to "leave a copy of messages on the server," this is not the default behavior and is implemented client-side. In contrast, protocols like IMAP (Internet Message Access Protocol) are designed for synchronizing email across multiple devices, leaving messages on the server until explicitly deleted by the user.</li>
+                            <li><strong>IMAP (Internet Message Access Protocol):</strong> IMAP is a widely used protocol for accessing email messages on a mail server. Unlike POP3, which typically downloads messages to a single device and removes them from the server, IMAP is designed to keep messages on the server. This fundamental difference offers significant advantages for modern email usage.
+                                <br><strong>Key Features and Benefits of IMAP:</strong>
+                                <ul class="list-disc list-inside ml-8 mt-2">
+                                    <li><strong>Server-Side Storage:</strong> With IMAP, all your email messages and their associated folders are stored on the mail server. This means your email collection is always accessible from any device with an internet connection, whether it's your desktop computer, laptop, smartphone, or tablet.</li>
+                                    <li><strong>Multi-Client Access:</strong> This is one of IMAP's most compelling features. Because messages remain on the server, you can manage your email from multiple email clients simultaneously without issues. For example, if you read an email on your phone, it will be marked as read on your desktop client as well. Any changes you make, such as moving an email to a folder or deleting it, are synchronized across all connected clients.</li>
+                                    <li><strong>Consistent Email Experience:</strong> IMAP ensures a consistent view of your mailbox regardless of the client you're using. Your folder structure, read/unread status, flagged messages, and even drafts are all mirrored on the server and thus reflected across all your devices.</li>
+                                    <li><strong>Enhanced Organization and Management:</strong> IMAP allows for sophisticated server-side management of emails. You can create, rename, and delete folders directly on the server, and these changes will propagate to all your clients. This makes organizing your vast email archive much more efficient.</li>
+                                    <li><strong>Reduced Local Storage Requirements (Optional):</strong> While IMAP syncs mail, it typically downloads only message headers or a small preview by default, downloading the full message content only when requested. This can save local storage space, especially on mobile devices. However, many clients also offer options to cache messages locally for offline access.</li>
+                                    <li><strong>Reliable Backup:</strong> Since your emails reside on the server, they are often part of the mail provider's backup routines, adding an extra layer of security against data loss on your local devices.</li>
+                                    <li><strong>Offline Access (with caching):</strong> Most modern IMAP clients provide mechanisms to cache email data locally, allowing you to access and compose emails even when offline. Changes made while offline are then synchronized with the server once an internet connection is re-established.</li>
+                                </ul>
+                                <br><strong>How IMAP Works:</strong>
+                                <p>When you configure an email client to use IMAP, it connects to the IMAP server (usually on port 143 for unencrypted connections or port 993 for encrypted SSL/TLS connections). The client then sends commands to the server to perform actions like listing folders, retrieving message headers, fetching full message content, searching for emails, or moving messages between folders. The server processes these commands and returns the requested data or confirms the action.</p>
+                                <p>In essence, IMAP provides a highly flexible and powerful method for interacting with your email, making it the preferred choice for most users who access their email from multiple devices and value a synchronized and consistent experience.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section id="sec9" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">9. Wireless & Mobile Computing</h2>
+                    <div class="space-y-4">
+                        <p><strong>Wireless Communication:</strong> Data communication without the use of landlines (e.g., cellular, WiFi, satellite). The device is often continuously connected.</p>
+                        <p><strong>Mobile Computing:</strong> The computing device is not continuously connected to a central network (e.g., a laptop used on the go).</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Wireless/Mobile Technologies</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>GSM (Global System for Mobile communications):</strong> A leading digital cellular standard. It uses TDMA (Time Division Multiple Access) to allow multiple calls on the same frequency. Uses a removable SIM (Subscriber Identity Module) card to store user information.</li>
+                            <li><strong>CDMA (Code-Division Multiple Access):</strong> A digital cellular technology that uses spread-spectrum techniques. It doesn't assign a specific frequency to each user; instead, all users transmit over the full available spectrum, with each conversation encoded with a unique digital sequence.</li>
+                            <li><strong>WLL (Wireless in Local Loop):</strong> A system that connects subscribers to the public telephone network using radio signals as a substitute for copper wires, providing "last mile" connectivity.</li>
+                            <li><strong>GPRS (General Packet Radio Service):</strong> A packet-based wireless communication service that provides "always-on" data connections for mobile devices, with speeds from 56 to 110 kbps.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="sec10" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">10. Security & Internetworking Concepts</h2>
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Internetworking Terms</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>WWW (World Wide Web):</strong> A system of interlinked hypertext documents accessed via the Internet.</li>
+                            <li><strong>Telnet:</strong> An older utility for logging on to remote computer systems.</li>
+                        </ul>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Network Security Concepts</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Firewall:</strong> A system that prevents unauthorized access to a private network.</li>
+                            <li><strong>Cookies:</strong> Small pieces of data stored on a user's computer by a website.</li>
+                            <li><strong>Hackers vs. Crackers:</strong> Hackers explore systems, while crackers break into them with malicious intent.</li>
+                            <li><strong>Cyber Law:</strong> Law related to the Internet and electronic elements.</li>
+                        </ul>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Viruses</h3>
+                        <p>A computer virus is malicious software that replicates by modifying other programs. Other forms of malware include:</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Worms:</strong> Standalone malware that replicates to spread to other computers over a network.</li>
+                            <li><strong>Trojan Horse:</strong> Malware disguised as legitimate software.</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <footer class="text-center mt-12 text-sm text-gray-500">
+            <p>Happy Learning!</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const targetId = tab.dataset.target;
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+                    window.scrollTo(0, 0);
+                });
+            });
+
+            const toggleButtons = document.querySelectorAll('.toggle-solution-btn');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const clickedButton = event.currentTarget;
+                    const solutionDiv = clickedButton.nextElementSibling;
+                    if (solutionDiv && solutionDiv.classList.contains('solution')) {
+                        const isVisible = solutionDiv.style.display === 'block';
+                        solutionDiv.style.display = isVisible ? 'none' : 'block';
+                        clickedButton.textContent = isVisible ? 'Show Answer' : 'Hide Answer';
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
