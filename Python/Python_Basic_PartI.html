@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics for Class 11 CBSE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .solution {
+            display: none;
+            background-color: #1f2937; /* bg-gray-800 */
+            border-left: 4px solid #3b82f6; /* border-blue-500 */
+            padding: 0.75rem 1rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            color: #e5e7eb; /* text-gray-200 */
+        }
+        .solution strong {
+            color: #60a5fa; /* text-blue-400 */
+        }
+        code {
+            background-color: #374151; /* bg-gray-700 */
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        pre {
+             background-color: #0c121e;
+             padding: 1rem;
+             border-radius: 0.5rem;
+             overflow-x: auto;
+             line-height: 1.5;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        .toggle-solution-btn {
+            display: inline-block;
+            margin-top: 0.75rem;
+            background-color: #3b82f6;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .toggle-solution-btn:hover {
+            background-color: #2563eb;
+        }
+        .sidebar-sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 2rem;
+        }
+         .tab-link {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+        .tab-link:hover {
+            background-color: #374151;
+        }
+        .tab-link.active {
+            background-color: #3b82f6;
+            color: white;
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .question-block {
+            background-color: #1f2937;
+            padding: 1.5rem 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        th, td {
+            border: 1px solid #4b5563; /* border-gray-600 */
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #374151; /* bg-gray-700 */
+        }
+        .accordion-button {
+            background-color: #374151;
+            color: #d1d5db;
+            cursor: pointer;
+            padding: 1rem;
+            width: 100%;
+            text-align: left;
+            border: none;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+            outline: none;
+            transition: background-color 0.3s ease;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .accordion-button:hover, .accordion-button.active {
+            background-color: #4b5563;
+        }
+        .accordion-content {
+            padding: 0 1rem;
+            background-color: #1f2937;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8">
+
+    <div class="container mx-auto max-w-7xl">
+        <a href="python.html" class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-lg bg-gray-700 hover:bg-blue-600 text-white font-semibold shadow transition-colors duration-200">
+            &larr; Python Home
+        </a>
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-white">Python Basics for Class 11 CBSE</h1>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-8">
+             <!-- Sidebar Navigation -->
+            <aside class="w-full md:w-1/4 self-start sidebar-sticky">
+                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl">
+                     <h2 class="text-xl font-bold mb-4 text-white">Sections</h2>
+                     <nav id="sidebar-nav">
+                        <a class="tab-link active" data-target="sec1">1. Introduction</a>
+                        <a class="tab-link" data-target="sec2">2. Features</a>
+                        <a class="tab-link" data-target="sec3">3. IDE & Execution</a>
+                        <a class="tab-link" data-target="sec4">4. Tokens & Identifiers</a>
+                        <a class="tab-link" data-target="sec5">5. Data Types & Variables</a>
+                        <a class="tab-link" data-target="sec6">6. Operators</a>
+                        <a class="tab-link" data-target="sec7">7. Questions</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main id="main-content" class="w-full md:w-3/4">
+                
+                <section id="sec1" class="content-section active question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">1. Introduction to Python</h2>
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">A Brief History: The Story Behind the Name</h3>
+                        <p>Python's story begins in the late 1980s with a Dutch programmer named Guido van Rossum. He wanted to create a new scripting language that would be simple, intuitive, and powerful. As a big fan of the British comedy troupe Monty Python, he named his new language "Python" in honor of their TV show, Monty Python's Flying Circus. The first version was released in 1991.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Why is Python a Great First Language?</h3>
+                        <p>For students stepping into the world of programming, Python is an excellent choice. Its core philosophy emphasizes code readability and simplicity, allowing you to focus on problem-solving logic rather than complex syntax. Python is used by some of the biggest tech companies in the world, including Google, Netflix, and Instagram.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Your First Program: "Hello, World!"</h3>
+                        <p>The first program anyone writes in a new language is one that simply prints "Hello, World!" to the screen. This confirms your setup is correct.</p>
+                        <pre><code># Our very first Python program!
+# The print() function displays text on the screen.
+print("Hello, World!")</code></pre>
+                    </div>
+                </section>
+                
+                <section id="sec2" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">2. Features of Python</h2>
+                    <div class="space-y-6">
+                        <p>What makes Python so special? Its popularity stems from a combination of powerful features that make it both easy for beginners and robust for experts. Understanding these features helps you appreciate why it's such a well-loved language.</p>
+                        
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 mt-4">Easy to Learn & Read</h3>
+                            <p class="mt-2">Python's syntax is designed to be clean and uncluttered. It uses plain English keywords and indentation instead of curly braces, which makes the code look neat and easy to understand, even for someone who has never coded before. This readability is a core principle of the language.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 mt-4">Interpreted Language</h3>
+                            <p class="mt-2">Python is an interpreted language. This means that the code is executed line by line, directly by an interpreter. If there's an error in your code, the program will stop at that line and report it. This makes debugging (the process of finding and fixing errors) much easier for beginners.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 mt-4">Dynamically Typed</h3>
+                            <p class="mt-2">This is a powerful feature that simplifies coding. In many languages, you must declare the type of a variable before you can use it. In Python, you don't have to. Python automatically determines the data type of a variable at the time you assign a value to it.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 mt-4">Cross-Platform and Portable</h3>
+                            <p class="mt-2">Python code is portable. This means you can write a program on a Windows computer, and it will run on a Mac, a Linux machine, or even a Raspberry Pi without needing any changes. This "write once, run anywhere" capability is a huge advantage.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 mt-4">Free and Open-Source</h3>
+                            <p class="mt-2">Python is completely free to use, download, and distribute. It is developed under an open-source license, which means its source code is publicly available. Anyone can contribute to its development, and this has led to a massive, active community that constantly improves the language.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 mt-4">"Batteries Included" Philosophy</h3>
+                            <p class="mt-2">Python is often described as a "batteries included" language. This refers to its huge Standard Library, which is a collection of pre-written code (called modules) that you can use in your own programs, saving you from having to write everything from scratch.</p>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-gray-700">
+                            <h3 class="text-2xl font-semibold text-white mb-4">What This Means For You (The Student)</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>What it Means for You</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Easy to Learn & Read</td>
+                                        <td>Your code will look cleaner and be easier to understand. You can focus more on problem-solving logic and less on complex syntax.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interpreted Language</td>
+                                        <td>It's easier to find and fix errors because the program stops exactly where the error occurs.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dynamically Typed</td>
+                                        <td>You don't have to worry about declaring variable types. Python handles it for you, making your code shorter and faster to write.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cross-Platform</td>
+                                        <td>The programs you write in the school lab will work on your computer at home, regardless of the operating system.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Free and Open-Source</td>
+                                        <td>You can download and use Python without any cost. A huge community provides endless tutorials, forums, and support.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Large Standard Library</td>
+                                        <td>You have access to a vast collection of pre-built tools, which means you can build powerful programs more quickly.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="sec3" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">3. Python IDE and Execution</h2>
+                    <div class="space-y-6">
+                        <p>To start writing and running Python programs, you need a coding environment. While you can use a simple text editor, it's much more efficient to use an Integrated Development Environment (IDE).</p>
+                        
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 mt-4">What is an IDE?</h3>
+                            <p class="mt-2">Think of an IDE as a programmer's workshop. It's a software application that bundles all the essential tools for programming into one place. A typical IDE includes:</p>
+                            <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                                <li><strong>A Source Code Editor:</strong> A text editor designed for writing code, often with features like syntax highlighting to make code more readable.</li>
+                                <li><strong>A Build Automation Tool:</strong> For languages that need compiling, this automates the process. For Python, this is less critical, but the IDE still manages the execution.</li>
+                                <li><strong>A Debugger:</strong> A tool that helps you find and fix errors in your code by allowing you to run it step-by-step.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 mt-6">Meet IDLE: Your First Python IDE</h3>
+                            <p class="mt-2">When you install Python, it comes with its own simple IDE called <strong>IDLE (Integrated Development and Learning Environment)</strong>. As the name suggests, it's specifically designed for beginners and is a great place to start your Python journey. It's lightweight, easy to use, and available on all platforms where Python is installed.</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 mt-6">Installation Guide (for Windows)</h3>
+                            <ol class="list-decimal list-inside ml-4 mt-2 space-y-2">
+                                <li><strong>Visit the Official Website:</strong> Open your web browser and go to the official Python downloads page: <a href="https://www.python.org/downloads/" target="_blank" class="text-blue-400 hover:underline">https://www.python.org/downloads/</a>.</li>
+                                <li><strong>Download the Installer:</strong> The website will automatically detect your operating system and suggest the latest stable version. Click the button that says "Download Python 3.x.x".</li>
+                                <li><strong>Run the Installer:</strong> Once the download is complete, find the <code>.exe</code> file in your Downloads folder and double-click it.</li>
+                                <li><strong>Crucial Step - Add to PATH:</strong> Before you click "Install Now," look at the bottom of the window. It is <strong>very important</strong> that you check the box that says "Add Python 3.x to PATH". This allows you to run Python from your computer's command line.</li>
+                                <li><strong>Complete Installation:</strong> Click "Install Now" and follow the on-screen instructions. Once it's done, you have successfully installed Python and IDLE!</li>
+                            </ol>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-gray-700">
+                            <h3 class="text-2xl font-semibold text-white mb-4">Execution Modes in Python</h3>
+                            <p>The CBSE syllabus requires you to be familiar with Python's two main execution modes: Interactive Mode and Script Mode. IDLE provides easy access to both.</p>
+                            
+                            <div class="mt-4">
+                                <h4 class="text-xl font-semibold text-blue-300">Interactive Mode (The Shell)</h4>
+                                <p class="mt-2">When you first open IDLE, you are greeted by a window called the Python Shell with a <code>>>></code> prompt. This is Interactive Mode. Think of it as a direct conversation with the Python interpreter. You type one command, press Enter, and Python immediately executes it and shows you the result. It's perfect for testing small snippets of code or checking variable values.</p>
+                                <p class="mt-2">Let's try calculating the area of a rectangle:</p>
+                                <pre><code class="language-python">>>> length = 10
+>>> width = 5
+>>> area = length * width
+>>> print(area)
+50
+>>></code></pre>
+                            </div>
+
+                            <div class="mt-6">
+                                <h4 class="text-xl font-semibold text-blue-300">Script Mode (The Editor)</h4>
+                                <p class="mt-2">While Interactive Mode is great for quick tests, you can't save your work. For writing longer, more complex programs, you use Script Mode. A script is simply a text file where you write your Python code, saved with a <code>.py</code> extension.</p>
+                                <p class="mt-2">To use Script Mode in IDLE:</p>
+                                <ol class="list-decimal list-inside ml-4 mt-2 space-y-1">
+                                    <li>In the Shell window, go to <strong>File > New File</strong>.</li>
+                                    <li>A new, blank window will open. This is the <strong>Editor</strong>.</li>
+                                    <li>Write your complete program here.</li>
+                                    <li>Save the file (<strong>File > Save</strong>). Give it a name ending in <code>.py</code>.</li>
+                                    <li>To run your program, go to <strong>Run > Run Module</strong> (or press the F5 key).</li>
+                                </ol>
+                                <p class="mt-2">Let's write our rectangle area calculator as a reusable script:</p>
+                                <pre><code class="language-python"># File: rectangle_area.py
+# This program calculates and prints the area of a rectangle.
+
+length = 10
+width = 5
+area = length * width
+
+print("The length of the rectangle is:", length)
+print("The width of the rectangle is:", width)
+print("The area of the rectangle is:", area)</code></pre>
+                                <p class="mt-2">When you run this script, the Shell window will show:</p>
+                                <pre><code class="language-text">The length of the rectangle is: 10
+The width of the rectangle is: 5
+The area of the rectangle is: 40</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="sec4" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">4. Tokens, Identifiers, and Literals</h2>
+                    <div class="space-y-6">
+                        <!-- What are Tokens? -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300">What are Tokens?</h3>
+                            <p class="mt-2">Just like a human language is made of sentences, words, and punctuation, a programming language is made of statements, tokens, and punctuators. A <strong>token</strong> is the smallest individual unit in a Python program. The interpreter breaks down your code into these tokens to understand it. Think of them as the "words" and "punctuation marks" of the Python language.</p>
+                            <p class="mt-2">The main types of tokens in Python are:</p>
+                            <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                                <li><strong>Keywords:</strong> Reserved words with special meanings.</li>
+                                <li><strong>Identifiers:</strong> Names you give to things like variables.</li>
+                                <li><strong>Literals:</strong> Fixed values like numbers or text.</li>
+                                <li><strong>Operators:</strong> Symbols that perform operations, like <code>+</code> or <code>*</code>.</li>
+                                <li><strong>Punctuators:</strong> Symbols that organize the code structure, like <code>()</code>, or <code>#</code>.</li>
+                            </ul>
+                            <p class="mt-4">Let's break down a simple line of code to see the tokens:</p>
+                            <pre class="mt-2"><code class="language-python">student_age = 16 # Assigning age</code></pre>
+                            <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                                <li><code>student_age</code>: This is an <strong>Identifier</strong>.</li>
+                                <li><code>=</code>: This is an <strong>Operator</strong>.</li>
+                                <li><code>16</code>: This is a numeric <strong>Literal</strong>.</li>
+                                <li><code>#</code>: This is a <strong>Punctuator</strong>.</li>
+                                <li><code>Assigning age</code>: This is a comment, which is ignored by the interpreter but is made up of its own tokens.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Keywords -->
+                        <div class="mt-8 pt-6 border-t border-gray-700">
+                            <h3 class="text-2xl font-semibold text-white mb-4">Keywords</h3>
+                            <p>Keywords are the reserved words of the Python language. They have predefined, special meanings and are used to define the structure and syntax of your program. You cannot use a keyword as a name for your variables, functions, or any other identifier. Python keywords are case-sensitive and are always written in lowercase, except for <code>True</code>, <code>False</code>, and <code>None</code>.</p>
+                            <table class="mt-4">
+                                <thead>
+                                    <tr><th>Category</th><th>Keywords</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Value Keywords</td><td><code>True</code>, <code>False</code>, <code>None</code></td></tr>
+                                    <tr><td>Logical Operators</td><td><code>and</code>, <code>or</code>, <code>not</code></td></tr>
+                                    <tr><td>Control Flow</td><td><code>if</code>, <code>elif</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>break</code>, <code>continue</code>, <code>pass</code></td></tr>
+                                    <tr><td>Function/Class</td><td><code>def</code>, <code>class</code>, <code>return</code>, <code>yield</code>, <code>lambda</code></td></tr>
+                                    <tr><td>Importing</td><td><code>import</code>, <code>from</code>, <code>as</code></td></tr>
+                                    <tr><td>Exception Handling</td><td><code>try</code>, <code>except</code>, <code>finally</code>, <code>raise</code>, <code>assert</code></td></tr>
+                                    <tr><td>Variable Scope</td><td><code>global</code>, <code>nonlocal</code></td></tr>
+                                    <tr><td>Other</td><td><code>in</code>, <code>is</code>, <code>with</code>, <code>del</code>, <code>async</code>, <code>await</code></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Identifiers -->
+                        <div class="mt-8 pt-6 border-t border-gray-700">
+                            <h3 class="text-2xl font-semibold text-white mb-4">Identifiers</h3>
+                            <p>An <strong>Identifier</strong> is a name that you, the programmer, give to an entity in your program. This could be the name of a variable, a function, or a class. Choosing good, descriptive identifier names (e.g., <code>student_name</code> instead of <code>s</code>) makes your code much easier to read and understand.</p>
+                            <h4 class="text-xl font-semibold text-blue-300 mt-4">Rules for Naming Identifiers in Python:</h4>
+                            <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                                <li>An identifier must start with a letter (a-z, A-Z) or an underscore (<code>_</code>). It cannot start with a number.</li>
+                                <li>The rest of the name can consist of letters, numbers (0-9), and underscores.</li>
+                                <li>No other special characters (like <code>!</code>, <code>@</code>, <code>#</code>, <code>$</code>, <code>%</code>) are allowed.</li>
+                                <li>Python is case-sensitive. This means <code>age</code>, <code>Age</code>, and <code>AGE</code> are three different identifiers.</li>
+                                <li>An identifier cannot be a Python keyword.</li>
+                            </ul>
+                            <table class="mt-4">
+                                <thead>
+                                    <tr><th>Valid Identifiers</th><th>Invalid Identifiers</th><th>Reason for Being Invalid</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><code>my_variable</code></td><td><code>my-variable</code></td><td>Contains a hyphen (-).</td></tr>
+                                    <tr><td><code>score99</code></td><td><code>99score</code></td><td>Starts with a digit.</td></tr>
+                                    <tr><td><code>_name</code></td><td><code>student name</code></td><td>Contains a space.</td></tr>
+                                    <tr><td><code>StudentName</code></td><td><code>global</code></td><td><code>global</code> is a keyword.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Literals -->
+                        <div class="mt-8 pt-6 border-t border-gray-700">
+                            <h3 class="text-2xl font-semibold text-white mb-4">Literals</h3>
+                            <p>A <strong>Literal</strong> is a piece of data whose value is fixed. In other words, literals are the actual constant values you use in your code. When you write <code>x = 10</code>, <code>10</code> is an integer literal.</p>
+                            <p class="mt-2">Python has several types of literals:</p>
+                            <ul class="list-disc list-inside ml-4 mt-2 space-y-3">
+                                <li><strong>String Literals:</strong> A sequence of characters enclosed in quotes.
+                                    <ul class="list-['\25CB'] list-inside ml-6">
+                                        <li><code>'Hello'</code> (single quotes)</li>
+                                        <li><code>"Python"</code> (double quotes)</li>
+                                        <li><code>"""This is a multi-line string."""</code> (triple quotes)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Numeric Literals:</strong> These include integers, floating-point numbers, and complex numbers.
+                                     <ul class="list-['\25CB'] list-inside ml-6">
+                                        <li>Integer: <code>101</code>, <code>-50</code>, <code>0</code></li>
+                                        <li>Float: <code>12.5</code>, <code>-3.14</code></li>
+                                        <li>Complex: <code>3+4j</code></li>
+                                    </ul>
+                                </li>
+                                <li><strong>Boolean Literals:</strong> Used to represent truth values. There are only two: <code>True</code> and <code>False</code>.</li>
+                                <li><strong>Special Literal:</strong> Python has one special literal, <code>None</code>, which is used to signify the absence of a value.</li>
+                                <li><strong>Collection Literals:</strong> Python also has literals for creating data collections, like lists and tuples (e.g., <code>[10, 20, 30]</code>).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="sec5" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">5. Data Types and Variables</h2>
+                    <div class="space-y-6">
+                        <p>In programming, we constantly work with data—numbers, text, true/false values, and more. A <strong>data type</strong> is a classification that tells the computer what kind of data a value is and what operations can be performed on it. A <strong>variable</strong> is a name we use to store and refer to that data in the computer's memory.</p>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 mt-4">Variables as Labels or References</h3>
+                            <p class="mt-2">In some programming languages, a variable is like a box where you put a value. In Python, it's more helpful to think of a variable as a <strong>label</strong> or a <strong>post-it note</strong> that you stick onto a value. The value itself is an "object" that exists in the computer's memory. When you write <code>x = 100</code>, you are not putting 100 inside a box named x. Instead, you are creating an integer object with the value 100 and placing the label 'x' on it.</p>
+                            <p class="mt-4">This distinction is subtle but incredibly important for understanding how Python works, especially with more complex data types. Let's trace this concept:</p>
+                            <ol class="list-decimal list-inside ml-4 mt-2 space-y-2">
+                                <li><code>x = 10</code>: Python creates an integer object <code>10</code> in memory. The label <code>x</code> now points to this object.</li>
+                                <li><code>y = x</code>: Python does <strong>not</strong> create a new object. It simply takes another label, <code>y</code>, and sticks it onto the <strong>same</strong> <code>10</code> object that <code>x</code> is pointing to. Now, both <code>x</code> and <code>y</code> refer to the same value.</li>
+                                <li><code>x = 20</code>: Python creates a new integer object <code>20</code>. It then moves the label <code>x</code> from the <code>10</code> object to this new <code>20</code> object. The label <code>y</code> is unaffected and remains pointing to the original <code>10</code> object.</li>
+                            </ol>
+                            <p class="mt-2">This "labeling" model explains why Python is dynamically typed. You can easily move a label from an integer object to a string object without any issue.</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 mt-4">The Assignment Operator (=)</h3>
+                            <p class="mt-2">The equal sign (<code>=</code>) in Python is the assignment operator. It works from right to left, meaning it evaluates the expression on the right and assigns that value to the variable on the left. The statement <code>variable_name = value</code> means: "Evaluate the expression on the right, create an object for that value, and then make the variable name on the left refer to that object."</p>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-gray-700">
+                            <h3 class="text-2xl font-semibold text-white mb-4">Core Data Types in Python</h3>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li><strong>Numeric Types:</strong>
+                                    <ul class="list-['\25CB'] list-inside ml-6">
+                                        <li><strong>Integer (<code>int</code>):</strong> Represents positive or negative whole numbers without any decimal part (e.g., <code>10</code>, <code>-250</code>, <code>0</code>).</li>
+                                        <li><strong>Float (<code>float</code>):</strong> Represents real numbers with a decimal point (e.g., <code>3.14</code>, <code>-0.001</code>, <code>25.0</code>).</li>
+                                    </ul>
+                                </li>
+                                <li><strong>String (<code>str</code>):</strong> Represents a sequence of characters used for textual data. You create them by enclosing characters in single (<code>'</code>), double (<code>"</code>), or triple (<code>"""</code>) quotes.</li>
+                                <li><strong>Boolean (<code>bool</code>):</strong> Represents one of two truth values: <code>True</code> or <code>False</code>. Note that these must be capitalized.</li>
+                            </ul>
+                            <p class="mt-4">You can check the data type of any variable or value using the built-in <code>type()</code> function.</p>
+                            <pre class="mt-2"><code class="language-python">>>> num = 42
+>>> pi = 3.14
+>>> name = "Amit"
+>>> is_student = True
+
+>>> type(num)
+&lt;class 'int'>
+
+>>> type(pi)
+&lt;class 'float'>
+
+>>> type(name)
+&lt;class 'str'>
+
+>>> type(is_student)
+&lt;class 'bool'></code></pre>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-gray-700">
+                            <h3 class="text-2xl font-semibold text-white mb-4">Mutable vs. Immutable Types</h3>
+                            <p>This is a critical concept. It relates directly to whether a value can be changed after it's created.</p>
+                            <ul class="list-disc list-inside ml-4 mt-4 space-y-4">
+                                <li>
+                                    <strong>Immutable Types:</strong> Objects of these types <strong>cannot be changed</strong> after they are created. If you try to "modify" an immutable object, Python will create a new object with the new value and make your variable point to it. Think of an immutable object like a <strong>printed sign</strong>. You can't just erase a letter; to change it, you have to create a whole new sign.
+                                    <p class="mt-2">The core data types we've discussed so far—<code>int</code>, <code>float</code>, <code>bool</code>, and <code>str</code>—are all immutable. Tuples are also immutable.</p>
+                                    <pre class="mt-2"><code class="language-python"># String (Immutable)
+my_string = "hello"
+# Let's try to change the first character to 'H'
+# my_string[0] = 'H'  # This will cause a TypeError!
+
+# To "change" the string, we must create a new one.
+my_string = "H" + my_string[1:]
+print(my_string)  # Output: Hello</code></pre>
+                                </li>
+                                <li>
+                                    <strong>Mutable Types:</strong> Objects of these types <strong>can be changed in-place</strong> after they are created, without creating a new object. Think of a mutable object like a <strong>whiteboard</strong>. You can easily erase a part of it and write something new without needing a new whiteboard.
+                                    <p class="mt-2">The primary mutable types you will learn about are lists and dictionaries.</p>
+                                    <pre class="mt-2"><code class="language-python"># List (Mutable)
+my_list = [10, 20, 30]
+# Let's change the first element to 100
+my_list[0] = 100  # This works perfectly!
+print(my_list)  # Output: [100, 20, 30]</code></pre>
+                                </li>
+                            </ul>
+                            <p class="mt-4">Understanding this difference is key to avoiding unexpected behavior in your programs.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="sec6" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">6. Operators</h2>
+                    <div class="space-y-8">
+                        <p>Operators are special symbols in Python that carry out arithmetic or logical computation. The value that the operator works on is called the operand. For example, in <code>10 + 5</code>, <code>10</code> and <code>5</code> are operands, and <code>+</code> is the operator.</p>
+
+                        <!-- Arithmetic Operators -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Arithmetic Operators</h3>
+                            <p class="mt-2">These operators are used to perform standard mathematical calculations.</p>
+                            <table class="mt-4">
+                                <thead><tr><th>Operator</th><th>Name</th><th>Description</th><th>Example (a=10, b=3)</th><th>Result</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>+</code></td><td>Addition</td><td>Adds two operands</td><td><code>a + b</code></td><td><code>13</code></td></tr>
+                                    <tr><td><code>-</code></td><td>Subtraction</td><td>Subtracts the right operand from the left</td><td><code>a - b</code></td><td><code>7</code></td></tr>
+                                    <tr><td><code>*</code></td><td>Multiplication</td><td>Multiplies two operands</td><td><code>a * b</code></td><td><code>30</code></td></tr>
+                                    <tr><td><code>/</code></td><td>Division</td><td>Divides the left operand by the right</td><td><code>a / b</code></td><td><code>3.333...</code></td></tr>
+                                    <tr><td><code>//</code></td><td>Floor Division</td><td>Divides and returns the integer part of the result</td><td><code>a // b</code></td><td><code>3</code></td></tr>
+                                    <tr><td><code>%</code></td><td>Modulo</td><td>Returns the remainder of the division</td><td><code>a % b</code></td><td><code>1</code></td></tr>
+                                    <tr><td><code>**</code></td><td>Exponent</td><td>Raises the left operand to the power of the right</td><td><code>a ** b</code></td><td><code>1000</code></td></tr>
+                                </tbody>
+                            </table>
+                            <p class="text-sm text-gray-400"><strong>Key Point:</strong> Standard division (<code>/</code>) always results in a float. Floor division (<code>//</code>) always discards the fractional part and returns an integer.</p>
+                        </div>
+
+                        <!-- Relational (Comparison) Operators -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Relational (Comparison) Operators</h3>
+                            <p class="mt-2">These operators compare two values. The result is always a Boolean value: <code>True</code> or <code>False</code>.</p>
+                            <table class="mt-4">
+                                <thead><tr><th>Operator</th><th>Meaning</th><th>Example (a=10, b=5)</th><th>Result</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>==</code></td><td>Equal to</td><td><code>a == b</code></td><td><code>False</code></td></tr>
+                                    <tr><td><code>!=</code></td><td>Not equal to</td><td><code>a != b</code></td><td><code>True</code></td></tr>
+                                    <tr><td><code>></code></td><td>Greater than</td><td><code>a > b</code></td><td><code>True</code></td></tr>
+                                    <tr><td><code>&lt;</code></td><td>Less than</td><td><code>a &lt; b</code></td><td><code>False</code></td></tr>
+                                    <tr><td><code>>=</code></td><td>Greater than or equal to</td><td><code>a >= 10</code></td><td><code>True</code></td></tr>
+                                    <tr><td><code>&lt;=</code></td><td>Less than or equal to</td><td><code>b &lt;= 5</code></td><td><code>True</code></td></tr>
+                                </tbody>
+                            </table>
+                            <p class="text-sm text-gray-400"><strong>Important:</strong> Do not confuse the assignment operator (<code>=</code>) with the equality operator (<code>==</code>). <code>x = 5</code> assigns the value 5 to x. <code>x == 5</code> checks if the value of x is 5.</p>
+                        </div>
+
+                        <!-- Logical Operators -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Logical Operators</h3>
+                            <p class="mt-2">Logical operators are used to combine conditional statements. The operators <code>and</code>, <code>or</code>, and <code>not</code> are fundamental for making decisions based on multiple conditions.</p>
+                            <div class="mt-6">
+                                <h4 class="text-lg font-semibold text-gray-300 mb-4">Truth Tables for Logical Operators</h4>
+                                <p>A truth table systematically lists all possible input combinations for a logical operation and shows the resulting output.</p>
+                                <div class="space-y-6 mt-4">
+                                    <div>
+                                        <h5 class="font-semibold text-white">1. AND Operator</h5>
+                                        <p class="text-sm text-gray-400">The <code>and</code> operator returns <code>True</code> if and only if both operands are <code>True</code>. Otherwise, it returns <code>False</code>.</p>
+                                        <table class="mt-2">
+                                            <thead><tr><th>Operand 1</th><th>Operand 2</th><th>Result (Operand 1 and Operand 2)</th></tr></thead>
+                                            <tbody>
+                                                <tr><td><code>True</code></td><td><code>True</code></td><td><code>True</code></td></tr>
+                                                <tr><td><code>True</code></td><td><code>False</code></td><td><code>False</code></td></tr>
+                                                <tr><td><code>False</code></td><td><code>True</code></td><td><code>False</code></td></tr>
+                                                <tr><td><code>False</code></td><td><code>False</code></td><td><code>False</code></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-white">2. OR Operator</h5>
+                                        <p class="text-sm text-gray-400">The <code>or</code> operator returns <code>True</code> if at least one of the operands is <code>True</code>. It returns <code>False</code> only if both operands are <code>False</code>.</p>
+                                        <table class="mt-2">
+                                            <thead><tr><th>Operand 1</th><th>Operand 2</th><th>Result (Operand 1 or Operand 2)</th></tr></thead>
+                                            <tbody>
+                                                <tr><td><code>True</code></td><td><code>True</code></td><td><code>True</code></td></tr>
+                                                <tr><td><code>True</code></td><td><code>False</code></td><td><code>True</code></td></tr>
+                                                <tr><td><code>False</code></td><td><code>True</code></td><td><code>True</code></td></tr>
+                                                <tr><td><code>False</code></td><td><code>False</code></td><td><code>False</code></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-white">3. NOT Operator</h5>
+                                        <p class="text-sm text-gray-400">The <code>not</code> operator is a unary operator. It simply reverses the logical state of its operand.</p>
+                                        <table class="mt-2">
+                                            <thead><tr><th>Operand</th><th>Result (not Operand)</th></tr></thead>
+                                            <tbody>
+                                                <tr><td><code>True</code></td><td><code>False</code></td></tr>
+                                                <tr><td><code>False</code></td><td><code>True</code></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <h4 class="text-lg font-semibold text-gray-300 mt-6 mb-2">How Logical Operators Function</h4>
+                                 <table class="mt-2">
+                                    <thead><tr><th>Operator</th><th>Description</th><th>Example (a=True, b=False)</th><th>Result</th></tr></thead>
+                                    <tbody>
+                                        <tr><td><code>and</code></td><td>Returns True if both operands are true</td><td><code>a and b</code></td><td><code>False</code></td></tr>
+                                        <tr><td><code>or</code></td><td>Returns True if at least one operand is true</td><td><code>a or b</code></td><td><code>True</code></td></tr>
+                                        <tr><td><code>not</code></td><td>Reverses the logical state of the operand</td><td><code>not b</code></td><td><code>True</code></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Identity Operators -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Identity Operators</h3>
+                            <p class="mt-2">Identity operators are used to compare the <strong>memory locations</strong> of two objects. They check if two operands refer to the exact same object in memory, not just if they have the same value. Python has two identity operators: <code>is</code> and <code>is not</code>.</p>
+                            <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                                <li><code>is</code>: Returns <code>True</code> if both operands refer to the same object.</li>
+                                <li><code>is not</code>: Returns <code>True</code> if both operands do not refer to the same object.</li>
+                            </ul>
+                            <p class="mt-4">Think of it like this: if you have two variables, <code>a</code> and <code>b</code>, and you ask <code>a is b</code>, you're not asking if <code>a</code> and <code>b</code> contain the same value, but if <code>a</code> and <code>b</code> are literally pointing to the exact same piece of data in your computer's memory.</p>
+                            
+                            <div class="mt-4 p-4 bg-gray-800 rounded-lg">
+                                <h4 class="font-semibold text-white">Example:</h4>
+                                <pre class="mt-2"><code class="language-python"># Case 1: Same value, same object (for small integers and pre-allocated strings)
+x = 10
+y = 10
+print(x is y)  # Output: True (Python often reuses memory for small integers)
+print(x is not y) # Output: False
+
+a = "hello"
+b = "hello"
+print(a is b)  # Output: True (Python often reuses memory for identical string literals)
+
+# Case 2: Same value, different objects (for lists and larger/dynamically created objects)
+list1 = [1, 2, 3]
+list2 = [1, 2, 3]
+print(list1 is list2)  # Output: False (Even though values are same, they are different list objects)
+print(list1 is not list2) # Output: True
+
+# list3 now points to the same object as list1
+list3 = list1 
+print(list1 is list3) # Output: True
+
+# Case 3: Comparing with None
+# None is a special literal in Python, and there is only one instance of None.
+# So, when you compare something to None, you should always use 'is' or 'is not'.
+my_variable = None
+print(my_variable is None) # Output: True
+print(my_variable == None) # Output: True (This also works, but 'is' is idiomatic for None)</code></pre>
+                            </div>
+
+                            <div class="mt-4 p-4 border border-blue-500 rounded-lg bg-blue-900/20">
+                                <h4 class="font-bold text-blue-300">Key Distinction:</h4>
+                                <ul class="list-disc list-inside ml-4 mt-2">
+                                    <li><code>==</code> (Equality Operator): Compares the <strong>values</strong> of two objects. It checks if they have the same content.</li>
+                                    <li><code>is</code> (Identity Operator): Compares the <strong>identities</strong> of two objects. It checks if they are the exact same object in memory.</li>
+                                </ul>
+                                <p class="mt-2 text-sm text-gray-400">Understanding this difference is crucial, especially when working with mutable data types like lists, where two separate lists can have the same content but be distinct objects in memory.</p>
+                            </div>
+                        </div>
+
+                        <!-- Membership Operators -->
+                        <div class="mt-8 pt-6 border-t border-gray-700">
+                            <h3 class="text-xl font-semibold text-blue-300">Membership Operators</h3>
+                            <p class="mt-2">Membership operators are used to test whether a value or variable is found in a sequence (such as a string, list, or tuple). They return <code>True</code> if the value is found in the sequence, and <code>False</code> otherwise. Python has two membership operators:</p>
+                             <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                                <li><code>in</code>: Returns <code>True</code> if a value is present in the sequence.</li>
+                                <li><code>not in</code>: Returns <code>True</code> if a value is not present in the sequence.</li>
+                            </ul>
+                            <p class="mt-2"><strong>Syntax:</strong> <code>value in sequence</code> or <code>value not in sequence</code></p>
+                             <div class="mt-4 p-4 bg-gray-800 rounded-lg">
+                                <h4 class="font-semibold text-white">Example:</h4>
+                                <pre class="mt-2"><code class="language-python"># Checking for membership in a string
+message = "Hello Python"
+print('H' in message)      # Output: True
+print('x' in message)      # Output: False
+print('Py' not in message) # Output: False (because 'Py' is in message)
+
+# Checking for membership in a list
+numbers = [10, 20, 30, 40, 50]
+print(30 in numbers)     # Output: True
+print(99 in numbers)     # Output: False
+print(5 not in numbers) # Output: True
+
+# Checking for membership in a tuple
+fruits = ("apple", "banana", "cherry")
+print("apple" in fruits) # Output: True
+print("grape" not in fruits) # Output: True</code></pre>
+                                <p class="mt-4 text-sm text-gray-400">Membership operators are very useful for checking for the existence of elements within collections of data.</p>
+                            </div>
+                        </div>
+
+                        <!-- Assignment Operators -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Assignment Operators</h3>
+                            <p class="mt-2">These operators are used to assign values to variables. Python provides compound operators as a shorthand for modifying a variable's value.</p>
+                            <table class="mt-4">
+                                <thead><tr><th>Operator</th><th>Example</th><th>Equivalent To</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>+=</code></td><td><code>x += 5</code></td><td><code>x = x + 5</code></td></tr>
+                                    <tr><td><code>-=</code></td><td><code>x -= 5</code></td><td><code>x = x - 5</code></td></tr>
+                                    <tr><td><code>*=</code></td><td><code>x *= 5</code></td><td><code>x = x * 5</code></td></tr>
+                                    <tr><td><code>/=</code></td><td><code>x /= 5</code></td><td><code>x = x / 5</code></td></tr>
+                                    <tr><td><code>//=</code></td><td><code>x //= 5</code></td><td><code>x = x // 5</code></td></tr>
+                                    <tr><td><code>%=</code></td><td><code>x %= 5</code></td><td><code>x = x % 5</code></td></tr>
+                                    <tr><td><code>**=</code></td><td><code>x **= 5</code></td><td><code>x = x ** 5</code></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Operator Precedence -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300">Operator Precedence</h3>
+                            <p class="mt-2">When an expression contains multiple operators, Python follows a set of rules called <strong>operator precedence</strong> to determine the order of evaluation. It's similar to the BODMAS/PEMDAS rule in mathematics.</p>
+                            <table class="mt-4">
+                                <thead><tr><th>Precedence</th><th>Operators</th><th>Description</th><th>Associativity</th></tr></thead>
+                                <tbody>
+                                    <tr><td>1</td><td><code>()</code></td><td>Parentheses</td><td>Left to right</td></tr>
+                                    <tr><td>2</td><td><code>**</code></td><td>Exponentiation</td><td>Right to left</td></tr>
+                                    <tr><td>3</td><td><code>+x, -x, ~x</code></td><td>Positive, negative, bitwise NOT</td><td>Right to left</td></tr>
+                                    <tr><td>4</td><td><code>*, /, //, %</code></td><td>Multiplication, division, floor division, modulo</td><td>Left to right</td></tr>
+                                    <tr><td>5</td><td><code>+, -</code></td><td>Addition and subtraction</td><td>Left to right</td></tr>
+                                    <tr><td>6</td><td><code>&lt;&lt;, >></code></td><td>Bitwise shifts</td><td>Left to right</td></tr>
+                                    <tr><td>7</td><td><code>&</code></td><td>Bitwise AND</td><td>Left to right</td></tr>
+                                    <tr><td>8</td><td><code>^</code></td><td>Bitwise XOR</td><td>Left to right</td></tr>
+                                    <tr><td>9</td><td><code>|</code></td><td>Bitwise OR</td><td>Left to right</td></tr>
+                                    <tr><td>10</td><td><code>in, not in, is, is not, &lt;, &lt;=, >, >=, !=, ==</code></td><td>Comparisons, membership, identity</td><td>Left to Right</td></tr>
+                                    <tr><td>11</td><td><code>not x</code></td><td>Boolean NOT</td><td>Right to left</td></tr>
+                                    <tr><td>12</td><td><code>and</code></td><td>Boolean AND</td><td>Left to right</td></tr>
+                                    <tr><td>13</td><td><code>or</code></td><td>Boolean OR</td><td>Left to right</td></tr>
+                                    <tr><td>14</td><td><code>if-else</code></td><td>Conditional expression</td><td>Right to left</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-8 pt-6 border-t border-gray-700">
+                                <h3 class="text-2xl font-semibold text-white mb-4">How to Read Complex Expressions</h3>
+                                <p>Students frequently misunderstand how Python evaluates expressions containing both <code>and</code> and <code>or</code> operators. This is because <code>and</code> has a higher precedence than <code>or</code>. This means Python evaluates <code>and</code> operations before <code>or</code> operations within the same expression, much like multiplication is evaluated before addition in mathematics.</p>
+                                
+                                <div class="mt-4 p-4 bg-gray-800 rounded-lg">
+                                    <h4 class="font-semibold text-white">Example without Parentheses:</h4>
+                                    <pre class="mt-2"><code class="language-python">result = True or False and False</code></pre>
+                                    <p class="mt-2">A common mistake is to read this from left to right. However, Python's order of operations is different:</p>
+                                    <ol class="list-decimal list-inside ml-4 mt-2 space-y-1 text-sm text-gray-400">
+                                        <li>Python first evaluates <code>False and False</code> because <code>and</code> has higher precedence. This results in <code>False</code>.</li>
+                                        <li>The expression then simplifies to <code>True or False</code>.</li>
+                                        <li>Finally, <code>True or False</code> evaluates to <code>True</code>.</li>
+                                    </ol>
+                                    <p class="mt-2"><strong>Result: <code>True</code></strong></p>
+                                </div>
+
+                                <div class="mt-4 p-4 bg-gray-800 rounded-lg">
+                                    <h4 class="font-semibold text-white">Consider the same example with parentheses:</h4>
+                                    <pre class="mt-2"><code class="language-python">result = (True or False) and False</code></pre>
+                                    <p class="mt-2">Now, the evaluation proceeds as you might initially expect:</p>
+                                    <ol class="list-decimal list-inside ml-4 mt-2 space-y-1 text-sm text-gray-400">
+                                        <li>The expression inside the parentheses, <code>(True or False)</code>, is evaluated first, which results in <code>True</code>.</li>
+                                        <li>The expression then becomes <code>True and False</code>.</li>
+                                        <li>Finally, <code>True and False</code> correctly evaluates to <code>False</code>.</li>
+                                    </ol>
+                                    <p class="mt-2"><strong>Result: <code>False</code></strong></p>
+                                </div>
+
+                                <div class="mt-6 p-4 border border-amber-500 rounded-lg bg-amber-900/20">
+                                    <p class="font-bold text-amber-300">Using parentheses makes your code more robust by explicitly defining the order of operations, preventing unexpected results, and significantly improving readability for anyone who needs to understand or maintain your code.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="sec7" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">7. Questions</h2>
+                    <div class="space-y-6">
+                        <div class="question-block">
+                            <button class="accordion-button">Multiple Choice Questions (50 questions)</button>
+                            <div class="accordion-content">
+                                <ol class="list-decimal list-inside p-4 space-y-4">
+                                    <li>Which of the following is an invalid variable name? (a) my_var (b) _var (c) my-var (d) var1</li>
+                                    <li>What is the output of `print(2 ** 3)`? (a) 6 (b) 8 (c) 9 (d) 1</li>
+                                    <!-- ... Add remaining MCQs here ... -->
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="question-block">
+                            <button class="accordion-button">Fill in the Blanks (25 questions)</button>
+                            <div class="accordion-content">
+                                <ol class="list-decimal list-inside p-4 space-y-4">
+                                    <li>The smallest individual unit in a Python program is called a __________.</li>
+                                    <li>Data types that cannot be changed after creation are called __________.</li>
+                                    <!-- ... Add remaining Fill in the Blanks here ... -->
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="question-block">
+                            <button class="accordion-button">True or False (25 questions)</button>
+                            <div class="accordion-content">
+                                <ol class="list-decimal list-inside p-4 space-y-4">
+                                    <li>Python is a case-sensitive language.</li>
+                                    <li>A list is an immutable data type.</li>
+                                    <!-- ... Add remaining True/False questions here ... -->
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="question-block">
+                            <h2 class="text-2xl font-semibold">Answer Key</h2>
+                            <h3>Multiple Choice Questions</h3>
+                            <ol class="list-decimal list-inside">
+                                <li>(c) `my-var`</li>
+                                <li>(b) `8`</li>
+                                <!-- ... Add remaining MCQ answers ... -->
+                            </ol>
+                            <h3 class="mt-4">Fill in the Blanks</h3>
+                            <ol class="list-decimal list-inside">
+                                <li>Token</li>
+                                <li>Immutable</li>
+                                <!-- ... Add remaining Fill in the Blanks answers ... -->
+                            </ol>
+                            <h3 class="mt-4">True or False</h3>
+                            <ol class="list-decimal list-inside">
+                                <li>True</li>
+                                <li>False</li>
+                                <!-- ... Add remaining True/False answers ... -->
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+        <footer class="text-center mt-12 text-sm text-gray-500">
+            <p>Happy Learning!</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const targetId = tab.dataset.target;
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+                    window.scrollTo(0, 0);
+                });
+            });
+
+            const accordions = document.querySelectorAll('.accordion-button');
+            accordions.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.classList.toggle('active');
+                    const content = button.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
