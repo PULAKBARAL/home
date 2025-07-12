@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics Part II</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Replicating the theme from python_network.html */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .solution {
+            display: none;
+            background-color: #1f2937; /* bg-gray-800 */
+            border-left: 4px solid #3b82f6; /* border-blue-500 */
+            padding: 0.75rem 1rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            color: #e5e7eb; /* text-gray-200 */
+        }
+        .solution strong {
+            color: #60a5fa; /* text-blue-400 */
+        }
+        code {
+            background-color: #374151; /* bg-gray-700 */
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #93c5fd; /* text-blue-300 */
+        }
+        pre {
+             background-color: #0c121e;
+             padding: 1rem;
+             border-radius: 0.5rem;
+             overflow-x: auto;
+             line-height: 1.5;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #e5e7eb; /* text-gray-200 */
+        }
+        .toggle-solution-btn {
+            display: inline-block;
+            margin-top: 0.75rem;
+            background-color: #3b82f6;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .toggle-solution-btn:hover {
+            background-color: #2563eb;
+        }
+        .sidebar-sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 2rem;
+        }
+         .tab-link {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+        .tab-link:hover {
+            background-color: #374151;
+        }
+        .tab-link.active {
+            background-color: #3b82f6;
+            color: white;
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .question-block {
+            background-color: #1f2937;
+            padding: 1.5rem 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        th, td {
+            border: 1px solid #4b5563; /* border-gray-600 */
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #374151; /* bg-gray-700 */
+        }
+        .text-blue-300 {
+            color: #93c5fd;
+        }
+        .text-blue-400 {
+            color: #60a5fa;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8">
+
+    <div class="container mx-auto max-w-7xl">
+        <!-- Back to Home Button -->
+        <a href="#" class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-lg bg-gray-700 hover:bg-blue-600 text-white font-semibold shadow transition-colors duration-200">
+            &larr; Python Home
+        </a>
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-white">Python Basics Part II: Control Flow & Data Structures</h1>
+            <p class="mt-2 text-lg text-gray-400">Now that we have the basic building blocks—variables, data types, and operators—we can start building more interesting programs. This part will teach you how to control the flow of your program's execution with conditions and loops, and how to manage collections of data using Python's powerful built-in structures.</p>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-8">
+             <!-- Sidebar Navigation -->
+            <aside class="w-full md:w-1/4 self-start sidebar-sticky">
+                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl">
+                     <h2 class="text-xl font-bold mb-4 text-white">Sections</h2>
+                     <nav id="sidebar-nav">
+                        <a class="tab-link active" data-target="sec1">1. Input & Output</a>
+                        <a class="tab-link" data-target="sec2">2. Conditional Statements</a>
+                        <a class="tab-link" data-target="sec3">3. Loops</a>
+                        <a class="tab-link" data-target="sec4">4. Lists & Tuples</a>
+                        <a class="tab-link" data-target="sec5">5. Strings & Methods</a>
+                        <a class="tab-link" data-target="sec6">6. Dictionaries</a>
+                        <a class="tab-link" data-target="sec7">7. Practice Questions</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main id="main-content" class="w-full md:w-3/4">
+                
+                <section id="sec1" class="content-section active question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">1. Input and Output Statements</h2>
+                    <div class="space-y-4">
+                        <p>A program isn't very useful if it can't interact with the user. <strong>Output</strong> is how the program presents information to the user, and <strong>input</strong> is how the program receives information from the user.</p>
+                        
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">The <code>print()</code> Function in Detail</h3>
+                        <p>We've already used the <code>print()</code> function to display simple messages. It's a versatile function with some useful options called parameters.</p>
+                        <ul class="list-disc list-inside ml-4 space-y-4">
+                            <li><strong>Printing Multiple Items:</strong> You can print multiple values by separating them with commas. By default, <code>print()</code> will insert a space between them.
+<pre><code>name = "Sonia"
+age = 16
+print("Name:", name, "Age:", age)
+# Output: Name: Sonia Age: 16</code></pre>
+                            </li>
+                            <li><strong>The <code>sep</code> Parameter:</strong> The <code>sep</code> parameter allows you to specify a different separator instead of the default space.
+<pre><code>print("08", "08", "2024", sep="-")
+# Output: 08-08-2024
+
+print("one", "two", "three", sep="***")
+# Output: one***two***three</code></pre>
+                            </li>
+                            <li><strong>The <code>end</code> Parameter:</strong> By default, after a <code>print()</code> statement finishes, it moves the cursor to a new line. The <code>end</code> parameter lets you change this behavior.
+<pre><code>print("Hello", end=" ") 
+print("World!")
+# Output: Hello World!
+
+print("The first part", end=", and ") 
+print("the second part.")
+# Output: The first part, and the second part.</code></pre>
+                            </li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">The <code>input()</code> Function</h3>
+                        <p>To get data from the user, we use the <code>input()</code> function. You can provide a string prompt inside the parentheses, which will be displayed to the user.</p>
+<pre><code>name = input("Please enter your name: ") 
+print("Welcome,", name)</code></pre>
+                        <p>When this code runs, it will display the prompt, wait for the user to type something and press Enter, and then store the user's entry in the <code>name</code> variable.</p>
+
+                        <h4 class="text-lg font-semibold text-blue-400 pt-2">Type Conversion (Casting): The Most Important <code>input()</code> Rule</h4>
+                        <p>The most critical rule to remember about <code>input()</code>: <strong>it always returns the data as a string (<code>str</code>)</strong>, no matter what the user types. This can lead to one of the most common beginner errors.</p>
+                        <p><strong>Problem (leads to concatenation):</strong></p>
+<pre><code>num1 = input("Enter the first number: ") # User enters 10
+num2 = input("Enter the second number: ") # User enters 20
+sum_result = num1 + num2 
+print("The sum is:", sum_result)
+# Expected: 30, Actual Output: The sum is: 1020</code></pre>
+                        <p><strong>Analysis:</strong> The program didn't perform mathematical addition. Because <code>input()</code> returns strings, <code>num1</code> was the string "10" and <code>num2</code> was the string "20". The <code>+</code> operator, when used with strings, performs concatenation (joining them together).</p>
+                        <p><strong>Solution (with type casting):</strong></p>
+<pre><code>num1_str = input("Enter the first number: ")
+num2_str = input("Enter the second number: ")
+
+# Convert the string inputs to integers
+num1 = int(num1_str)
+num2 = int(num2_str)
+sum_result = num1 + num2
+print("The sum is:", sum_result)
+# Output: The sum is: 30</code></pre>
+                        <p>You can also perform the conversion in one line, which is a common practice:</p>
+<pre><code>num1 = int(input("Enter the first number: "))</code></pre>
+                    </div>
+                </section>
+                
+                <section id="sec2" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">2. Conditional Statements (if, if-else, if-elif)</h2>
+                    <div class="space-y-4">
+                        <p>So far, our programs have executed in a straight line, from top to bottom. This is called <strong>sequential flow</strong>. But to write truly useful programs, we need to be able to make decisions and execute different code based on certain conditions. This is called <strong>conditional flow</strong>. A key aspect of their syntax is <strong>indentation</strong>: the block of code to be executed under a condition must be indented.</p>
+                        
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">The <code>if</code> Statement</h3>
+                        <p>The <code>if</code> statement is the simplest form of decision-making. It executes a block of code only if a given condition is <code>True</code>.</p>
+                        <p><strong>Syntax:</strong></p>
+<pre><code>if condition:
+    # This block of code runs only if the condition is True
+    statement_1
+    statement_2</code></pre>
+                        <p><strong>Example:</strong></p>
+<pre><code>num = int(input("Enter a number: "))
+if num > 0:
+    print("The number is positive.")
+print("This line will always execute.")</code></pre>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">The <code>if-else</code> Statement</h3>
+                        <p>The <code>if-else</code> statement provides an alternative path. If the condition is <code>True</code>, the <code>if</code> block runs. If it's <code>False</code>, the <code>else</code> block runs.</p>
+                        <p><strong>Syntax:</strong></p>
+<pre><code>if condition:
+    # Runs if condition is True
+    block_A
+else:
+    # Runs if condition is False
+    block_B</code></pre>
+                        <p><strong>Example:</strong></p>
+<pre><code>num = int(input("Enter an integer: "))
+if num % 2 == 0:
+    print(num, "is an even number.")
+else:
+    print(num, "is an odd number.")</code></pre>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">The <code>if-elif-else</code> Chain</h3>
+                        <p>When you have more than two possibilities, you can use the <code>if-elif-else</code> chain. <code>elif</code> is short for "else if". Python checks the conditions from top to bottom and executes the <strong>first</strong> block where the condition is <code>True</code>. If no conditions are true, the final <code>else</code> block is executed (if it exists).</p>
+                        <p><strong>Clarifying <code>elif</code> vs. multiple <code>if</code>s:</strong></p>
+                        <p>Using <code>elif</code> is crucial for checking mutually exclusive conditions. Consider assigning a grade based on marks.</p>
+                        <p><strong>Incorrect way (using multiple ifs):</strong></p>
+<pre><code>marks = 95
+if marks >= 90:
+    print("Grade A") # This will print
+if marks >= 80:
+    print("Grade B") # This will also print!
+if marks >= 70:
+    print("Grade C") # This will also print!</code></pre>
+                        <p>This is logically incorrect because a student with 95 marks gets all three grades.</p>
+                        <p><strong>Correct way (using if-elif-else):</strong></p>
+<pre><code>marks = 95
+if marks >= 90:
+    print("Grade A") # This prints, and the chain stops.
+elif marks >= 80:
+    print("Grade B")
+elif marks >= 70:
+    print("Grade C")
+else:
+    print("Grade D")</code></pre>
+                    </div>
+                </section>
+                
+                <section id="sec3" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">3. Loops (for, while)</h2>
+                    <div class="space-y-4">
+                        <p>Loops are used to execute a block of code repeatedly. This process is called <strong>iteration</strong>. Python provides two main types of loops: the for loop and the while loop.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Which Loop Should I Use?</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li>Use a <strong><code>for</code> loop</strong> when you know how many times you want to iterate or when you want to iterate over every item in a sequence.</li>
+                            <li>Use a <strong><code>while</code> loop</strong> when you want to loop as long as a certain condition is true, especially when you don't know the exact number of iterations.</li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">The <code>while</code> Loop</h3>
+                        <p>A <code>while</code> loop repeats a block of code as long as its condition remains <code>True</code>.</p>
+<pre><code>count = 1
+while count <= 5:
+    print(count)
+    count = count + 1 # Important: Update the loop variable!
+# Output: 1 2 3 4 5</code></pre>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">The <code>for</code> Loop and <code>range()</code></h3>
+                        <p>A <code>for</code> loop is used for iterating over a sequence. The <code>range()</code> function is often used to generate a sequence of numbers for the loop.</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><code>range(stop)</code>: Generates numbers from 0 up to (but not including) stop.</li>
+                            <li><code>range(start, stop)</code>: Generates numbers from start up to stop.</li>
+                            <li><code>range(start, stop, step)</code>: Generates numbers from start to stop, incrementing by step.</li>
+                        </ul>
+<pre><code># Iterate over a string
+for character in "Python":
+    print(character, end=' ')
+# Output: P y t h o n 
+
+# Using range()
+for i in range(1, 6): # Generates numbers 1, 2, 3, 4, 5
+    print(i)</code></pre>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Loop Control Statements</h3>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong><code>break</code>:</strong> Immediately terminates the loop.</li>
+                            <li><strong><code>continue</code>:</strong> Stops the current iteration and jumps to the beginning of the next one.</li>
+                        </ul>
+<pre><code># Find the first number divisible by 7, but ignore multiples of 5.
+for num in range(1, 21):
+    if num % 5 == 0:
+        continue  # Skip this iteration
+    if num % 7 == 0:
+        print("Found a number divisible by 7:", num)
+        break     # Exit the loop
+    print("Checking:", num)</code></pre>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Nested Loops</h3>
+                        <p>You can place one loop inside another. This is called a <strong>nested loop</strong>. It's commonly used for working with 2D data structures or for printing patterns.</p>
+<pre><code># Outer loop controls the number of rows
+for i in range(1, 6):
+    # Inner loop controls the number of stars in each row
+    for j in range(i):
+        print("*", end="")
+    print() # Move to the next line after each row</code></pre>
+                    </div>
+                </section>
+
+                <section id="sec4" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">4. Lists and Tuples</h2>
+                    <div class="space-y-4">
+                        <p>Python offers powerful data structures for grouping and organizing data. The two most fundamental sequence types are lists and tuples. Both can store an ordered collection of items, but they have one critical difference that defines their use.</p>
+                        
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Lists (<code>list</code>)</h3>
+                        <p>A <strong>list</strong> is an ordered collection of items enclosed in square brackets <code>[]</code>. Lists are <strong>mutable</strong>, which means you can change their content after they are created—you can add, remove, or change items.</p>
+                        
+                        <h4 class="text-lg font-semibold text-blue-400 pt-2">Creating a List:</h4>
+<pre><code>empty_list = []
+student_marks = [88, 92, 75, 99, 85]
+mixed_list = ["Ravi", 11, "A", 95.5]</code></pre>
+
+                        <h4 class="text-lg font-semibold text-blue-400 pt-2">Accessing Elements (Indexing and Slicing):</h4>
+                        <p>You access elements using their index, starting from 0. Slicing works just like with strings to get a sub-list.</p>
+<pre><code>marks = [88, 92, 75, 99, 85]
+print(marks[0])       # Output: 88 (first item)
+print(marks[-1])      # Output: 85 (last item)
+print(marks[1:4])     # Output: [92, 75, 99] (items from index 1 to 3)</code></pre>
+
+                        <h4 class="text-lg font-semibold text-blue-400 pt-2">Modifying a List:</h4>
+                        <p>Because lists are mutable, you can change them directly.</p>
+<pre><code>marks = [88, 92, 75, 99, 85]
+marks[2] = 80 # Change the value at index 2
+print(marks)  # Output: [88, 92, 80, 99, 85]</code></pre>
+
+                        <h4 class="text-lg font-semibold text-blue-400 pt-2">Common List Methods:</h4>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><code>append(item)</code>: Adds an item to the end of the list.</li>
+                            <li><code>insert(index, item)</code>: Inserts an item at a specific position.</li>
+                            <li><code>remove(item)</code>: Removes the first occurrence of an item.</li>
+                            <li><code>pop(index)</code>: Removes and returns the item at a specific index (or the last item if no index is given).</li>
+                            <li><code>sort()</code>: Sorts the list in place.</li>
+                            <li><code>reverse()</code>: Reverses the order of the list in place.</li>
+                            <li><code>index(item)</code>: Returns the index of the first occurrence of an item.</li>
+                            <li><code>count(item)</code>: Returns how many times an item appears in the list.</li>
+                        </ul>
+<pre><code>scores = [90, 80, 95, 80]
+scores.append(85)      # scores is now [90, 80, 95, 80, 85]
+scores.sort()          # scores is now [80, 80, 85, 90, 95]
+scores.remove(80)      # scores is now [80, 85, 90, 95] (only the first 80 is removed)</code></pre>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Tuples (<code>tuple</code>)</h3>
+                        <p>A <strong>tuple</strong> is an ordered collection of items enclosed in parentheses <code>()</code>. Tuples are <strong>immutable</strong>, meaning once a tuple is created, you cannot change its content.</p>
+                        
+                        <h4 class="text-lg font-semibold text-blue-400 pt-2">Creating a Tuple:</h4>
+<pre><code>empty_tuple = ()
+point = (10, 20) # Represents an (x, y) coordinate
+student_data = ("Ravi", 11, "A", 95.5)
+# Parentheses are optional for creation
+another_tuple = 1, 2, 3</code></pre>
+                        <p>To create a tuple with a single element, you must include a trailing comma: <code>single_item_tuple = (50,)</code>. Without the comma, Python would think <code>(50)</code> is just the number 50.</p>
+
+                        <h4 class="text-lg font-semibold text-blue-400 pt-2">Accessing Elements:</h4>
+                        <p>Indexing and slicing work exactly the same for tuples as they do for lists.</p>
+<pre><code>student_data = ("Ravi", 11, "A", 95.5)
+print(student_data[0])   # Output: Ravi
+print(student_data[1:3]) # Output: (11, 'A')</code></pre>
+
+                        <h4 class="text-lg font-semibold text-blue-400 pt-2">Immutability in Action:</h4>
+                        <p>If you try to change an element in a tuple, Python will raise a TypeError.</p>
+<pre><code>point = (10, 20)
+# point[0] = 15  # This will cause a TypeError!</code></pre>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">List vs. Tuple: A Detailed Comparison</h3>
+                        <p>The choice between a list and a tuple is a key design decision in Python. While they seem similar, their difference in mutability leads to different use cases, performance characteristics, and capabilities.</p>
+                        <div class="overflow-x-auto">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>List</th>
+                                        <th>Tuple</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Mutability</td><td>Mutable: Can be changed after creation.</td><td>Immutable: Cannot be changed after creation.</td></tr>
+                                    <tr><td>Syntax</td><td><code>[1, 2, 3]</code> (Square brackets)</td><td><code>(1, 2, 3)</code> (Parentheses)</td></tr>
+                                    <tr><td>Performance</td><td>Slightly slower due to dynamic size.</td><td>Faster iteration and access because the size is fixed.</td></tr>
+                                    <tr><td>Memory Usage</td><td>Consumes more memory to allow for resizing.</td><td>More memory-efficient as it's stored in a single block of memory.</td></tr>
+                                    <tr><td>Methods</td><td>Rich set of methods for modification (append, sort, etc.).</td><td>Fewer methods; only non-modifying ones like count and index.</td></tr>
+                                    <tr><td>Primary Use Case</td><td>For collections of items that need to be modified, like a list of scores or a to-do list. Typically used for <strong>homogeneous</strong> data (items of the same type).</td><td>For fixed collections of data that should not change, like coordinates or database records. Provides <strong>data integrity</strong>. Often used for <strong>heterogeneous</strong> data (items of different types representing a single entity).</td></tr>
+                                    <tr><td>Can be a Dictionary Key?</td><td>No, because they are mutable.</td><td>Yes, because they are immutable and hashable.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <h4 class="text-lg font-semibold text-blue-400 pt-2">When to Use a List vs. When to Use a Tuple:</h4>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Use a LIST when:</strong> You have a collection of similar items (e.g., a list of student names). You expect the collection to grow, shrink, or have its items change over time.</li>
+                            <li><strong>Use a TUPLE when:</strong> You want to store a collection of items that represents a single, fixed record (e.g., <code>student = ("Aditya Sharma", 12345, "XI-B")</code>). You want to ensure that the data cannot be accidentally changed. You need a slight performance boost or need to use the collection as a key in a dictionary.</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section id="sec5" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">5. Strings and String Methods</h2>
+                    <div class="space-y-4">
+                        <p>In Python, a string is an <strong>immutable sequence of characters</strong>. This means it behaves much like a tuple—it's ordered, you can access its characters using indexing and slicing, but you cannot change it in place.</p>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">String Traversal and Operations</h3>
+                        <p>You can process a string character-by-character using a <code>for</code> loop (traversal). You can also use <code>+</code> for concatenation and <code>*</code> for repetition.</p>
+<pre><code>my_word = "Python"
+print(my_word[0])   # Output: P
+# my_word[0] = 'J'  # This will raise a TypeError</code></pre>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Essential String Methods</h3>
+                        <p>Python's <code>str</code> class has a rich set of methods for manipulating strings. These methods return a <strong>new string</strong> and do not modify the original.</p>
+                        <div class="overflow-x-auto">
+                           <table>
+                                <thead>
+                                    <tr><th>Method</th><th>What it Does</th><th>Quick Example</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><code>s.lower()</code></td><td>Converts the string to all lowercase.</td><td><code>"PyThOn".lower() -> "python"</code></td></tr>
+                                    <tr><td><code>s.upper()</code></td><td>Converts the string to all uppercase.</td><td><code>"PyThOn".upper() -> "PYTHON"</code></td></tr>
+                                    <tr><td><code>s.capitalize()</code></td><td>Capitalizes the first character of the string.</td><td><code>"hello world".capitalize() -> "Hello world"</code></td></tr>
+                                    <tr><td><code>s.title()</code></td><td>Capitalizes the first character of every word.</td><td><code>"hello world".title() -> "Hello World"</code></td></tr>
+                                    <tr><td><code>s.strip()</code></td><td>Removes leading and trailing whitespace.</td><td><code>"  hello  ".strip() -> "hello"</code></td></tr>
+                                    <tr><td><code>s.replace(old, new)</code></td><td>Replaces all occurrences of old with new.</td><td><code>"I like cats".replace("cats", "dogs") -> "I like dogs"</code></td></tr>
+                                    <tr><td><code>s.split(sep)</code></td><td>Splits the string into a list of substrings.</td><td><code>"Hello,World".split(",") -> ['Hello', 'World']</code></td></tr>
+                                    <tr><td><code>sep.join(list)</code></td><td>Joins list elements into a single string.</td><td><code>"-".join(['a', 'b', 'c']) -> "a-b-c"</code></td></tr>
+                                    <tr><td><code>s.find(sub)</code></td><td>Returns the index of sub, or -1 if not found.</td><td><code>"hello".find("ll") -> 2</code></td></tr>
+                                    <tr><td><code>s.index(sub)</code></td><td>Same as find(), but raises a ValueError if sub is not found.</td><td><code>"hello".index("ll") -> 2</code></td></tr>
+                                    <tr><td><code>s.count(sub)</code></td><td>Returns the number of times sub appears in the string.</td><td><code>"banana".count("na") -> 2</code></td></tr>
+                                    <tr><td><code>s.isalpha()</code></td><td>Returns True if all characters are letters.</td><td><code>"Python".isalpha() -> True</code></td></tr>
+                                    <tr><td><code>s.isdigit()</code></td><td>Returns True if all characters are digits.</td><td><code>"123".isdigit() -> True</code></td></tr>
+                                    <tr><td><code>s.isalnum()</code></td><td>Returns True if all characters are letters or digits.</td><td><code>"Python3".isalnum() -> True</code></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <h4 class="text-lg font-semibold text-blue-400 pt-2">Understanding <code>find()</code> vs. <code>index()</code></h4>
+                        <p>Use <code>find()</code> when you are not sure if the substring exists to avoid crashing your program. Use <code>index()</code> when your logic assumes the substring must exist; an error will alert you to logical flaws.</p>
+                    </div>
+                </section>
+
+                <section id="sec6" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">6. Dictionaries (<code>dict</code>)</h2>
+                    <div class="space-y-4">
+                        <p>A <strong>dictionary</strong> is an unordered collection of <strong>key-value pairs</strong>. They are enclosed in curly braces <code>{}</code>. Dictionaries are <strong>mutable</strong> and are highly optimized for retrieving values when you know the key.</p>
+                        
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Creating and Accessing Dictionaries</h3>
+<pre><code># A dictionary mapping fruit to their prices
+fruit_prices = {"apple": 1.50, "banana": 0.75, "orange": 1.20}
+
+# Accessing a value by its key
+print(fruit_prices["banana"]) # Output: 0.75
+
+# Using the get() method to avoid errors for non-existent keys
+print(fruit_prices.get("mango")) # Output: None
+print(fruit_prices.get("mango", "Not available")) # Output: Not available</code></pre>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Modifying a Dictionary</h3>
+                        <p>You can add, update, and remove items from a dictionary.</p>
+<pre><code>student_grades = {"Math": 90, "Science": 85}
+
+# Add a new item
+student_grades["English"] = 92
+# Update an existing item
+student_grades["Math"] = 95
+# Remove an item using del
+del student_grades["Science"]
+# Remove an item using pop()
+removed_value = student_grades.pop("Math")
+print(student_grades) # Output: {'English': 92}</code></pre>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Common Dictionary Methods</h3>
+                        <div class="overflow-x-auto">
+                            <table>
+                                <thead>
+                                    <tr><th>Method</th><th>What it Does</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><code>dict.keys()</code></td><td>Returns a view object of all the keys.</td></tr>
+                                    <tr><td><code>dict.values()</code></td><td>Returns a view object of all the values.</td></tr>
+                                    <tr><td><code>dict.items()</code></td><td>Returns a view object of all key-value tuple pairs.</td></tr>
+                                    <tr><td><code>dict.update(other_dict)</code></td><td>Updates the dictionary with elements from another.</td></tr>
+                                    <tr><td><code>dict.copy()</code></td><td>Returns a shallow copy of the dictionary.</td></tr>
+                                    <tr><td><code>dict.clear()</code></td><td>Removes all items from the dictionary.</td></tr>
+                                    <tr><td><code>dict.fromkeys(seq, val)</code></td><td>Creates a new dictionary with keys from `seq` and values set to `val`.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Iterating Through a Dictionary</h3>
+                        <p>The most common way to iterate is by using the <code>.items()</code> method to get both the key and the value.</p>
+<pre><code>student_scores = {"Alice": 95, "Bob": 88, "Charlie": 92}
+
+for name, score in student_scores.items():
+    print(f"{name}: {score}")</code></pre>
+                    </div>
+                </section>
+
+                <section id="sec7" class="content-section question-block">
+                    <h2 class="text-2xl font-semibold border-b-2 border-gray-700 pb-3 mb-6 text-white">7. Solved Examples & Practice Questions</h2>
+                    <div class="space-y-6">
+                        <p>The final step in learning is to apply your knowledge. This section provides solved examples and a list of practice questions aligned with the CBSE practical syllabus to help you prepare for your exams and build your problem-solving skills.</p>
+                        <h3 class="text-xl font-semibold text-blue-300">Solved Example 1: String Analysis</h3>
+<pre><code># Program to analyze a user-inputted string.
+# It counts the number of vowels, consonants, uppercase, and lowercase letters.
+line = input("Enter a string: ")
+vowel_count = consonant_count = uppercase_count = lowercase_count = 0
+digit_count = space_count = 0
+vowels = "aeiouAEIOU"
+
+for char in line:
+    if char.isalpha():
+        if char.isupper():
+            uppercase_count += 1
+        else:
+            lowercase_count += 1
+        if char in vowels:
+            vowel_count += 1
+        else:
+            consonant_count += 1
+    elif char.isdigit():
+        digit_count += 1
+    elif char.isspace():
+        space_count += 1
+
+print("\n--- String Statistics ---")
+print(f"Total Vowels: {vowel_count}")
+print(f"Total Consonants: {consonant_count}")
+print(f"Total Uppercase Characters: {uppercase_count}")
+print(f"Total Lowercase Characters: {lowercase_count}")
+print(f"Total Digits: {digit_count}")
+print(f"Total Spaces: {space_count}")
+</code></pre>
+                        <h3 class="text-xl font-semibold text-blue-300 pt-4">Solved Example 2: Factorial of a Number</h3>
+<pre><code># Program to calculate the factorial of a non-negative integer.
+num = int(input("Enter a non-negative number: "))
+factorial = 1
+
+if num < 0:
+    print("Factorial does not exist for negative numbers.")
+elif num == 0:
+    print("The factorial of 0 is 1.")
+else:
+    for i in range(1, num + 1):
+        factorial = factorial * i
+    print("The factorial of", num, "is", factorial)
+</code></pre>
+                        
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 pt-4">Level 1: Basics & Operators</h3>
+                            <ol class="list-decimal list-inside space-y-2 mt-2">
+                                <li>Write a program that accepts the radius of a circle from the user and computes its area and circumference.</li>
+                                <li>Write a program to calculate the simple interest based on user-provided principal, rate, and time.</li>
+                                <li>Write a program that reads two numbers and an arithmetic operator (+, -, *, /) from the user and displays the computed result.</li>
+                                <li>Write a program to swap two numbers without using a temporary variable.</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 pt-4">Level 2: Conditionals & Loops</h3>
+                            <ol class="list-decimal list-inside space-y-2 mt-2">
+                                <li>Write a program to check if a number entered by the user is prime or composite.</li>
+                                <li>Write a program to generate and display the first n terms of the Fibonacci series, where n is entered by the user.</li>
+                                <li>Write a program to check if a number is a palindrome (e.g., 121) or an Armstrong number (e.g., 153).</li>
+                                <li>Write a program to find the greatest common divisor (GCD) and least common multiple (LCM) of two integers.</li>
+                                <li>Using a nested loop, print the following pattern: <br>1 <br>2 2 <br>3 3 3 <br>4 4 4 4 <br>5 5 5 5 5</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-300 pt-4">Level 3: Strings, Lists, and Tuples</h3>
+                            <ol class="list-decimal list-inside space-y-2 mt-2">
+                                <li>Write a program that reads a string and checks if it is a palindrome.</li>
+                                <li>Write a program that takes a string and displays a new string with all the vowels removed.</li>
+                                <li>Write a program that accepts a list of numbers from the user and finds the largest and second-largest numbers in the list.</li>
+                                <li>Write a program to input a list of numbers and swap the elements at even index locations with the elements at odd index locations.</li>
+                                <li>Write a program to search for a given element in a list and print its index if found, otherwise print "Element not found".</li>
+                                <li>Create a tuple containing the names of the months of the year. Ask the user to enter a month number and display the corresponding month name.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+        <footer class="text-center mt-12 text-sm text-gray-500">
+            <p>Happy Learning!</p>
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript for tabbed navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Deactivate all tabs and content sections
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contentSections.forEach(s => s.classList.remove('active'));
+
+                    // Activate the clicked tab and its corresponding content
+                    tab.classList.add('active');
+                    const targetId = tab.dataset.target;
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                    
+                    // Scroll to the top of the content for better UX
+                    window.scrollTo(0, 0); 
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
